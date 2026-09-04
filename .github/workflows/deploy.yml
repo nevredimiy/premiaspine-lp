@@ -2,16 +2,29 @@ name: Deploy Theme to cPanel
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  deploy:
-    name: Trigger cPanel Git pull
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Update from remote on cPanel
-        run: |
-          curl --fail --show-error --silent \
-            -H "Authorization: cpanel ${{ secrets.CPANEL_USERNAME }}:${{ secrets.CPANEL_API_TOKEN }}" \
-            "https://${{ secrets.CPANEL_HOST }}:2083/execute/VersionControl/update?repository_root=%2Fhome%2Fpremia%2Fpublic_html%2Flp%2Fwp-content%2Fthemes%2Fpremiaspine&branch=main"
+      - uses: actions/checkout@v4
+
+      - name: Sync via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps          # шифрованный FTP; если упадёт на сертификате — поставь ftp
+          port: 21
+          server-dir: ./          # аккаунт уже заперт в папке темы
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            **/.ftp-deploy-sync-state.json
+            error_log
+            README.md
