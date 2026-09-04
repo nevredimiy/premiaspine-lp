@@ -631,6 +631,12 @@ function premiaspine_landing_get_story_from_post( $post_id ) {
         $story['title'] = $post_title;
     }
 
+    // Keep the source post identity so slides/popups can build a stable,
+    // per-story deep-link (?patient=<slug> / ?surgeon=<slug>) and resolve
+    // their own meta title/description.
+    $story['post_id'] = $post_id;
+    $story['slug']    = get_post_field( 'post_name', $post_id );
+
     return premiaspine_landing_normalize_story_item( (array) $story );
 }
 
@@ -736,8 +742,16 @@ function premiaspine_landing_render_map_filters() {
     <?php
 }
 
-function premiaspine_landing_story_popup_id( $story_type, $index ) {
-    return sanitize_html_class( $story_type . '-story-popup-' . (int) $index );
+function premiaspine_landing_story_popup_id( $story_type, $index, $slug = '' ) {
+    $suffix = $slug ? $slug : (int) $index;
+    return sanitize_html_class( $story_type . '-story-popup-' . $suffix );
+}
+
+/**
+ * Query-string key used for a story type's deep-link (?patient=<slug> / ?surgeon=<slug>).
+ */
+function premiaspine_landing_story_url_param( $story_type ) {
+    return 'surgeon' === $story_type ? 'surgeon' : 'patient';
 }
 
 function premiaspine_landing_about_button_youtube_url( $about, $button_index ) {
@@ -1106,12 +1120,21 @@ function premiaspine_landing_render_story_slides( $items, $default_image, $story
     }
 
     foreach ( $items as $index => $item ) {
-        $title    = premiaspine_landing_opt( $item, array( 'title' ) );
-        $tag      = premiaspine_landing_opt( $item, array( 'tag' ) );
-        $text     = premiaspine_landing_opt( $item, array( 'text' ) );
-        $image    = premiaspine_landing_attachment_url( premiaspine_landing_opt( $item, array( 'image' ) ), $default_image );
-        $popup_id = premiaspine_landing_story_popup_id( $story_type, $index );
+        $title     = premiaspine_landing_opt( $item, array( 'title' ) );
+        $tag       = premiaspine_landing_opt( $item, array( 'tag' ) );
+        $text      = premiaspine_landing_opt( $item, array( 'text' ) );
+        $image     = premiaspine_landing_attachment_url( premiaspine_landing_opt( $item, array( 'image' ) ), $default_image );
+        $slug      = (string) premiaspine_landing_opt( $item, array( 'slug' ) );
+        $popup_id  = premiaspine_landing_story_popup_id( $story_type, $index, $slug );
         $has_popup = premiaspine_landing_story_has_popup( $item, $story_type );
+        $story_link_attrs = '';
+        if ( $has_popup && $slug ) {
+            $story_link_attrs = sprintf(
+                ' data-story-param="%s" data-story-slug="%s"',
+                esc_attr( premiaspine_landing_story_url_param( $story_type ) ),
+                esc_attr( $slug )
+            );
+        }
         ?>
         <li class="splide__slide">
             <div class="info-item">
@@ -1119,7 +1142,7 @@ function premiaspine_landing_render_story_slides( $items, $default_image, $story
                     <h3 class="info-item__title"><?php echo esc_html( $title ); ?></h3>
                 <?php endif; ?>
                 <?php if ( $has_popup ) : ?>
-                    <div data-fls-popup-link="<?php echo esc_attr( $popup_id ); ?>" class="info-item__image --clickable">
+                    <div data-fls-popup-link="<?php echo esc_attr( $popup_id ); ?>"<?php echo $story_link_attrs; ?> class="info-item__image --clickable">
                     <img alt="<?php echo esc_attr( $title ); ?>" class="ibg" src="<?php echo esc_url( $image ); ?>">
                     <?php if ( $tag ) : ?>
                         <div class="info-item__tag"><?php echo esc_html( $tag ); ?></div>
@@ -1139,7 +1162,7 @@ function premiaspine_landing_render_story_slides( $items, $default_image, $story
                     </div>
                 <?php endif; ?>
                 <?php if ( $has_popup ) : ?>
-                    <button type="button" class="button info-item__play _sprite-play" data-fls-popup-link="<?php echo esc_attr( $popup_id ); ?>" aria-label="<?php esc_attr_e( 'Open story', 'premiaspine' ); ?>"></button>
+                    <button type="button" class="button info-item__play _sprite-play" data-fls-popup-link="<?php echo esc_attr( $popup_id ); ?>"<?php echo $story_link_attrs; ?> aria-label="<?php esc_attr_e( 'Open story', 'premiaspine' ); ?>"></button>
                 <?php else : ?>
                     <button type="button" class="button info-item__play _sprite-play" tabindex="-1" aria-hidden="true"></button>
                 <?php endif; ?>
@@ -1157,11 +1180,20 @@ function premiaspine_landing_render_story_popups( $items, $default_image, $story
             continue;
         }
 
-        $popup_id    = premiaspine_landing_story_popup_id( $story_type, $index );
+        $slug        = (string) premiaspine_landing_opt( $item, array( 'slug' ) );
+        $popup_id    = premiaspine_landing_story_popup_id( $story_type, $index, $slug );
         // $popup_title = premiaspine_landing_story_popup_title( $item, $story_type );
         $title       = premiaspine_landing_opt( $item, array( 'title' ) );
+        $story_link_attrs = '';
+        if ( $slug ) {
+            $story_link_attrs = sprintf(
+                ' data-story-param="%s" data-story-slug="%s"',
+                esc_attr( premiaspine_landing_story_url_param( $story_type ) ),
+                esc_attr( $slug )
+            );
+        }
         ?>
-        <div data-fls-popup="<?php echo esc_attr( $popup_id ); ?>" data-story-type="<?php echo esc_attr( $story_type ); ?>" aria-hidden="true" class="popup popup--info">
+        <div data-fls-popup="<?php echo esc_attr( $popup_id ); ?>" data-story-type="<?php echo esc_attr( $story_type ); ?>"<?php echo $story_link_attrs; ?> aria-hidden="true" class="popup popup--info">
             <div data-fls-popup-wrapper="" class="popup__wrapper">
                 <div data-fls-popup-body="" class="popup__body">
                     <div class="info-popup">

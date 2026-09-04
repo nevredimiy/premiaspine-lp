@@ -418,4 +418,128 @@
       closePopup(activePopup);
     }
   });
+
+  // --- Per-story deep links (?patient=<slug> / ?surgeon=<slug>) ---
+  //
+  // Slides rendered by premiaspine_landing_render_story_popups() carry
+  // data-story-param ("patient"/"surgeon") and data-story-slug on the popup
+  // element itself (see inc/landing-codi-helpers.php). Only those popups take
+  // part here — unrelated popups (about-section videos, etc.) don't have
+  // these attributes and are left untouched. The matching <title>/meta
+  // description for each URL is resolved server-side in
+  // header-landing_052026.php from the same query params.
+
+  var STORY_URL_PARAMS = ["patient", "surgeon"];
+  var suppressStoryUrlSync = false;
+
+  function cssEscapeValue(value) {
+    return window.CSS && CSS.escape
+      ? CSS.escape(value)
+      : String(value).replace(/["\\\]]/g, "\\$&");
+  }
+
+  function findStoryPopupBySlug(param, slug) {
+    return document.querySelector(
+      '[data-fls-popup][data-story-param="' +
+        param +
+        '"][data-story-slug="' +
+        cssEscapeValue(slug) +
+        '"]',
+    );
+  }
+
+  function getStoryPopupFromLocation() {
+    var params = new URLSearchParams(window.location.search);
+    for (var i = 0; i < STORY_URL_PARAMS.length; i++) {
+      var param = STORY_URL_PARAMS[i];
+      var slug = params.get(param);
+      if (slug) {
+        var popup = findStoryPopupBySlug(param, slug);
+        if (popup) {
+          return popup;
+        }
+      }
+    }
+    return null;
+  }
+
+  function buildUrlWithStoryParam(param, slug) {
+    var url = new URL(window.location.href);
+    STORY_URL_PARAMS.forEach(function (key) {
+      url.searchParams.delete(key);
+    });
+    if (param && slug) {
+      url.searchParams.set(param, slug);
+    }
+    return url.pathname + url.search + url.hash;
+  }
+
+  function syncStoryUrl(param, slug) {
+    if (suppressStoryUrlSync) {
+      return;
+    }
+    var nextUrl = buildUrlWithStoryParam(param, slug);
+    var currentUrl =
+      window.location.pathname + window.location.search + window.location.hash;
+    if (nextUrl !== currentUrl) {
+      history.pushState(null, "", nextUrl);
+    }
+  }
+
+  document.addEventListener("afterPopupOpen", function (e) {
+    var popup =
+      e.detail &&
+      e.detail.popup &&
+      e.detail.popup.targetOpen &&
+      e.detail.popup.targetOpen.element;
+    var param = popup && popup.getAttribute("data-story-param");
+    var slug = popup && popup.getAttribute("data-story-slug");
+    if (param && slug) {
+      syncStoryUrl(param, slug);
+    }
+  });
+
+  document.addEventListener("afterPopupClose", function (e) {
+    var popup =
+      e.detail &&
+      e.detail.popup &&
+      e.detail.popup.targetOpen &&
+      e.detail.popup.targetOpen.element;
+    if (popup && popup.getAttribute("data-story-param")) {
+      syncStoryUrl();
+    }
+  });
+
+  function openStoryPopupFromLocation() {
+    if (!window.flsPopup) {
+      return;
+    }
+    var popup = getStoryPopupFromLocation();
+    if (popup) {
+      window.flsPopup.open(popup.getAttribute("data-fls-popup"));
+    }
+  }
+
+  window.addEventListener("load", openStoryPopupFromLocation);
+
+  // Browser back/forward: reflect the URL without pushing a new entry.
+  window.addEventListener("popstate", function () {
+    if (!window.flsPopup) {
+      return;
+    }
+    var targetPopup = getStoryPopupFromLocation();
+    var openEl = window.flsPopup.isOpen
+      ? window.flsPopup.targetOpen.element
+      : null;
+
+    suppressStoryUrlSync = true;
+    if (targetPopup) {
+      if (openEl !== targetPopup) {
+        window.flsPopup.open(targetPopup.getAttribute("data-fls-popup"));
+      }
+    } else if (openEl && openEl.getAttribute("data-story-param")) {
+      window.flsPopup.close();
+    }
+    suppressStoryUrlSync = false;
+  });
 })();

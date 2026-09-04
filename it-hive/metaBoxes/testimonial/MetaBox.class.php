@@ -44,6 +44,14 @@ class MetaBox extends \it_hive\core\AdminBox\MetaBox
                     ),
                 ),
             ),
+            'meta_title' => array(
+                'type'  => 'text',
+                'label' => 'Meta title (for this story\'s direct link, e.g. ?patient=keith-t)',
+            ),
+            'meta_description' => array(
+                'type'  => 'textarea',
+                'label' => 'Meta description (for this story\'s direct link)',
+            ),
         ),
     );
 

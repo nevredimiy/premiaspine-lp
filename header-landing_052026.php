@@ -48,6 +48,52 @@ if ( function_exists( 'mb_strlen' ) && mb_strlen( $og_description ) > 200 ) {
     $og_description = rtrim( mb_substr( $og_description, 0, 197 ) ) . '…';
 }
 
+/* ---------- Per-story deep link (?patient=<slug> / ?surgeon=<slug>) ----------
+ * Overrides the page-level title/description above with the ones set on the
+ * matching Testimonial post (fields "Meta title"/"Meta description" on the
+ * story's own edit screen), so a shared/ad link to a single story gets its
+ * own <title>/OG preview. See inc/landing-codi-helpers.php for how these
+ * params are attached to each slider popup, and js/landing-story-popups.js
+ * for how the URL is kept in sync client-side.
+ */
+$story_post = null;
+foreach ( array( 'patient', 'surgeon' ) as $story_param ) {
+    if ( empty( $_GET[ $story_param ] ) ) {
+        continue;
+    }
+    $story_slug = sanitize_title( wp_unslash( $_GET[ $story_param ] ) );
+    if ( ! $story_slug ) {
+        continue;
+    }
+    $found_story_post = get_page_by_path( $story_slug, OBJECT, 'testimonial' );
+    if ( $found_story_post instanceof WP_Post ) {
+        $story_post = $found_story_post;
+    }
+    break;
+}
+
+if ( $story_post ) {
+    $story_data              = get_post_meta( $story_post->ID, 'story_data', true );
+    $story_meta_title        = is_array( $story_data ) ? trim( (string) premiaspine_landing_opt( $story_data, array( 'meta_title' ) ) ) : '';
+    $story_meta_description  = is_array( $story_data ) ? trim( (string) premiaspine_landing_opt( $story_data, array( 'meta_description' ) ) ) : '';
+
+    if ( $story_meta_title ) {
+        $og_title = wp_strip_all_tags( $story_meta_title );
+    } elseif ( get_the_title( $story_post ) ) {
+        $og_title = wp_strip_all_tags( get_the_title( $story_post ) ) . ' — ' . $og_title;
+    }
+
+    if ( $story_meta_description ) {
+        $og_description = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( $story_meta_description ) ) );
+        if ( function_exists( 'mb_strlen' ) && mb_strlen( $og_description ) > 200 ) {
+            $og_description = rtrim( mb_substr( $og_description, 0, 197 ) ) . '…';
+        }
+    }
+}
+
+// The <title> tag below shares whatever the story-link override above produced.
+$document_title = $og_title;
+
 $og_image        = '';
 $og_image_width  = '';
 $og_image_height = '';
@@ -79,7 +125,7 @@ if ( ! $og_image ) {
 <head>
 	<script type="text/javascript">!function(){var e,t,s="data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACyAgCdASoCAAEALmk0mk0iIiIiIgBoSygABc6zbAAA/v56QAAAAA==";e=function(e){if(!e){console.log("webp fix"),window.addEventListener("error",function(e,t){if("IMG"===e.target.tagName&&-1!=e.target.src.indexOf(".webp"))return e.target.src=e.target.src.replace(".webp",""),e.target.srcset&&(e.target.srcset=e.target.srcset.replace(".webp","")),!0},!0),document.addEventListener("DOMContentLoaded",function(){for(var e,t=0;t<document.styleSheets.length;t++){e=document.styleSheets[t].cssRules;for(var s=0;s<e.length;s++)if(e[s].style&&e[s].style.backgroundImage&&e[s].style.backgroundImage.indexOf(".webp")&&(e[s].style.backgroundImage=e[s].style.backgroundImage.replace(".webp","")),e[s].cssRules)for(var r=0;r<e[s].cssRules.length;r++)e[s].cssRules[r].style&&e[s].cssRules[r].style.backgroundImage&&e[s].cssRules[r].style.backgroundImage.indexOf(".webp")&&(e[s].cssRules[r].style.backgroundImage=e[s].cssRules[r].style.backgroundImage.replace(".webp",""))}var a=document.querySelectorAll("[style]");for(s=0;s<a.length;s++)a[s].style["background-image"]&&(a[s].style["background-image"]=a[s].style["background-image"].replace(".webp",""));console.log(a.length)});var s=CSSStyleSheet.prototype.insertRule;CSSStyleSheet.prototype.insertRule=function(e,t){return e.style&&e.style.backgroundImage&&e.style.backgroundImage.indexOf(".webp")&&(e.style.backgroundImage=e.style.backgroundImage.replace(".webp","")),s.apply(this,[e,t])}}},(t=document.createElement("img")).onerror=function(){e(!1)},t.onload=function(){2===this.width&&1===this.height?e(!0):e(!1)},t.setAttribute("src",s)}();</script>
     <meta charset="UTF-8">
-    <title><?php echo wp_get_document_title(); ?></title>
+    <title><?php echo esc_html( $document_title ); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Open Graph / social sharing -->
