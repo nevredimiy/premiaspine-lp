@@ -861,15 +861,15 @@ h6 {
 }
 .new-landing .top-section .person .name {
   position: absolute;
-  top: 104px;
-  left: -23px;
+  bottom: 16%;
+  left: 70%;
   font:
     14px/1 "Figtree",
     Arial,
     sans-serif;
   text-align: right;
   padding: 3px 10px 0 0;
-  border-right: 3px solid #fcc000;
+  border-left: 3px solid #fcc000;
   color: #fff;
   max-width: 120px;
 }
