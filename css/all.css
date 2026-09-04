@@ -2210,14 +2210,14 @@ h6 {
     bottom: 169px;
   }
   .new-landing .top-section .person .name {
-    top: 104px;
-    left: -23px;
+    bottom: 12%;
+    /* left: -23px; */
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
     padding: 3px 10px 0 0;
-    border-right: 3px solid #fcc000;
+    /* border-right: 3px solid #fcc000; */
   }
   .new-landing .top-section .person img {
     width: 426px;
