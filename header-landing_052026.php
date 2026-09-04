@@ -15,12 +15,62 @@ $header_slogan = premiaspine_landing_opt(
     (array) $general_options,
     array( 'header', 'slogan' )
 );
+
+$landing_options = (array) get_post_meta( get_queried_object_id(), 'landing_page_options', true );
+
 if ( ! $header_slogan ) {
-    $landing_options = get_post_meta( get_queried_object_id(), 'landing_page_options', true );
-    $header_slogan   = premiaspine_landing_opt(
-        (array) $landing_options,
+    $header_slogan = premiaspine_landing_opt(
+        $landing_options,
         array( 'header', 'slogan' )
     );
+}
+
+/* ---------- Open Graph / social sharing ---------- */
+$og_url = get_permalink();
+if ( ! $og_url ) {
+    $og_url = home_url( '/' );
+}
+
+$og_title = wp_strip_all_tags(
+    premiaspine_landing_opt( $landing_options, array( 'header', 'top_title' ), wp_get_document_title() )
+);
+
+$og_description = trim(
+    preg_replace(
+        '/\s+/',
+        ' ',
+        wp_strip_all_tags(
+            premiaspine_landing_opt( $landing_options, array( 'header', 'top_content' ), get_bloginfo( 'description' ) )
+        )
+    )
+);
+if ( function_exists( 'mb_strlen' ) && mb_strlen( $og_description ) > 200 ) {
+    $og_description = rtrim( mb_substr( $og_description, 0, 197 ) ) . '…';
+}
+
+$og_image        = '';
+$og_image_width  = '';
+$og_image_height = '';
+foreach (
+    array(
+        premiaspine_landing_opt( $landing_options, array( 'header', 'top_section_bg' ) ),
+        premiaspine_landing_opt( $landing_options, array( 'header', 'doctor_photo' ) ),
+        premiaspine_landing_opt( (array) $general_options, array( 'header', 'logo_dark' ) ),
+    ) as $og_image_id
+) {
+    if ( empty( $og_image_id ) ) {
+        continue;
+    }
+    $og_image_src = wp_get_attachment_image_src( $og_image_id, 'full' );
+    if ( $og_image_src ) {
+        $og_image        = $og_image_src[0];
+        $og_image_width  = $og_image_src[1];
+        $og_image_height = $og_image_src[2];
+        break;
+    }
+}
+if ( ! $og_image ) {
+    $og_image = get_stylesheet_directory_uri() . '/images/person.png';
 }
 ?>
 
@@ -31,6 +81,29 @@ if ( ! $header_slogan ) {
     <meta charset="UTF-8">
     <title><?php echo wp_get_document_title(); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PremiaSpine" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="<?php echo esc_url( $og_url ); ?>" />
+    <meta property="og:title" content="<?php echo esc_attr( $og_title ); ?>" />
+    <meta property="og:description" content="<?php echo esc_attr( $og_description ); ?>" />
+<?php if ( $og_image ) : ?>
+    <meta property="og:image" content="<?php echo esc_url( $og_image ); ?>" />
+    <meta property="og:image:alt" content="<?php echo esc_attr( $og_title ); ?>" />
+<?php if ( $og_image_width && $og_image_height ) : ?>
+    <meta property="og:image:width" content="<?php echo esc_attr( $og_image_width ); ?>" />
+    <meta property="og:image:height" content="<?php echo esc_attr( $og_image_height ); ?>" />
+<?php endif; ?>
+<?php endif; ?>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<?php echo esc_attr( $og_title ); ?>" />
+    <meta name="twitter:description" content="<?php echo esc_attr( $og_description ); ?>" />
+<?php if ( $og_image ) : ?>
+    <meta name="twitter:image" content="<?php echo esc_url( $og_image ); ?>" />
+<?php endif; ?>
+
 	<?php if(!isBot()):?>
     <meta name="robots" content="noindex,follow" />
 	<meta name="facebook-domain-verification" content="c9mcgcinp01rync572ckpcn00m1pcb" />
