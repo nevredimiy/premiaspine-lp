@@ -316,26 +316,26 @@ function premiaspine_landing_render_hero_doctor_slide( $slide ) {
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
-            <div class="person">
-                <?php
-                $doctor_name    = premiaspine_landing_opt( $doctor, array( 'doctor_name' ) );
-                $doctor_address = premiaspine_landing_opt( $doctor, array( 'doctor_address' ) );
-                if ( $doctor_name || $doctor_address ) :
-                    ?>
-                    <span class="name">
-                        <?php
+            <?php
+            $doctor_name    = premiaspine_landing_opt( $doctor, array( 'doctor_name' ) );
+            $doctor_address = premiaspine_landing_opt( $doctor, array( 'doctor_address' ) );
+            if ( $doctor_name || $doctor_address ) :
+                ?>
+                <span class="name">
+                    <?php
+                    if ( $doctor_name ) {
+                        echo premiaspine_landing_render_field_html( $doctor_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    }
+                    if ( $doctor_address ) {
                         if ( $doctor_name ) {
-                            echo premiaspine_landing_render_field_html( $doctor_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            echo '<br />';
                         }
-                        if ( $doctor_address ) {
-                            if ( $doctor_name ) {
-                                echo '<br />';
-                            }
-                            echo premiaspine_landing_render_field_html( $doctor_address ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                        }
-                        ?>
-                    </span>
-                <?php endif; ?>
+                        echo premiaspine_landing_render_field_html( $doctor_address ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    }
+                    ?>
+                </span>
+            <?php endif; ?>
+            <div class="person">
                 <img src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'doctor_photo' ) ), get_stylesheet_directory_uri() . '/images/person.png' ) ); ?>" alt="">
             </div>
         </div>

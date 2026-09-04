@@ -859,19 +859,20 @@ h6 {
   bottom: 169px;
   z-index: 5;
 }
-.new-landing .top-section .person .name {
+.new-landing .top-section .holder .name {
   position: absolute;
-  top: 104px;
-  left: -23px;
+  top: 150px;
+  left: 64px;
   font:
     14px/1 "Figtree",
     Arial,
     sans-serif;
-  text-align: right;
-  padding: 3px 10px 0 0;
-  border-right: 3px solid #fcc000;
+  text-align: left;
+  padding: 3px 0 3px 10px;
+  border-left: 3px solid #fcc000;
   color: #fff;
-  max-width: 120px;
+  max-width: 160px;
+  z-index: 10;
 }
 .new-landing .top-section .person img {
   width: 426px;
@@ -2209,15 +2210,15 @@ h6 {
     left: 31.7%;
     bottom: 169px;
   }
-  .new-landing .top-section .person .name {
-    top: 104px;
-    left: -23px;
+  .new-landing .top-section .holder .name {
+    top: 150px;
+    left: 30px;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 3px 10px 0 0;
-    border-right: 3px solid #fcc000;
+    padding: 3px 0 3px 10px;
+    border-left: 3px solid #fcc000;
   }
   .new-landing .top-section .person img {
     width: 426px;
@@ -2375,15 +2376,15 @@ h6 {
     left: 31.7%;
     bottom: 149px;
   }
-  .new-landing .top-section .person .name {
-    top: 74px;
-    left: -23px;
+  .new-landing .top-section .holder .name {
+    top: 120px;
+    left: 30px;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 3px 10px 0 0;
-    border-right: 3px solid #fcc000;
+    padding: 3px 0 3px 10px;
+    border-left: 3px solid #fcc000;
   }
   .new-landing .top-section .person img {
     width: 326px;
@@ -3213,15 +3214,15 @@ h6 {
   .new-landing .top-section .person {
     bottom: 210px;
   }
-  .new-landing .top-section .person .name {
-    top: 41px;
-    left: -33px;
+  .new-landing .top-section .holder .name {
+    top: 90px;
+    left: 20px;
     font:
       11px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 1px 5px 1px 0;
-    border-right: 2px solid #fcc000;
+    padding: 1px 0 1px 5px;
+    border-left: 2px solid #fcc000;
   }
   .new-landing .top-section .person img {
     width: 233px;
@@ -3450,16 +3451,16 @@ h6 {
     bottom: auto;
     top: 86px;
   }
-  .new-landing .top-section .person .name {
-    top: 21px;
-    left: 13px;
+  .new-landing .top-section .holder .name {
+    top: 92px;
+    left: 15px;
 
     font:
       8px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 1px 5px 1px 0;
-    border-right: 2px solid #fcc000;
+    padding: 1px 0 1px 5px;
+    border-left: 2px solid #fcc000;
   }
   .new-landing .top-section h1 {
     position: relative;

@@ -2982,13 +2982,13 @@ input[type="submit"].contact-section__button {
   .hero-premia .request-appointment-section:not(.fixed) {
     min-height: 220px;
   }
-  .hero-premia .person .name {
+  .hero-premia .name {
     font-size: 11px !important;
-    top: auto !important;
-    left: -67px !important;
-    bottom: 98px !important;
-    background: linear-gradient(270deg, #000 8%, rgba(0, 0, 0, 0.5) 100%);
-    padding: 3px 5px 3px 9px !important;
+    top: 88px !important;
+    left: 15px !important;
+    bottom: auto !important;
+    background: linear-gradient(90deg, #000 8%, rgba(0, 0, 0, 0.5) 100%);
+    padding: 3px 9px 3px 5px !important;
   }
   .slider-section__slider:not(:last-child) {
     margin-bottom: 24px;
