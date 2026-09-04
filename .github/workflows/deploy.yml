@@ -1,30 +1,12 @@
 name: Deploy Theme to cPanel
-
 on:
   push:
     branches: [main]
-
 jobs:
-  web-deploy:
-    name: Deploy
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Sync via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp          # шифрованный FTP; если упадёт на сертификате — поставь ftp
-          port: 21
-          server-dir: ./          # аккаунт уже заперт в папке темы
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            **/node_modules/**
-            **/.ftp-deploy-sync-state.json
-            error_log
-            README.md
+      - name: Trigger deploy hook
+        run: |
+          curl -fsS --max-time 120 \
+            "https://lp.premiaspine.com/?premia_deploy=${{ secrets.DEPLOY_SECRET }}"
