@@ -1,0 +1,30 @@
+/* Testimonial CPT only: popup gallery slides in 2 columns. */
+body.post-type-testimonial #story_data [data-name*="popup_gallery"] > .repeater-inner {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+	align-items: start;
+}
+
+body.post-type-testimonial #story_data [data-name*="popup_gallery"] > .repeater-inner > .repeaterItem.postbox {
+	width: 100%;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body.post-type-testimonial #story_data [data-name*="popup_gallery"] > .repeater-inner > .ui-sortable-placeholder,
+body.post-type-testimonial #story_data [data-name*="popup_gallery"] > .repeater-inner > .repeaterItem.ui-sortable-placeholder {
+	width: 100%;
+	min-height: 120px;
+	box-sizing: border-box;
+}
+
+.theme-options .image, .theme-postbox .image > img {
+	height: 200px;
+}
+
+@media (max-width: 782px) {
+	body.post-type-testimonial #story_data [data-name*="popup_gallery"] > .repeater-inner {
+		grid-template-columns: 1fr;
+	}
+}

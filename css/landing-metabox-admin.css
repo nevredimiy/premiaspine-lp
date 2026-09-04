@@ -1,0 +1,244 @@
+#landing_page_options .repeater-inner > .repeaterItem.postbox > .handlediv,
+[data-name^="landing_page_options"] .repeater-inner > .repeaterItem.postbox > .handlediv {
+    position: relative;
+    width: auto;
+    float: right;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+/* Parent metabox sections: keep header clickable when panel is open (float overlap fix). */
+#landing_page_options .metabox.theme-postbox > .repeaterItem.postbox,
+[data-name^="landing_page_options"] .metabox.theme-postbox > .repeaterItem.postbox {
+    display: flow-root;
+}
+
+#landing_page_options .metabox.theme-postbox > .repeaterItem.postbox > .handlediv,
+[data-name^="landing_page_options"] .metabox.theme-postbox > .repeaterItem.postbox > .handlediv {
+    position: relative;
+    float: right;
+    pointer-events: auto;
+    z-index: 3;
+    width: 100%;
+}
+
+#landing_page_options .metabox.theme-postbox > .repeaterItem.postbox > .hndle-header,
+[data-name^="landing_page_options"] .metabox.theme-postbox > .repeaterItem.postbox > .hndle-header {
+    position: absolute;
+    z-index: 3;
+    cursor: pointer;
+    pointer-events: auto;
+    margin-right: 36px;
+}
+
+/* Plain textareas in landing metabox. */
+#landing_page_options textarea:not(.wp-editor-area),
+[data-name^="landing_page_options"] textarea:not(.wp-editor-area) {
+    min-height: 200px;
+    height: 200px;
+    box-sizing: border-box;
+}
+
+/* TinyMCE iframe height (inline style is set by wp_autoresize). */
+#landing_page_options .mce-edit-area iframe,
+[data-name^="landing_page_options"] .mce-edit-area iframe {
+    height: 200px !important;
+    min-height: 200px !important;
+    max-height: 200px !important;
+}
+
+.repeaterItem.postbox > h4 {
+    position: absolute;
+}
+
+#landing_page_options .metabox.theme-postbox > .repeaterItem.postbox > .inside,
+[data-name^="landing_page_options"] .metabox.theme-postbox > .repeaterItem.postbox > .inside {
+    clear: both;
+    position: relative;
+    z-index: 1;
+}
+
+#landing_page_options .repeater-inner > .repeaterItem.postbox > .hndle-header,
+[data-name^="landing_page_options"] .repeater-inner > .repeaterItem.postbox > .hndle-header {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    padding-left: 36px;
+}
+
+#landing_page_options .repeater-inner > .repeaterItem.postbox:not(.closed) > .inside,
+[data-name^="landing_page_options"] .repeater-inner > .repeaterItem.postbox:not(.closed) > .inside {
+    display: block !important;
+}
+
+#landing_page_options [data-name*="[hero_slides][slides]"] > .inside > .repeaterItem.postbox > .inside > .row.group h4,
+#landing_page_options [data-name*="[hero_slides][slides]"] .repeater-inner > .repeaterItem.postbox > .inside > .row.group h4,
+[data-name^="landing_page_options"] [data-name*="[hero_slides][slides]"] > .inside > .repeaterItem.postbox > .inside > .row.group h4,
+[data-name^="landing_page_options"] [data-name*="[hero_slides][slides]"] .repeater-inner > .repeaterItem.postbox > .inside > .row.group h4 {
+    margin: 16px 0 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#landing_page_options [data-name*="[hero_slides][slides]"] .repeater-inner > .repeaterItem.postbox[data-hero-slide-type="doctor"] .row.group:has([name*="[patient]"]),
+[data-name^="landing_page_options"] [data-name*="[hero_slides][slides]"] .repeater-inner > .repeaterItem.postbox[data-hero-slide-type="doctor"] .row.group:has([name*="[patient]"]) {
+    display: none !important;
+}
+
+#landing_page_options [data-name*="[hero_slides][slides]"] .repeater-inner > .repeaterItem.postbox[data-hero-slide-type="patient"] .row.group:has([name*="[doctor]"]),
+[data-name^="landing_page_options"] [data-name*="[hero_slides][slides]"] .repeater-inner > .repeaterItem.postbox[data-hero-slide-type="patient"] .row.group:has([name*="[doctor]"]) {
+    display: none !important;
+}
+
+#landing_page_options .landing-repeater-drag-handle,
+[data-name^="landing_page_options"] .landing-repeater-drag-handle {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background-color: #f0f0f1;
+    color: #50575e;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    cursor: grab;
+    z-index: 5;
+    pointer-events: auto;
+}
+
+.block-editor__container img {
+    width: 200px;
+    height: 200px;
+}
+
+#landing_page_options .repeater-inner > .repeaterItem.postbox,
+[data-name^="landing_page_options"] .repeater-inner > .repeaterItem.postbox {
+    position: relative;
+}
+
+#landing_page_options .landing-repeater-drag-handle:hover,
+[data-name^="landing_page_options"] .landing-repeater-drag-handle:hover {
+    background-color: #dcdcde;
+    color: #1d2327;
+}
+
+#landing_page_options .landing-repeater-drag-handle:active,
+[data-name^="landing_page_options"] .landing-repeater-drag-handle:active {
+    cursor: grabbing;
+}
+
+#landing_page_options .landing-repeater-drag-handle--row,
+[data-name^="landing_page_options"] .landing-repeater-drag-handle--row {
+    position: static;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px 8px 0;
+}
+
+#landing_page_options .repeater-inner > .repeaterItem.ui-sortable-helper,
+[data-name^="landing_page_options"] .repeater-inner > .repeaterItem.ui-sortable-helper {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background: #fff;
+}
+
+#landing_page_options .repeater-inner > .landing-repeater-sortable-placeholder,
+[data-name^="landing_page_options"] .repeater-inner > .landing-repeater-sortable-placeholder,
+#landing_page_options .repeater-inner > .repeaterItem.ui-sortable-placeholder,
+[data-name^="landing_page_options"] .repeater-inner > .repeaterItem.ui-sortable-placeholder {
+    visibility: visible !important;
+    border: 1px dashed #c3c4c7;
+    background: #f6f7f7;
+    min-height: 48px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+#landing_page_options .repeater-inner > .repeaterItem.postbox .inside,
+[data-name^="landing_page_options"] .repeater-inner > .repeaterItem.postbox .inside {
+    overflow: visible;
+}
+
+#landing_page_options .select-posts.item,
+[data-name^="landing_page_options"] .select-posts.item {
+    overflow: visible;
+}
+
+#landing_page_options .select-posts.item > h4,
+[data-name^="landing_page_options"] .select-posts.item > h4 {
+    margin: 0 0 8px;
+}
+
+#landing_page_options .repeater-inner .select-posts.item,
+[data-name^="landing_page_options"] .repeater-inner .select-posts.item {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#landing_page_options .it-hive-autocomplete,
+[data-name^="landing_page_options"] .it-hive-autocomplete {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+#landing_page_options .it-hive-autocomplete > input.select-post-ajax,
+[data-name^="landing_page_options"] .it-hive-autocomplete > input.select-post-ajax {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#landing_page_options .it-hive-autocomplete .autocomplete-items,
+[data-name^="landing_page_options"] .it-hive-autocomplete .autocomplete-items {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 2px);
+    z-index: 200;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    max-height: 220px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#landing_page_options .it-hive-autocomplete .autocomplete-items.show,
+[data-name^="landing_page_options"] .it-hive-autocomplete .autocomplete-items.show {
+    display: block;
+}
+
+#landing_page_options .it-hive-autocomplete .autocomplete-items a,
+[data-name^="landing_page_options"] .it-hive-autocomplete .autocomplete-items a {
+    display: block;
+    padding: 8px 12px;
+    line-height: 1.4;
+    text-decoration: none;
+    color: #1d2327;
+    border-bottom: 1px solid #f0f0f1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#landing_page_options .it-hive-autocomplete .autocomplete-items a:last-child,
+[data-name^="landing_page_options"] .it-hive-autocomplete .autocomplete-items a:last-child {
+    border-bottom: 0;
+}
+
+#landing_page_options .it-hive-autocomplete .autocomplete-items a:hover,
+[data-name^="landing_page_options"] .it-hive-autocomplete .autocomplete-items a:hover,
+#landing_page_options .it-hive-autocomplete .autocomplete-items a:focus,
+[data-name^="landing_page_options"] .it-hive-autocomplete .autocomplete-items a:focus {
+    background: #f0f6fc;
+    color: #1d2327;
+}

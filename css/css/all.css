@@ -1,0 +1,535 @@
+* {
+    outline: none
+}
+
+*:focus {
+    outline: none
+}
+
+img {
+    vertical-align: top;
+    border: 0;
+    max-width: 100%;
+    height: auto
+}
+
+header, footer, article, section, hgroup, nav, figure {
+    display: block
+}
+
+form, fieldset, button {
+    margin: 0;
+    padding: 0;
+    border: none
+}
+
+button {
+    -webkit-appearance: none
+}
+
+input {
+    box-sizing: border-box;
+    border-radius: 0;
+    font: 18px "Assistant", Arial, sans-serif;
+    font-weight: 400
+}
+
+input[type=text], input[type=tel], input[type=email], input[type=password] {
+    display: block;
+    width: 100%;
+    padding: 0 15px;
+    height: 45px;
+    border: 1px solid #cecfd2;
+    line-height: 100%;
+    margin: 0 0 28px
+}
+
+input[type=text].error, input[type=tel].error, input[type=email].error, input[type=password].error {
+    border-bottom: 1px solid #ec1b35
+}
+
+input[type="submit"] {
+    border-radius: 0;
+    -webkit-appearance: none
+}
+
+input::-webkit-input-placeholder {
+    color: #000;
+    opacity: 1
+}
+
+input:-moz-placeholder {
+    color: #000;
+    opacity: 1
+}
+
+input::-moz-placeholder {
+    color: #000;
+    opacity: 1
+}
+
+input:-ms-input-placeholder {
+    color: #000;
+    opacity: 1
+}
+
+input:focus::-webkit-input-placeholder {
+    opacity: 0.5
+}
+
+input:focus:-moz-placeholder {
+    opacity: 0.5
+}
+
+input:focus::-moz-placeholder {
+    opacity: 0.5
+}
+
+input:focus:-ms-input-placeholder {
+    opacity: 0.5
+}
+
+textarea {
+    font: 18px "Assistant", Arial, sans-serif;
+    width: 100%;
+    padding: 8px 15px;
+    height: 105px;
+    border: 1px solid #cecfd2;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 100%;
+    margin: 0 0 28px
+}
+
+textarea::-webkit-input-placeholder {
+    color: #000;
+    opacity: 1
+}
+
+textarea:-moz-placeholder {
+    color: #000;
+    opacity: 1
+}
+
+textarea::-moz-placeholder {
+    color: #000;
+    opacity: 1
+}
+
+textarea:-ms-input-placeholder {
+    color: #000;
+    opacity: 1
+}
+
+textarea:focus {
+    border: 1px solid #00adef
+}
+
+textarea:focus::-webkit-input-placeholder {
+    opacity: 0.5
+}
+
+textarea:focus:-moz-placeholder {
+    opacity: 0.5
+}
+
+textarea:focus::-moz-placeholder {
+    opacity: 0.5
+}
+
+textarea:focus:-ms-input-placeholder {
+    opacity: 0.5
+}
+
+textarea.error {
+    border-bottom: 1px solid #ec1b35
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+    outline: none;
+    border: none
+}
+
+html {
+    font-size: 62.5%
+}
+
+*, *::before, *::after {
+    box-sizing: inherit
+}
+
+body {
+    margin: 0;
+    font: 18px/1.528 "Assistant", Arial, sans-serif;
+    font-weight: 400;
+    text-size-adjust: 100%
+}
+
+a {
+    color: #000;
+    text-decoration: none
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", Arial, sans-serif;
+    color: #1555a0
+}
+
+.wrapper {
+    width: 100%;
+    overflow: hidden
+}
+
+.container {
+    max-width: 1090px;
+    margin: 0 auto;
+    padding: 0 15px
+}
+
+.logo {
+    position: absolute;
+    z-index: 9;
+    left: 50%;
+    margin: 0 0 0 -545px;
+    top: 27px
+}
+.new-landing #header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.top-section {
+    background: url("../images/bg-1.jpg") no-repeat 50% 0;
+    background-size: cover;
+    position: relative
+}
+
+.top-section:before {
+    content: "";
+    background: url("../images/curve.png") no-repeat;
+    width: 2500px;
+    height: 257px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    pointer-events: none
+}
+.new-landing .top-section:before {
+    display: none;
+}
+.top-section .holder {
+    max-width: 1090px;
+    margin: 0 auto;
+    padding: 0 15px 196px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between
+}
+
+.top-section-content {
+    width: 46.5%;
+    padding: 207px 0 0;
+    font-size: 26px;
+    line-height: 1.346
+}
+
+.top-section-content h1 {
+    margin: 0 0 15px;
+    color: #1555a0;
+    font: 900 50px/1.1376 "Raleway", Arial, sans-serif
+}
+
+.top-section-content p {
+    margin: 0 0 30px
+}
+
+.top-section .request-appointment-section {
+    width: 50.18%;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row-reverse
+}
+
+.top-section .request-form {
+    width: 56.49%;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 150px 16px 55px 12px;
+    border-radius: 0 0 25px 0
+}
+
+.top-section .request-form h3 {
+    width: 175px;
+    text-align: left;
+    font-size: 20px;
+    line-height: 1.25;
+    margin: 0 0 20px
+}
+
+.top-section .request-form .rows-holder {
+    flex-direction: column;
+    padding: 0 0 20px
+}
+
+.top-section .request-form .row {
+    width: 100%
+}
+
+.top-section .benefits-list-holder {
+    background: rgba(9, 71, 168, 0.85);
+    border-radius: 25px 0 0 25px;
+    color: #fff;
+    padding: 48px 25px 25px 32px;
+    box-sizing: border-box;
+    width: 43.51%
+}
+
+.top-section .benefits-list-holder h3 {
+    display: none
+}
+
+.top-section .benefits-list-holder .benefits-list {
+    padding: 0
+}
+
+.top-section .benefits-list-holder .benefits-list br {
+    display: none
+}
+
+.top-section .benefits-list-holder .benefits-list ul {
+    flex-direction: column;
+    font-size: 22px;
+    line-height: 1.0959;
+    width: 100%;
+    max-width: 100%
+}
+
+.top-section .benefits-list-holder .benefits-list ul li {
+    text-align: left;
+    padding: 0 0 17px 27px;
+    position: relative;
+    box-sizing: border-box;
+    width: auto
+}
+
+.top-section .benefits-list-holder .benefits-list ul li:before {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 17px;
+    height: 17px;
+    background-size: 100% 100%
+}
+
+.request-appointment {
+    background: #e9eaec
+}
+
+.request-form {
+    max-width: 594px;
+    margin: 0 auto;
+    padding: 70px 15px 80px
+}
+
+.request-form h3 {
+    font-weight: 900;
+    font-size: 34px;
+    margin: 0 0 60px;
+    text-align: center;
+    width: 100%;
+    color: #000
+}
+
+.request-form .rows-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 0 40px
+}
+
+.request-form .row {
+    width: 48%
+}
+
+.request-form input[type="submit"] {
+    display: block;
+    width: 250px;
+    height: 45px;
+    text-align: center;
+    margin: 0 auto;
+    background: #ffcd36;
+    border-radius: 22px;
+    border: none;
+    font: 700 18.5px/45px "Assistant", Arial, sans-serif;
+    box-shadow: 0 0 8px rgba(7, 6, 8, 0.74)
+}
+
+.benefits-section {
+    background: url("../images/bg-2.jpg") no-repeat;
+    background-size: cover
+}
+
+.benefits-list {
+    color: #fff;
+    padding: 24px 15px 30px;
+    max-width: 1090px;
+    margin: 0 auto
+}
+
+.benefits-list h3 {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 900;
+    margin: 0 0 30px;
+    color: #fff
+}
+
+.benefits-list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-size: 28px;
+    line-height: 0.929
+}
+
+.benefits-list li {
+    padding: 0 15px;
+    width: 200px;
+    text-align: center
+}
+
+.benefits-list li:before {
+    content: "";
+    background: url("../images/checkmark-1.png") no-repeat;
+    width: 32px;
+    height: 32px;
+    display: block;
+    margin: 0 auto 5px
+}
+
+.intro-content {
+    background: #00335c;
+    color: #fff;
+    padding: 20px 0
+}
+
+.intro-content h2 {
+    text-align: center;
+    color: #fff
+}
+
+.intro-content ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font: 400 30px/1 "Raleway", Arial, sans-serif
+}
+
+.intro-content ul li {
+    width: 100%;
+    max-width: 265px;
+    text-align: center
+}
+
+.intro-content ul li:before {
+    content: "";
+    background: url("../images/checkmark-2.png") no-repeat;
+    width: 66px;
+    height: 66px;
+    display: block;
+    margin: 0 auto 21px
+}
+
+.content-area-1 h2 {
+    text-align: center
+}
+
+.content-area-1 .content-holder {
+    column-count: 3;
+    column-gap: 60px;
+    vertical-align: top
+}
+
+.content-area-1 .content-holder p {
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    vertical-align: top;
+    margin: 0 0 20px;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0
+}
+
+.testimonials-section {
+    background: #3e3e3e;
+    padding: 40px 0
+}
+
+.testimonials-section h2 {
+    color: #fff;
+    text-align: center
+}
+
+.testimonials-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 -15px;
+}
+
+.testimonial-block {
+    width: 17%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    margin: 0 15px;
+}
+
+.testimonial-block img {
+    display: block;
+    width: 100%
+}
+
+.testimonial-block .image-holder {
+    position: relative
+}
+
+.testimonial-block .image-holder .play-btn {
+    background: url("../images/btn-play.png") no-repeat;
+    width: 71px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.testimonial-block .title {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #1555a0;
+    font: 18px/1 "Raleway", Arial, sans-serif;
+    padding: 14px 10px 17px
+}
+
+.testimonial-block .title strong {
+    font-weight: 600
+}
+
+/*# sourceMappingURL=all.css.map */

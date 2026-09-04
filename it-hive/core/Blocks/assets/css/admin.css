@@ -1,0 +1,200 @@
+.edit-post-meta-boxes-area .postbox .handlediv {
+    height: 100%;
+}
+
+.theme-postbox .postbox {
+    border-radius: 5px;
+}
+
+.theme-postbox .postbox .inside {
+    padding: 0;
+    overflow: hidden;
+}
+
+.metabox.theme-postbox .row {
+    padding: 12px 12px 15px;
+}
+
+.post-revisions {
+    padding-left: 15px;
+}
+
+.metabox.theme-postbox h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.metabox.theme-postbox .buttonSettings .row {
+    padding-top: 0;
+}
+
+.repeater-inner .row {
+    padding: 10px 15px;
+}
+
+.repeater-inner .row .handlediv {
+    margin-top: -13px;
+}
+
+.metabox.theme-postbox .row.attachment {
+    float: none;
+    text-align: initial;
+}
+
+.row.attachment input {
+    margin: 5px 0;
+}
+
+.metabox.theme-postbox .repeater-container + .repeater-container {
+    border-top: 1px solid #e5e5e5;
+}
+
+.metabox.theme-postbox .repeaterItem {
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+.metabox.theme-postbox .repeaterItem.closed {
+    border: 1px solid #e5e5e5;
+}
+.metabox.theme-postbox .repeaterItem .repeaterItem {
+    border: 1px solid #e5e5e5;
+}
+
+.metabox.theme-postbox .repeaterItem:last-child {
+    margin-bottom: 15px;
+}
+
+.metabox.theme-postbox .repeaterItem + .repeaterItem {
+    margin-top: 15px;
+    border: 1px solid #e5e5e5;
+}
+
+.theme-options .image, .theme-postbox .image {
+    background: #eee;
+    display: inline-block;
+}
+.metabox.theme-postbox .repeaterItem .handlediv {
+    position: absolute;
+    width: 97%;
+    text-align: right;
+    outline: none;
+    box-shadow: none;
+}
+.metabox.theme-postbox label, .theme-options label {
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.theme-options .button.button-primary,
+.theme-options h4 {
+    margin-top: 10px;
+}
+
+.theme-options .tab-item > .row,
+.metabox.theme-postbox .repeaterItem .inside > .row,
+.theme-postbox > .row.item,
+.theme-postbox > .row.group {
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.theme-options .tab-item > .row > .row {
+    margin-bottom: 5px;
+}
+
+.metabox.theme-postbox .repeaterItem .inside > .row {
+    padding: 12px;
+}
+
+.metabox.theme-postbox .attachment {
+    width: 50%;
+}
+
+.theme-postbox > .row.item,
+.theme-postbox > .row.group {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.theme-postbox .repeaterItem .hndle-header {
+    margin: 0;
+}
+
+div[data-control-type="colorpicker"] label {
+    display: inline-block;
+    min-width: 121px;
+}
+
+.row.item textarea {
+    width: 100%;
+}
+
+.theme-options .closed .toggle-indicator::before {
+    content: "\f140";
+
+}
+
+.theme-options .toggle-indicator::before {
+    content: "\f142";
+    display: inline-block;
+    font: 400 20px/1 dashicons;
+}
+
+.wp-picker-container {
+    display: inline-block;
+}
+
+.wp-picker-container .iris-picker-inner {
+    width: 100%;
+}
+
+.wp-picker-container .color-alpha {
+    height: 27px !important;
+}
+
+.wp-picker-container .wp-color-result-text {
+    margin-left: 30px !important;
+}
+
+.row.item [class*="icon"] {
+    font-size: 2em;
+    padding-right: 2em;
+}
+
+.radio-wrap:after {
+    content: '';
+    width: 20px;
+    display: inline-block;
+}
+
+.repeaterItem .handlediv {
+    margin-top: -10px;
+}
+
+#it-hive-9 .repeater-inner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+#it-hive-9 .repeaterItem {
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+body.rtl .ui-tabs .ui-tabs-nav li{
+    float: right !important;
+}
+
+.hide-add-media-button .wp-media-buttons{
+    display: none;
+}
+
+.disabled-add .button.repeater-add-btn{
+    border: 1px solid red;
+    background: pink;
+    opacity: 0.5;
+}

@@ -1,0 +1,7 @@
+.repeaterItem .hndle-header {
+    cursor: pointer;
+}
+
+.repeaterItem.ui-sortable-handle .hndle-header {
+    cursor: move;
+}

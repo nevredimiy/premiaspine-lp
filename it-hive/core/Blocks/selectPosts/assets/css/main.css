@@ -1,0 +1,59 @@
+.it-hive-autocomplete {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.it-hive-autocomplete > input.select-post-ajax {
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.it-hive-autocomplete .autocomplete-items {
+	display: none;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: calc(100% + 2px);
+	z-index: 100;
+	margin: 0;
+	padding: 0;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 2px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	max-height: 220px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.it-hive-autocomplete .autocomplete-items.show {
+	display: block;
+}
+
+.it-hive-autocomplete .autocomplete-items a {
+	display: block;
+	padding: 8px 12px;
+	line-height: 1.4;
+	text-decoration: none;
+	color: #1d2327;
+	border-bottom: 1px solid #f0f0f1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.it-hive-autocomplete .autocomplete-items a:last-child {
+	border-bottom: 0;
+}
+
+.it-hive-autocomplete .autocomplete-items a:hover,
+.it-hive-autocomplete .autocomplete-items a:focus {
+	background: #f0f6fc;
+	color: #1d2327;
+}
+
+.select-posts.item {
+	overflow: visible;
+}

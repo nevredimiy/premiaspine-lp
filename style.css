@@ -1,0 +1,40 @@
+/*
+Theme Name: premiaspine
+Version: 01.01
+Author: It-Hive
+Author URI: https://it-hive.com/
+*/
+.wpcf7-mail-sent-ok{display: none!important}
+.page-id-96 .content-area.area-2{display: none!important}
+.page-id-96 .locations-section{display: none!important}
+.page-id-96 .faq-section{display: none!important}
+.page-id-96 .request-appointment{margin-bottom: 0}
+@media screen and (max-width: 639px){
+.benefits-section+.request-appointment {
+    display: block;
+}}
+
+.wrapper.sticky-header .call-now-wrapper .call-now-request {
+    margin: 0 28px 0 auto;
+}
+@media screen and (max-width: 1130px){
+	.wrapper.sticky-header .call-now-wrapper .call-now-request {
+		margin: 0 14px 0 auto;
+	}
+}
+
+/*@media screen and (max-width: 980px){*/
+/*    .top-section .request-form .row {*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
+
+.consent-checkbox .consent-privacy-link,
+.wpcf7-form .consent-privacy-link {
+    text-decoration: underline;
+}
+
+.consent-checkbox .consent-privacy-link:hover,
+.wpcf7-form .consent-privacy-link:hover {
+    text-decoration: underline;
+}

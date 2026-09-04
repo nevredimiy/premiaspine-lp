@@ -1,0 +1,1 @@
+<?php if(!$data) return;?><img src="<?php echo wp_get_attachment_image_url( $data, 'full' ); ?>" alt="">

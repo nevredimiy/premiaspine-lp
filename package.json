@@ -1,0 +1,65 @@
+{
+  "name": "react-with-babel-gulp-and-browserify",
+  "version": "1.0.0",
+  "description": "Starter pack repository for projects with ReactJS, Babel, Gulp and Browserify",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp build",
+    "watch": "gulp watch",
+    "try-last-react": "./try-with-last-react-version.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artemdemo/react-with-babel-gulp-and-browserify.git"
+  },
+  "author": "Artem Demo",
+  "bugs": {
+    "url": "https://github.com/artemdemo/react-with-babel-gulp-and-browserify/issues"
+  },
+  "homepage": "https://github.com/artemdemo/react-with-babel-gulp-and-browserify#readme",
+  "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-class-properties": "latest",
+    "@babel/polyfill": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-react": "latest",
+    "browser-sync": "latest",
+    "browserify": "latest",
+    "babelify": "latest",
+    "gulp": "^3.0.0",
+    "gulp-cache": "latest",
+    "gulp-clean": "latest",
+    "gulp-file-include": "latest",
+    "gulp-filter": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-jsbeautifier": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-string-replace": "latest",
+    "gulp-uglify": "latest",
+    "gulp-util": "latest",
+    "gulp-watch": "latest",
+    "history": "latest",
+    "imagemin-giflossy": "latest",
+    "imagemin-mozjpeg": "latest",
+    "imagemin-pngquant": "latest",
+    "imagemin-webp": "latest",
+    "imagemin-zopfli": "latest",
+    "node-notifier": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-redux": "latest",
+    "react-router": "latest",
+    "react-router-dom": "latest",
+    "reactify": "latest",
+    "redux": "latest",
+    "vinyl-buffer": "latest",
+    "vinyl-source-stream": "latest"
+  },
+  "dependencies": {
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "babel-plugin-transform-object-assign": "latest"
+  }
+}
