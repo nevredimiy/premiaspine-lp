@@ -861,7 +861,7 @@ h6 {
 }
 .new-landing .top-section .person .name {
   position: absolute;
-  bottom: 16%;
+  top: 80%;
   left: 70%;
   font:
     14px/1 "Figtree",
@@ -2210,7 +2210,7 @@ h6 {
     bottom: 169px;
   }
   .new-landing .top-section .person .name {
-    bottom: 12%;
+    top: 80%;
     /* left: -23px; */
     font:
       14px/1 "Figtree",
