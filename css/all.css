@@ -2378,7 +2378,7 @@ h6 {
     bottom: 149px;
   }
   .new-landing .top-section .holder .name {
-    top: 34vw;
+    top: 36vw;
     left: 50%;
     font:
       14px/1 "Figtree",
@@ -3216,7 +3216,7 @@ h6 {
     bottom: 210px;
   }
   .new-landing .top-section .holder .name {
-    top: 440px;
+    top: 385px;
     left: 50%;
     font:
       11px/1 "Figtree",
@@ -3453,8 +3453,8 @@ h6 {
     top: 86px;
   }
   .new-landing .top-section .holder .name {
-    top: 390px;
-    right: 55%;
+    top: 310px;
+    right: 50%;
     left: auto;
 
     font:
