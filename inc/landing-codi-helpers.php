@@ -303,25 +303,11 @@ function premiaspine_landing_render_hero_doctor_slide( $slide ) {
                 <h1><?php echo premiaspine_landing_render_field_html( $title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
             <?php endif; ?>
             <?php
-            $doctor_name    = premiaspine_landing_opt( $doctor, array( 'doctor_name' ) );
-            $doctor_address = premiaspine_landing_opt( $doctor, array( 'doctor_address' ) );
-            $name_parts     = array();
-            if ( $doctor_name ) {
-                $name_parts[] = premiaspine_landing_render_field_html( $doctor_name );
-            }
-            if ( $doctor_address ) {
-                $name_parts[] = premiaspine_landing_render_field_html( $doctor_address );
-            }
-            $name_inner = implode( '<br />', $name_parts );
-
             $text     = premiaspine_landing_opt( $doctor, array( 'text' ) );
             $icon_url = premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'icon' ) ) );
             if ( $text || $icon_url ) :
                 ?>
                 <div class="top-section-content">
-                    <?php if ( '' !== $name_inner ) : ?>
-                        <span class="name name--content"><?php echo $name_inner; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-                    <?php endif; ?>
                     <?php if ( $icon_url ) : ?>
                         <p><img alt="" class="alignleft size-full" src="<?php echo esc_url( $icon_url ); ?>"></p>
                     <?php endif; ?>
@@ -330,10 +316,26 @@ function premiaspine_landing_render_hero_doctor_slide( $slide ) {
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
-            <?php if ( '' !== $name_inner ) : ?>
-                <span class="name name--holder"><?php echo $name_inner; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-            <?php endif; ?>
             <div class="person">
+                <?php
+                $doctor_name    = premiaspine_landing_opt( $doctor, array( 'doctor_name' ) );
+                $doctor_address = premiaspine_landing_opt( $doctor, array( 'doctor_address' ) );
+                if ( $doctor_name || $doctor_address ) :
+                    ?>
+                    <span class="name">
+                        <?php
+                        if ( $doctor_name ) {
+                            echo premiaspine_landing_render_field_html( $doctor_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        }
+                        if ( $doctor_address ) {
+                            if ( $doctor_name ) {
+                                echo '<br />';
+                            }
+                            echo premiaspine_landing_render_field_html( $doctor_address ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        }
+                        ?>
+                    </span>
+                <?php endif; ?>
                 <img src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'doctor_photo' ) ), get_stylesheet_directory_uri() . '/images/person.png' ) ); ?>" alt="">
             </div>
         </div>
