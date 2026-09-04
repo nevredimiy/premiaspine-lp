@@ -2984,9 +2984,9 @@ input[type="submit"].contact-section__button {
   }
   .hero-premia .name {
     font-size: 11px !important;
-    top: 96px !important;
+    top: 320px !important;
     left: auto !important;
-    right: 6% !important;
+    right: 50% !important;
     bottom: auto !important;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 100%);
     padding: 3px 9px 3px 5px !important;

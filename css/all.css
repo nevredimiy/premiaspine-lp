@@ -861,8 +861,8 @@ h6 {
 }
 .new-landing .top-section .holder .name {
   position: absolute;
-  top: 440px;
-  left: 610px;
+  top: 37vw;
+  left: 50%;
   font:
     14px/1 "Figtree",
     Arial,
@@ -2212,8 +2212,8 @@ h6 {
     bottom: 169px;
   }
   .new-landing .top-section .holder .name {
-    top: 430px;
-    left: 540px;
+    top: 33vw;
+    left: 50%;
     font:
       14px/1 "Figtree",
       Arial,
@@ -2378,8 +2378,8 @@ h6 {
     bottom: 149px;
   }
   .new-landing .top-section .holder .name {
-    top: 330px;
-    left: 430px;
+    top: 33vw;
+    left: 50%;
     font:
       14px/1 "Figtree",
       Arial,
@@ -3216,8 +3216,8 @@ h6 {
     bottom: 210px;
   }
   .new-landing .top-section .holder .name {
-    top: 300px;
-    left: 300px;
+    top: 440px;
+    left: 50%;
     font:
       11px/1 "Figtree",
       Arial,
@@ -3453,8 +3453,8 @@ h6 {
     top: 86px;
   }
   .new-landing .top-section .holder .name {
-    top: 104px;
-    right: 8%;
+    top: 390px;
+    right: 55%;
     left: auto;
 
     font:
