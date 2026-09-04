@@ -861,17 +861,18 @@ h6 {
 }
 .new-landing .top-section .holder .name {
   position: absolute;
-  top: 150px;
-  left: 64px;
+  top: 440px;
+  left: 610px;
   font:
     14px/1 "Figtree",
     Arial,
     sans-serif;
   text-align: left;
-  padding: 3px 0 3px 10px;
+  padding: 6px 14px 6px 11px;
   border-left: 3px solid #fcc000;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 100%);
   color: #fff;
-  max-width: 160px;
+  max-width: 200px;
   z-index: 10;
 }
 .new-landing .top-section .person img {
@@ -2211,13 +2212,13 @@ h6 {
     bottom: 169px;
   }
   .new-landing .top-section .holder .name {
-    top: 150px;
-    left: 30px;
+    top: 430px;
+    left: 540px;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 3px 0 3px 10px;
+    padding: 6px 14px 6px 11px;
     border-left: 3px solid #fcc000;
   }
   .new-landing .top-section .person img {
@@ -2377,13 +2378,13 @@ h6 {
     bottom: 149px;
   }
   .new-landing .top-section .holder .name {
-    top: 120px;
-    left: 30px;
+    top: 330px;
+    left: 430px;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 3px 0 3px 10px;
+    padding: 6px 14px 6px 11px;
     border-left: 3px solid #fcc000;
   }
   .new-landing .top-section .person img {
@@ -3215,13 +3216,13 @@ h6 {
     bottom: 210px;
   }
   .new-landing .top-section .holder .name {
-    top: 90px;
-    left: 20px;
+    top: 300px;
+    left: 300px;
     font:
       11px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 1px 0 1px 5px;
+    padding: 4px 10px 4px 7px;
     border-left: 2px solid #fcc000;
   }
   .new-landing .top-section .person img {
@@ -3452,14 +3453,15 @@ h6 {
     top: 86px;
   }
   .new-landing .top-section .holder .name {
-    top: 92px;
-    left: 15px;
+    top: 104px;
+    right: 8%;
+    left: auto;
 
     font:
       8px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 1px 0 1px 5px;
+    padding: 3px 8px 3px 6px;
     border-left: 2px solid #fcc000;
   }
   .new-landing .top-section h1 {
