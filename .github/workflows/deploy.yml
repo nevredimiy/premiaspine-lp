@@ -1,0 +1,33 @@
+name: Deploy Theme to cPanel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          # Путь на хостинге, куда заливать файлы темы:
+          server-dir: public_html/lp/wp-content/themes/premiaspine/
+          # Исключаем служебные файлы Git и GitHub из выгрузки на хостинг
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            README.md
