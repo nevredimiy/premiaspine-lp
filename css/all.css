@@ -870,6 +870,7 @@ h6 {
   text-align: right;
   padding: 3px 10px 0 0;
   border-left: 3px solid #fcc000;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 100%);
   color: #fff;
   max-width: 120px;
 }
@@ -899,7 +900,7 @@ h6 {
   backdrop-filter: blur(7.5px);
   transform: translate(0, -35px);
   box-sizing: border-box;
-  padding: 26px 20px 16px 150px;
+  padding: 26px 100px 16px 150px;
   overflow: hidden;
   font:
     24px/1.54 "Figtree",
@@ -2376,14 +2377,14 @@ h6 {
     bottom: 149px;
   }
   .new-landing .top-section .person .name {
-    top: 74px;
-    left: -23px;
+    /* top: 74px; */
+    left: 60%;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
     padding: 3px 10px 0 0;
-    border-right: 3px solid #fcc000;
+    /* border-right: 3px solid #fcc000; */
   }
   .new-landing .top-section .person img {
     width: 326px;
