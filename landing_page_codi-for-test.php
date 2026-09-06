@@ -58,7 +58,7 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
     </div>
 </div>
 
-<?php if ( ! isBot() ) : ?>
+<?php if ( ! isBot() ) : ?> 
 <div id="main" class="main-alternate">
     <div class="page__premia premia">
         <?php
