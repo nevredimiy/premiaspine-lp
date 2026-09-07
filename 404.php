@@ -3,7 +3,7 @@
     <div id="main">
         <section class="content-area area-1">
             <div class="container">
-                <h1>not found 404</h1>
+                <h1>not found 404 </h1>
             </div>
         </section>
     </div>
