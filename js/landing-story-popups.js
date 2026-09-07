@@ -441,10 +441,10 @@
   function findStoryPopupBySlug(param, slug) {
     return document.querySelector(
       '[data-fls-popup][data-story-param="' +
-        param +
-        '"][data-story-slug="' +
-        cssEscapeValue(slug) +
-        '"]',
+      param +
+      '"][data-story-slug="' +
+      cssEscapeValue(slug) +
+      '"]',
     );
   }
 
