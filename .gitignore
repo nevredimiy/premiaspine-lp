@@ -1,1 +1,32 @@
-.vscode/*
+# Editors / IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node / сборка
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.cache/
+.sass-cache/
+
+# Логи и мусор
+*.log
+error_log
+error_log.*
+debug.log
+
+# Секреты / локальная конфигурация
+.env
+.env.*
+*.local
+
+# Временные файлы
+*.bak
+*.tmp
+*~

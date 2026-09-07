@@ -99,16 +99,17 @@ $og_image_width  = '';
 $og_image_height = '';
 foreach (
     array(
+        premiaspine_landing_opt( $landing_options, array( 'header', 'og_image' ) ),
         premiaspine_landing_opt( $landing_options, array( 'header', 'top_section_bg' ) ),
         premiaspine_landing_opt( $landing_options, array( 'header', 'doctor_photo' ) ),
-        premiaspine_landing_opt( (array) $general_options, array( 'header', 'logo_dark' ) ),
     ) as $og_image_id
 ) {
     if ( empty( $og_image_id ) ) {
         continue;
     }
     $og_image_src = wp_get_attachment_image_src( $og_image_id, 'full' );
-    if ( $og_image_src ) {
+    // Social networks do not render SVG previews, so a raster file is required.
+    if ( $og_image_src && ! preg_match( '/\.svg(\?|#|$)/i', $og_image_src[0] ) ) {
         $og_image        = $og_image_src[0];
         $og_image_width  = $og_image_src[1];
         $og_image_height = $og_image_src[2];
@@ -116,7 +117,9 @@ foreach (
     }
 }
 if ( ! $og_image ) {
-    $og_image = get_stylesheet_directory_uri() . '/images/person.png';
+    $og_image        = get_stylesheet_directory_uri() . '/images/bg-top-section-new.jpg';
+    $og_image_width  = 2750;
+    $og_image_height = 1340;
 }
 ?>
 
