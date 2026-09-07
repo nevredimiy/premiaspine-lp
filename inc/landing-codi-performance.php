@@ -41,7 +41,13 @@ function premiaspine_landing_is_codi_perf_context() {
  * `DOMContentLoaded`, so jQuery(document).ready / DOMContentLoaded handlers in
  * these files still fire with the full DOM available.
  *
- * @param string $tag    The full <script> tag.
+ * Only self-contained jQuery-plugin leaf scripts are listed. WordPress core
+ * packages (`wp-hooks`, `wp-i18n`, `wp-polyfill`) and Contact Form 7 are left
+ * blocking on purpose: they ship inline "after" snippets that run during
+ * parsing and expect the `wp.*` globals to already exist, so a plain `defer`
+ * on the external file desynchronises them (ReferenceError: wp is not defined).
+ *
+ * @param string $tag    The full <script> tag (may include inline before/after blocks).
  * @param string $handle Registered script handle.
  * @return string
  */
@@ -52,10 +58,6 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
 	}
 
 	$deferrable = array(
-		'wp-polyfill',
-		'hooks',
-		'wp-hooks',
-		'wp-i18n',
 		'jquery-ui-core',
 		'jquery-ui-widget',
 		'jquery-ui-mouse',
@@ -63,11 +65,6 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
 		'jquery-ui-sortable',
 		'jquery.fancybox.min',
 		'ajax',
-		'swv',
-		'contact-form-7',
-		'wpcf7-redirect-script-frontend',
-		'wpcf7-recaptcha',
-		'google-recaptcha',
 		'premiaspine-landing',
 		'premiaspine-landing-story-popups',
 		'find-doctor-map-filters',
@@ -77,11 +74,14 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
 		return $tag;
 	}
 
-	if ( false !== strpos( $tag, ' defer' ) || false !== strpos( $tag, ' async' ) ) {
-		return $tag;
-	}
-
-	return preg_replace( '/<script(?=[\s>])/', '<script defer', $tag, 1 );
+	// Only touch the actual <script src="…"> element; leave any inline
+	// before/after/extra <script> blocks in the same string alone.
+	return preg_replace(
+		'/<script(?=[^>]*\ssrc=)(?![^>]*\s(?:defer|async)[\s=>])/',
+		'<script defer',
+		$tag,
+		1
+	);
 }
 
 /**
