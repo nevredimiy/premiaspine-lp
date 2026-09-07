@@ -1,5 +1,4 @@
 ﻿@import url("https://fonts.googleapis.com/css?family=Figtree:&display=swap");
-
 @font-face {
   font-family: "Assistant";
   src: url("../fonts/assistant-v2-regular.eot");
@@ -368,7 +367,6 @@ h6 {
 .top-section .request-form .row.previous-radios p {
   margin: 0;
 }
-
 .top-section .request-form .row p {
   margin-top: 0;
 }
@@ -406,7 +404,6 @@ h6 {
 .request-form .row.previous-radios .wpcf7-not-valid input[type="radio"]:before {
   border: 1px solid red;
 }
-
 .top-section .request-form .row.previous-radios input[type="radio"]:after {
   content: "";
   position: absolute;
@@ -420,7 +417,10 @@ h6 {
   transition: transform 0.3s ease;
 }
 
-.top-section .request-form .row.previous-radios input[type="radio"]:checked:after {
+.top-section
+  .request-form
+  .row.previous-radios
+  input[type="radio"]:checked:after {
   transform: scale(1);
 }
 
@@ -443,7 +443,10 @@ h6 {
   display: none;
 }
 
-.top-section .request-form .wpcf7-form-control-wrap.comment span.wpcf7-not-valid-tip {
+.top-section
+  .request-form
+  .wpcf7-form-control-wrap.comment
+  span.wpcf7-not-valid-tip {
   margin: -8px 0 -5px;
 }
 
@@ -511,7 +514,6 @@ h6 {
   backdrop-filter: blur(7.5px);
   z-index: 49;
 }
-
 .new-landing #header .container {
   margin: 0 auto;
   padding-inline: 65px;
@@ -521,30 +523,24 @@ h6 {
   justify-content: space-between;
   height: 80px;
 }
-
 .hero-premia {
   margin-top: 80px;
 }
-
 .new-landing #header .logo,
 .new-landing .call-now-request {
   flex: 1;
 }
-
 .new-landing #header .logo {
   position: static;
   margin: 0 0 0 65px;
 }
-
 .new-landing #header .logo img {
   height: 55px;
 }
-
 .new-landing .call-now-request {
   margin-inline: 0 65px;
   text-align: right;
 }
-
 .new-landing .call-now-request .phone {
   padding-inline: 0 64px;
   background: url("../images/ico-phone.svg") no-repeat 100% 50% / auto 47px;
@@ -555,7 +551,6 @@ h6 {
   display: inline-block;
   white-space: nowrap;
 }
-
 .new-landing .slogan {
   color: #194284;
   letter-spacing: 8%;
@@ -568,7 +563,6 @@ h6 {
   text-align: center;
   padding: 0 20px;
 }
-
 .new-landing .top-section {
   margin: 80px auto 60px;
   padding-inline: 65px;
@@ -576,21 +570,19 @@ h6 {
   border-radius: 50px;
   background: none;
 }
-
 .new-landing .top-section:before {
   display: none;
 }
-
 .new-landing .top-section .holder {
   max-width: 100%;
-  background: url("../images/bg-top-section-new.jpg?new") no-repeat 50% 50% / cover;
+  background: url("../images/bg-top-section-new.jpg?new") no-repeat 50% 50% /
+    cover;
   border-radius: 50px;
   position: relative;
   height: 916px;
   padding: 0;
   overflow: hidden;
 }
-
 .new-landing .top-section .holder:after {
   content: "";
   position: absolute;
@@ -602,7 +594,6 @@ h6 {
   z-index: 6;
   /*mix-blend-mode: multiply;*/
 }
-
 .new-landing .top-section .request-appointment-section {
   position: absolute;
   bottom: 0;
@@ -616,7 +607,6 @@ h6 {
   height: 242px;
   transition: all 0.2s ease-in-out;
 }
-
 .new-landing .top-section .request-appointment-section h3 {
   color: #fff;
   margin: 6px 0 10px;
@@ -625,30 +615,37 @@ h6 {
     Arial,
     sans-serif;
 }
-
 .new-landing .top-section .request-appointment-section .wpcf7 {
   width: 100%;
 }
-
 .new-landing .top-section .request-appointment-section .fields-row {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   width: 100%;
 }
-
 .new-landing .top-section .request-appointment-section .fields-row .field {
   width: 16.67%;
   position: relative;
 }
-
 .new-landing .top-section .request-appointment-section .fields-row br {
   display: none;
 }
-
-.new-landing .top-section .request-appointment-section .fields-row input[type="text"],
-.new-landing .top-section .request-appointment-section .fields-row input[type="tel"],
-.new-landing .top-section .request-appointment-section .fields-row input[type="email"],
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  input[type="text"],
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  input[type="tel"],
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  input[type="email"],
 .new-landing .top-section .request-appointment-section .fields-row textarea,
 .new-landing .top-section .request-appointment-section .fields-row select {
   width: 100%;
@@ -666,27 +663,51 @@ h6 {
   margin: 0;
   display: block;
 }
-
-.new-landing .top-section .request-appointment-section .fields-row input[type="text"]::placeholder,
-.new-landing .top-section .request-appointment-section .fields-row input[type="tel"]::placeholder,
-.new-landing .top-section .request-appointment-section .fields-row input[type="email"]::placeholder,
-.new-landing .top-section .request-appointment-section .fields-row textarea::placeholder,
-.new-landing .top-section .request-appointment-section .fields-row select::placeholder {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  input[type="text"]::placeholder,
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  input[type="tel"]::placeholder,
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  input[type="email"]::placeholder,
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  textarea::placeholder,
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  select::placeholder {
   color: #808080;
 }
-
 .new-landing .top-section .request-appointment-section .fields-row select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   padding-right: 33px;
 }
-
-.new-landing .top-section .request-appointment-section .fields-row .field:has(select) {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  .field:has(select) {
   position: relative;
 }
-
-.new-landing .top-section .request-appointment-section .fields-row .field:has(select):after {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  .field:has(select):after {
   content: "";
   position: absolute;
   right: 17px;
@@ -701,7 +722,11 @@ h6 {
   display: none !important;
 }
 
-.new-landing .top-section .request-appointment-section .fields-row input[type="submit"] {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  input[type="submit"] {
   width: 100%;
   height: 50px;
   border-radius: 10px;
@@ -720,7 +745,6 @@ h6 {
   display: block;
   cursor: pointer;
 }
-
 .new-landing .top-section .field .error-text {
   position: absolute;
   top: 0;
@@ -744,34 +768,36 @@ h6 {
   display: none;
   align-items: center;
 }
-
 .new-landing .top-section .field:has(.wpcf7-not-valid) .error-text {
   display: flex !important;
 }
-
-.new-landing .top-section .invalid .field:has(input:not(:placeholder-shown)) .error-text {
+.new-landing
+  .top-section
+  .invalid
+  .field:has(input:not(:placeholder-shown))
+  .error-text {
   display: none;
 }
-
 .new-landing .top-section .field:has(input:focus) .error-text,
 .new-landing .top-section .field:has(textarea:focus) .error-text,
 .new-landing .top-section .field:has(select:focus) .error-text {
   display: none !important;
 }
-
 .new-landing .top-section .wpcf7-not-valid-tip,
 .new-landing .top-section .wpcf7-response-output,
 .new-landing .top-section .wpcf7-response-output.wpcf7-validation-errors {
   display: none !important;
 }
-
-.new-landing .top-section .request-appointment-section .fields-row .wpcf7-spinner {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .fields-row
+  .wpcf7-spinner {
   position: absolute;
   top: 50%;
   right: -34px;
   margin: -12px 0 0;
 }
-
 .new-landing .top-section .request-appointment-section .note {
   font:
     14px/1 "Figtree",
@@ -786,7 +812,6 @@ h6 {
   text-align: left;
   align-items: center;
 }
-
 .new-landing .top-section .request-appointment-section p {
   margin: 0;
   width: 100%;
@@ -796,12 +821,16 @@ h6 {
   /* text-align: center;
     align-items: center; */
 }
-
 .new-landing .top-section .request-appointment-section p span {
   width: 100%;
 }
 
-.new-landing .top-section .request-appointment-section .consent-checkbox p span {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .consent-checkbox
+  p
+  span {
   width: auto;
 }
 
@@ -819,7 +848,6 @@ h6 {
   align-items: center;
   justify-content: center;
 }
-
 .new-landing .top-section .request-appointment-section.fixed .wpcf7 {
   padding-inline: 65px;
   max-width: 1870px;
@@ -829,30 +857,40 @@ h6 {
   position: absolute;
   left: 31.7%;
   bottom: 169px;
-  padding-right: 80px;
   z-index: 5;
 }
-
-.new-landing .top-section .person .name {
+.new-landing .top-section .holder .name {
   position: absolute;
-  top: 80%;
-  left: 67%;
+  top: 100%;
+  left: -40px;
   font:
     14px/1 "Figtree",
     Arial,
     sans-serif;
-  text-align: right;
-  padding: 3px 10px 0 0;
-  border-left: 3px solid #fcc000;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 100%);
-  color: #fff;
-  max-width: 120px;
-}
+  text-align: left;
+  padding: 8.5px 29px 8.5px 70px;
 
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  color: #fff;
+  z-index: 10;
+}
+@media (max-width: 1649.98px) {
+  .new-landing .top-section .holder .name {
+    padding-left: 85px;
+  }
+}
+.new-landing .top-section .holder .name span {
+  padding-left: 6px;
+  border-left: 3px solid #fcc000;
+  display: inline-block;
+}
 .new-landing .top-section .person img {
   width: 426px;
 }
-
 .new-landing .top-section h1 {
   color: #fff;
   position: absolute;
@@ -866,7 +904,6 @@ h6 {
   z-index: 30;
   text-shadow: 0px 4px 4px #00000040;
 }
-
 .new-landing .top-section .top-section-content {
   color: #000;
   position: absolute;
@@ -877,27 +914,22 @@ h6 {
   backdrop-filter: blur(7.5px);
   transform: translate(0, -35px);
   box-sizing: border-box;
-  padding: 26px 100px 16px 150px;
-  overflow: hidden;
+  padding: 26px 20px 16px 150px;
   font:
     24px/1.54 "Figtree",
     Arial,
     sans-serif;
 }
-
 .new-landing .top-section .top-section-content p:has(.alignleft) {
   float: left;
 }
-
 .new-landing .top-section .top-section-content img {
   margin: 0 28px 0 0;
 }
-
 .new-landing .top-section .top-section-content p {
   overflow: hidden;
   margin: 0;
 }
-
 .request-appointment {
   background: #e9eaec;
   margin: 0 0 45px;
@@ -924,14 +956,14 @@ h6 {
   color: #000;
 }
 
-.request-form>p:last-child {
+.request-form > p:last-child {
   margin-bottom: 10px;
   position: relative;
 
   margin-top: 0px;
 }
 
-.top-section .request-form>p:last-child {
+.top-section .request-form > p:last-child {
   padding-bottom: 23px;
 
   margin-top: 0px;
@@ -1094,7 +1126,6 @@ h6 {
   color: #fff;
   text-align: center;
 }
-
 .wpcf7 div.wpcf7-validation-errors br,
 .wpcf7 div.wpcf7-acceptance-missing br {
   display: block;
@@ -1383,19 +1414,28 @@ h6 {
 }
 
 .content-area .request-form .row.previous-radios-short .wpcf7-list-item-label,
-.content-area.area-2 .request-form .row.previous-radios-short .wpcf7-list-item-label {
+.content-area.area-2
+  .request-form
+  .row.previous-radios-short
+  .wpcf7-list-item-label {
   vertical-align: middle;
   margin-left: 4px;
   display: inline-block;
 }
 
 .content-area .request-form .row.previous-radios-short .wpcf7-not-valid-tip,
-.content-area.area-2 .request-form .row.previous-radios-short .wpcf7-not-valid-tip {
+.content-area.area-2
+  .request-form
+  .row.previous-radios-short
+  .wpcf7-not-valid-tip {
   margin-top: 0;
 }
 
 .content-area .request-form .row.previous-radios-short input[type="radio"],
-.content-area.area-2 .request-form .row.previous-radios-short input[type="radio"] {
+.content-area.area-2
+  .request-form
+  .row.previous-radios-short
+  input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   position: relative;
@@ -1403,8 +1443,14 @@ h6 {
   border: none;
 }
 
-.content-area .request-form .row.previous-radios-short input[type="radio"]:before,
-.content-area.area-2 .request-form .row.previous-radios-short input[type="radio"]:before {
+.content-area
+  .request-form
+  .row.previous-radios-short
+  input[type="radio"]:before,
+.content-area.area-2
+  .request-form
+  .row.previous-radios-short
+  input[type="radio"]:before {
   content: "";
   background: #fff;
   display: block;
@@ -1413,8 +1459,14 @@ h6 {
   border-radius: 50%;
 }
 
-.content-area .request-form .row.previous-radios-short input[type="radio"]:after,
-.content-area.area-2 .request-form .row.previous-radios-short input[type="radio"]:after {
+.content-area
+  .request-form
+  .row.previous-radios-short
+  input[type="radio"]:after,
+.content-area.area-2
+  .request-form
+  .row.previous-radios-short
+  input[type="radio"]:after {
   content: "";
   position: absolute;
   left: 5px;
@@ -1427,8 +1479,14 @@ h6 {
   transition: transform 0.3s ease;
 }
 
-.content-area .request-form .row.previous-radios-short input[type="radio"]:checked:after,
-.content-area.area-2 .request-form .row.previous-radios-short input[type="radio"]:checked:after {
+.content-area
+  .request-form
+  .row.previous-radios-short
+  input[type="radio"]:checked:after,
+.content-area.area-2
+  .request-form
+  .row.previous-radios-short
+  input[type="radio"]:checked:after {
   transform: scale(1);
 }
 
@@ -1474,18 +1532,18 @@ h6 {
   margin: 0 0 24px;
 }
 
-.content-area.area-2 p+p {
+.content-area.area-2 p + p {
   padding-top: 4px;
 }
 
-.content-area.area-2 p+ul {
+.content-area.area-2 p + ul {
   margin-top: -23px;
 }
 
-.content-area.area-2 p+.video,
-.content-area.area-2 ul+.video,
-.content-area.area-2 h2+.video,
-.content-area.area-2 h3+.video {
+.content-area.area-2 p + .video,
+.content-area.area-2 ul + .video,
+.content-area.area-2 h2 + .video,
+.content-area.area-2 h3 + .video {
   padding: 30px 0 0;
 }
 
@@ -1607,9 +1665,9 @@ h6 {
   margin: 0 0 15px;
 }
 
-.faq .answer p+.greybox,
-.faq .answer .video+.greybox,
-.faq .answer iframe+.greybox {
+.faq .answer p + .greybox,
+.faq .answer .video + .greybox,
+.faq .answer iframe + .greybox {
   margin: -15px 0 0;
 }
 
@@ -1870,7 +1928,7 @@ h6 {
 }
 
 /* "|" только между пунктами (при одном пункте li + li не срабатывает) */
-.bottom-footer-menu>li+li::before {
+.bottom-footer-menu > li + li::before {
   content: "|";
   margin: 0 10px;
   color: #fff;
@@ -1953,19 +2011,15 @@ h6 {
   color: #999;
   margin: 13px 0 0;
 }
-
 @media only screen and (min-width: 2001px) {
-
   .new-landing #header .container,
   .new-landing .top-section {
     max-width: none;
   }
-
   .new-landing .top-section .holder:after {
     background-size: 100% 242px;
   }
 }
-
 @media only screen and (min-width: 2101px) {
   .new-landing #header .container {
     height: 90px;
@@ -2001,43 +2055,34 @@ h6 {
     font-size: 26px;
   }
 }
-
 @media only screen and (min-width: 2201px) {
   .new-landing #header .container {
     height: 100px;
   }
-
   .hero-premia {
     margin-top: 100px;
   }
-
   .new-landing .top-section .request-appointment-section.fixed {
     top: 100px;
   }
-
   .new-landing .top-section {
     margin-top: 100px;
   }
-
   .new-landing .top-section .holder {
     height: 1050px;
   }
-
   .new-landing .top-section h1 {
     font-size: 90px;
     top: 40%;
   }
-
   .new-landing .top-section .person img {
     width: 536px;
   }
-
   .new-landing .top-section .top-section-content {
     width: 48%;
     font-size: 28px;
   }
 }
-
 @media only screen and (min-width: 2350px) {
   .new-landing #header .container {
     height: 110px;
@@ -2050,49 +2095,39 @@ h6 {
   .new-landing .top-section .request-appointment-section.fixed {
     top: 110px;
   }
-
   .new-landing .top-section {
     margin-top: 110px;
   }
-
   .new-landing .top-section h1 {
     font-size: 105px;
     top: 40%;
   }
-
   .new-landing .top-section .holder {
     height: 1100px;
   }
-
   .new-landing .top-section .person img {
     width: 600px;
   }
-
   .new-landing .top-section .top-section-content {
     width: 50.5%;
     font-size: 32px;
     padding-left: 210px;
   }
 }
-
 @media only screen and (max-width: 1860px) {
   .new-landing #header .container {
     padding-inline: 65px;
     height: 80px;
   }
-
   .new-landing #header .logo {
     margin: 0 0 0 30px;
   }
-
   .new-landing #header .logo img {
     height: 55px;
   }
-
   .new-landing .call-now-request {
     margin-inline: 0 30px;
   }
-
   .new-landing .call-now-request .phone {
     padding-inline: 0 64px;
     background: url("../images/ico-phone.svg") no-repeat 100% 50% / auto 47px;
@@ -2101,29 +2136,24 @@ h6 {
       Arial,
       sans-serif;
   }
-
   .new-landing .slogan {
     font:
       600 28px "Figtree",
       Arial,
       sans-serif;
   }
-
   .new-landing .top-section {
     margin: 80px auto 60px;
     padding-inline: 65px;
     border-radius: 50px;
   }
-
   .new-landing .top-section .holder {
     border-radius: 50px;
     height: 900px;
   }
-
   .new-landing .top-section .request-appointment-section {
     padding: 0 30px 23px;
   }
-
   .new-landing .top-section .request-appointment-section h3 {
     margin: 6px 0 10px;
     font:
@@ -2131,14 +2161,24 @@ h6 {
       Arial,
       sans-serif;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row {
     gap: 18px;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row input[type="text"],
-  .new-landing .top-section .request-appointment-section .fields-row input[type="tel"],
-  .new-landing .top-section .request-appointment-section .fields-row input[type="email"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="text"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="tel"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="email"],
   .new-landing .top-section .request-appointment-section .fields-row textarea,
   .new-landing .top-section .request-appointment-section .fields-row select {
     font:
@@ -2146,12 +2186,14 @@ h6 {
       Arial,
       sans-serif;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row select {
     padding-right: 33px;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row input[type="submit"] {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="submit"] {
     border-radius: 10px;
     padding: 0 10px;
     font:
@@ -2159,12 +2201,14 @@ h6 {
       Arial,
       sans-serif;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row .wpcf7-spinner {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    .wpcf7-spinner {
     right: -34px;
     margin: -12px 0 0;
   }
-
   .new-landing .top-section .request-appointment-section .note {
     font:
       14px/1 "Figtree",
@@ -2172,31 +2216,24 @@ h6 {
       sans-serif;
     /* margin: 13px 0 0; */
   }
-
   .new-landing .top-section .request-appointment-section.fixed {
     top: 80px;
   }
-
   .new-landing .top-section .person {
     left: 31.7%;
     bottom: 169px;
   }
-
-  .new-landing .top-section .person .name {
-    top: 80%;
-    /* left: -23px; */
+  .new-landing .top-section .holder .name {
+    top: 100%;
+    left: 0;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 3px 10px 0 0;
-    /* border-right: 3px solid #fcc000; */
   }
-
   .new-landing .top-section .person img {
     width: 426px;
   }
-
   .new-landing .top-section h1 {
     left: 30px;
     top: 50%;
@@ -2206,73 +2243,59 @@ h6 {
       sans-serif;
     transform: translate(0, -71px);
   }
-
   .new-landing .top-section .top-section-content {
     width: 52%;
     transform: translate(0, -35px);
     padding: 26px 30px 16px 150px;
     font-size: 22px;
   }
-
   .new-landing .top-section .top-section-content img {
     margin: 0 28px 0 0;
   }
 }
-
 @media only screen and (max-width: 1500px) {
   .new-landing #header .container {
     padding-inline: 30px;
     height: 70px;
   }
-
   .hero-premia {
     margin-top: 70px;
   }
-
   .new-landing #header .logo {
     margin: 0 0 0 20px;
   }
-
   .new-landing #header .logo img {
     height: 50px;
   }
-
   .new-landing .call-now-request {
     margin-inline: 0 20px;
   }
-
   .new-landing .call-now-request .phone {
     padding-inline: 0 50px;
     background: url("../images/ico-phone.svg") no-repeat 100% 50% / auto 37px;
     font-size: 24px;
     line-height: 37px;
   }
-
   .new-landing .slogan {
     font-size: 24px;
   }
-
   .new-landing .top-section {
     margin: 70px auto 50px;
     padding-inline: 30px;
     border-radius: 40px;
   }
-
   .new-landing .top-section .holder {
     border-radius: 40px;
     height: 700px;
   }
-
   .new-landing .top-section .request-appointment-section {
     padding: 0 30px 23px;
     height: 202px;
   }
-
   .new-landing .top-section .holder:after {
     background-position: 50% 0;
     height: 202px;
   }
-
   .new-landing .top-section .request-appointment-section h3 {
     margin: 6px 0 10px;
     font:
@@ -2280,18 +2303,27 @@ h6 {
       Arial,
       sans-serif;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row {
     gap: 10px;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row .field {
     width: 16.67%;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row input[type="text"],
-  .new-landing .top-section .request-appointment-section .fields-row input[type="tel"],
-  .new-landing .top-section .request-appointment-section .fields-row input[type="email"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="text"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="tel"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="email"],
   .new-landing .top-section .request-appointment-section .fields-row textarea,
   .new-landing .top-section .request-appointment-section .fields-row select {
     height: 40px;
@@ -2301,23 +2333,27 @@ h6 {
       Arial,
       sans-serif;
   }
-
   .new-landing .top-section .field .error-text {
     font-size: 14px;
     padding: 0 10px;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row select {
     padding-right: 25px;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row .field:has(select):after {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    .field:has(select):after {
     right: 10px;
     transform: translateY(-5px);
     border-width: 6px 5px 0 5px;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row input[type="submit"] {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="submit"] {
     height: 40px;
     padding: 0 10px;
     font:
@@ -2325,12 +2361,14 @@ h6 {
       Arial,
       sans-serif;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row .wpcf7-spinner {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    .wpcf7-spinner {
     right: -34px;
     margin: -12px 0 0;
   }
-
   .new-landing .top-section .request-appointment-section .note {
     font:
       12px/1 "Figtree",
@@ -2338,57 +2376,51 @@ h6 {
       sans-serif;
     /* margin: 10px 0 0; */
   }
-
   .new-landing .top-section .request-appointment-section.fixed {
     top: 70px;
     padding-block: 8px;
   }
-
   .new-landing .top-section .request-appointment-section.fixed .wpcf7 {
     padding-inline: 20px;
   }
-
   .new-landing .top-section .person {
     left: 31.7%;
     bottom: 149px;
-    padding-right: 40px;
   }
-
-  .new-landing .top-section .person .name {
-    /* top: 74px; */
-    left: 67%;
+  .new-landing .top-section .holder .name {
+    top: 100%;
+    left: 0;
+    padding-left: 47px;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 3px 10px 0 0;
-    /* border-right: 3px solid #fcc000; */
   }
-
   .new-landing .top-section .person img {
     width: 326px;
   }
-
   .new-landing .top-section h1 {
     left: 30px;
     top: 50%;
     font-size: 51px;
     transform: translate(0, -71px);
   }
-
   .new-landing .top-section .top-section-content {
     width: 52%;
     transform: translate(0, -75px);
     padding: 20px 20px 12px 60px;
     font-size: 20px;
   }
-
   .new-landing .top-section .top-section-content img {
     margin: 0 10px 0 0;
     width: 85px;
   }
 }
-
+@media screen and (max-width: 1300px) {
+  .new-landing .top-section .holder .name {
+    padding-left: 60px;
+  }
+}
 @media only screen and (max-width: 1250px) {
   .new-landing .top-section h1 {
     left: 30px;
@@ -2396,7 +2428,6 @@ h6 {
     font-size: 44px;
     transform: translate(0, -81px);
   }
-
   .new-landing .top-section .top-section-content {
     width: 50%;
     transform: translate(0, -85px);
@@ -2404,7 +2435,6 @@ h6 {
     font-size: 18px;
   }
 }
-
 @media only screen and (max-width: 1130px) {
   .wrapper.sticky-header .call-now-wrapper .call-now-right {
     width: 52.18%;
@@ -2415,11 +2445,9 @@ h6 {
   .top-section .holder {
     flex-wrap: wrap;
   }
-
   .wrapper.sticky-header {
     margin-top: 40px;
   }
-
   .wrapper.new-landing.sticky-header {
     margin-top: 0px;
   }
@@ -2542,18 +2570,27 @@ h6 {
   margin: 8px 12px 10px 4px;
 }
 
-.request-appointment.blue .request-form .row.previous-radios .wpcf7-list-item-label {
+.request-appointment.blue
+  .request-form
+  .row.previous-radios
+  .wpcf7-list-item-label {
   vertical-align: middle;
   margin-left: 4px;
   color: #fff;
   display: inline-block;
 }
 
-.request-appointment.blue .request-form .row.previous-radios .wpcf7-not-valid-tip {
+.request-appointment.blue
+  .request-form
+  .row.previous-radios
+  .wpcf7-not-valid-tip {
   margin-top: 0;
 }
 
-.request-appointment.blue .request-form .row.previous-radios input[type="radio"] {
+.request-appointment.blue
+  .request-form
+  .row.previous-radios
+  input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   position: relative;
@@ -2571,7 +2608,10 @@ h6 {
 /*    border: none*/
 /*}*/
 
-.request-appointment.blue .request-form .row.previous-radios input[type="radio"]:after {
+.request-appointment.blue
+  .request-form
+  .row.previous-radios
+  input[type="radio"]:after {
   content: "";
   position: absolute;
   left: 5px;
@@ -2584,7 +2624,10 @@ h6 {
   transition: transform 0.3s ease;
 }
 
-.request-appointment.blue .request-form .row.previous-radios input[type="radio"]:checked:after {
+.request-appointment.blue
+  .request-form
+  .row.previous-radios
+  input[type="radio"]:checked:after {
   transform: scale(1);
 }
 
@@ -2911,14 +2954,14 @@ h6 {
     margin: 0 0 20px;
   }
 
-  .content-area.area-2 p+ul {
+  .content-area.area-2 p + ul {
     margin-top: -19px;
   }
 
-  .content-area.area-2 p+.video,
-  .content-area.area-2 ul+.video,
-  .content-area.area-2 h2+.video,
-  .content-area.area-2 h3+.video {
+  .content-area.area-2 p + .video,
+  .content-area.area-2 ul + .video,
+  .content-area.area-2 h2 + .video,
+  .content-area.area-2 h3 + .video {
     padding: 20px 0 0;
   }
 
@@ -3016,6 +3059,13 @@ h6 {
     font-size: 32px;
   }
 }
+@media screen and (max-width: 1050px) {
+  .new-landing .top-section .holder .name {
+    top: auto;
+    bottom: 100%;
+    padding-left: 100px;
+  }
+}
 
 @media screen and (max-width: 1023px) {
   .intro-content ul li {
@@ -3033,50 +3083,40 @@ h6 {
     padding-inline: 20px;
     height: 68px;
   }
-
   .hero-premia {
     margin-top: 68px;
   }
-
   .new-landing #header .logo {
     margin: 0;
   }
-
   .new-landing #header .logo img {
     height: 46px;
   }
-
   .new-landing .call-now-request {
     margin-inline: 0;
   }
-
   .new-landing .call-now-request .phone {
     padding-inline: 0 39px;
     background-size: auto 29px;
     font-size: 17px;
     line-height: 29px;
   }
-
   .new-landing .slogan {
     font-size: 16px;
   }
-
   .new-landing .top-section {
     margin: 68px auto 21px;
     padding-inline: 20px;
     border-radius: 25px 25px 0 0;
     box-sizing: border-box;
   }
-
   .new-landing .top-section .request-appointment-section {
     padding: 62px 15px 12px;
     height: auto;
   }
-
   .new-landing .top-section .holder {
     height: 650px;
   }
-
   .new-landing .top-section .holder:after {
     content: "";
     position: absolute;
@@ -3084,11 +3124,11 @@ h6 {
     left: 0;
     height: 165px;
     width: 100%;
-    background: url("../images/curve-for-form-mobile.png") no-repeat 50% 0 / 100% 165px;
+    background: url("../images/curve-for-form-mobile.png") no-repeat 50% 0 /
+      100% 165px;
     /*mix-blend-mode: multiply;*/
     z-index: 6;
   }
-
   .new-landing .top-section .holder:before {
     content: "";
     position: absolute;
@@ -3100,7 +3140,6 @@ h6 {
     /*mix-blend-mode: multiply;*/
     z-index: 6;
   }
-
   .new-landing .top-section .request-appointment-section h3 {
     margin: 0 0 5px;
     font:
@@ -3110,25 +3149,37 @@ h6 {
     text-align: left;
     mix-blend-mode: normal;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 13px 15px;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row .field {
     width: auto;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row .field:has(input[type="submit"]) {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    .field:has(input[type="submit"]) {
     width: 100%;
     grid-column: 1 / -1;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row input[type="text"],
-  .new-landing .top-section .request-appointment-section .fields-row input[type="tel"],
-  .new-landing .top-section .request-appointment-section .fields-row input[type="email"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="text"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="tel"],
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="email"],
   .new-landing .top-section .request-appointment-section .fields-row textarea,
   .new-landing .top-section .request-appointment-section .fields-row select {
     height: 30px;
@@ -3139,16 +3190,17 @@ h6 {
       sans-serif;
     border-radius: 5.5px;
   }
-
   .new-landing .top-section .field .error-text {
     font-size: 12px;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row select {
     padding-right: 25px;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row input[type="submit"] {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    input[type="submit"] {
     height: 40px;
     padding: 0 10px;
     font:
@@ -3156,12 +3208,14 @@ h6 {
       Arial,
       sans-serif;
   }
-
-  .new-landing .top-section .request-appointment-section .fields-row .wpcf7-spinner {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .fields-row
+    .wpcf7-spinner {
     right: -34px;
     margin: -12px 0 0;
   }
-
   .new-landing .top-section .request-appointment-section .note {
     font:
       10px/14px "Figtree",
@@ -3171,43 +3225,34 @@ h6 {
     text-align: left;
     max-width: 205px;
   }
-
   .new-landing .top-section .request-appointment-section.fixed {
     top: 64px;
     height: 150px;
     z-index: 20;
   }
-
   .new-landing .top-section .request-appointment-section.fixed .wpcf7 {
     padding-inline: 15px;
   }
-
   .new-landing .top-section .person {
     bottom: 210px;
   }
-
-  .new-landing .top-section .person .name {
-    /* top: 41px; */
-    /* left: -33px; */
+  .new-landing .top-section .holder .name {
     font:
       11px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 1px 5px 1px 0;
-    /* border-right: 2px solid #fcc000; */
+    padding-left: 70px;
+    left: -30px;
   }
-
   .new-landing .top-section .person img {
     width: 233px;
   }
-
   .new-landing .top-section h1 {
     left: 20px;
     top: 40%;
     font-size: 32px;
     transform: translate(0, -81px);
   }
-
   .new-landing .top-section .top-section-content {
     width: 52%;
     transform: translate(0, -85px);
@@ -3382,13 +3427,14 @@ h6 {
     top: 10%;
     width: 192px;
   }
-
   .new-landing .slogan {
     font-size: 14px;
   }
-
   .new-landing .top-section .top-section-content {
     width: 52%;
+  }
+  .new-landing .top-section .holder .name {
+    padding-left: 110px;
   }
 }
 
@@ -3399,15 +3445,12 @@ h6 {
     line-height: 1.3;
     max-width: 230px;
   }
-
   .new-landing .top-section .holder:after {
     bottom: 220px;
   }
-
   .new-landing .top-section .holder:before {
     height: 220px;
   }
-
   .new-landing .top-section .request-appointment-section {
     background: none;
     margin: 0 -15px;
@@ -3416,7 +3459,6 @@ h6 {
     height: auto;
     position: relative;
   }
-
   .new-landing .top-section .holder {
     border-radius: 25px 25px 0 0;
     height: auto;
@@ -3426,26 +3468,24 @@ h6 {
     flex-direction: column;
     overflow: visible;
   }
-
   .new-landing .top-section .person {
     left: auto;
     right: 10%;
     bottom: auto;
     top: 86px;
   }
-
-  .new-landing .top-section .person .name {
-    /* top: 21px; */
-    /* left: 13px; */
-
-    font:
-      8px/1 "Figtree",
-      Arial,
-      sans-serif;
-    padding: 1px 5px 1px 0;
-    /* border-right: 2px solid #fcc000; */
+  .new-landing .top-section .holder .name {
+    padding: 3px 5px 3px 12px;
+    border-right: 2px solid #fcc000;
+    right: -10px;
+    bottom: 104px;
+    left: auto;
+    text-align: right;
   }
-
+  .new-landing .top-section .holder .name span {
+    border: none;
+    padding: 0;
+  }
   .new-landing .top-section h1 {
     position: relative;
     left: -3px;
@@ -3455,7 +3495,6 @@ h6 {
     transform: none;
     margin: 0 0 50px;
   }
-
   .new-landing .top-section .top-section-content {
     width: 50%;
     position: relative;
@@ -3473,40 +3512,38 @@ h6 {
     z-index: 20;
     backdrop-filter: none;
   }
-
   .new-landing .top-section .top-section-content,
   .new-landing .top-section .top-section-content p {
     overflow: visible;
   }
-
   .new-landing .top-section .top-section-content img {
     width: 70px;
     margin: 5px 0 0 -5px;
+    position: relative;
+    z-index: 11;
   }
-
   .request-form .rows-holder {
     padding-bottom: 10px;
   }
-
-  .consent-checkbox>p {
+  .consent-checkbox > p {
     margin-top: 6px;
   }
-
   .new-landing .top-section .request-appointment-section.fixed {
     height: 200px;
     justify-content: start;
   }
-
   .new-landing .top-section .request-appointment-section.fixed .wpcf7 {
     padding-top: 14px;
   }
-
-  .new-landing .top-section .request-appointment-section.fixed .consent-checkbox .wpcf7-list-item-label {
+  .new-landing
+    .top-section
+    .request-appointment-section.fixed
+    .consent-checkbox
+    .wpcf7-list-item-label {
     line-height: 0.9 !important;
     padding-bottom: 0 !important;
   }
 }
-
 @media screen and (max-width: 639px) {
   .main-alternate .benefits-adv-content {
     padding: 15px 0;
@@ -3761,7 +3798,9 @@ h6 {
     transform: translateX(56%);
   }
 
-  .request-appointment-section .request-form .wpcf7-form-control-wrap[data-name="email"] {
+  .request-appointment-section
+    .request-form
+    .wpcf7-form-control-wrap[data-name="email"] {
     display: inline;
     transform: translateX(0);
   }
@@ -3865,7 +3904,7 @@ h6 {
     margin: 0 auto 7px;
   }
 
-  .benefits-section+.request-appointment {
+  .benefits-section + .request-appointment {
     display: none;
   }
 
@@ -4015,23 +4054,41 @@ h6 {
   .content-area .request-form .row.previous-radios .wpcf7-list-item,
   .content-area .request-form .row.previous-radios-short .wpcf7-list-item,
   .content-area.area-2 .request-form .row.previous-radios .wpcf7-list-item,
-  .content-area.area-2 .request-form .row.previous-radios-short .wpcf7-list-item {
+  .content-area.area-2
+    .request-form
+    .row.previous-radios-short
+    .wpcf7-list-item {
     margin: 0 14px 19px 5px;
   }
 
   .content-area .request-form .row.previous-radios .wpcf7-list-item-label,
   .content-area .request-form .row.previous-radios-short .wpcf7-list-item-label,
-  .content-area.area-2 .request-form .row.previous-radios .wpcf7-list-item-label,
-  .content-area.area-2 .request-form .row.previous-radios-short .wpcf7-list-item-label {
+  .content-area.area-2
+    .request-form
+    .row.previous-radios
+    .wpcf7-list-item-label,
+  .content-area.area-2
+    .request-form
+    .row.previous-radios-short
+    .wpcf7-list-item-label {
     color: #fff;
     margin-left: 4px;
     display: inline-block;
   }
 
   .content-area .request-form .row.previous-radios input[type="radio"]:before,
-  .content-area .request-form .row.previous-radios-short input[type="radio"]:before,
-  .content-area.area-2 .request-form .row.previous-radios input[type="radio"]:before,
-  .content-area.area-2 .request-form .row.previous-radios-short input[type="radio"]:before {
+  .content-area
+    .request-form
+    .row.previous-radios-short
+    input[type="radio"]:before,
+  .content-area.area-2
+    .request-form
+    .row.previous-radios
+    input[type="radio"]:before,
+  .content-area.area-2
+    .request-form
+    .row.previous-radios-short
+    input[type="radio"]:before {
     border: none;
   }
 
@@ -4068,18 +4125,18 @@ h6 {
     margin: 0 0 19px;
   }
 
-  .content-area.area-2 p+p {
+  .content-area.area-2 p + p {
     padding-top: 0;
   }
 
-  .content-area.area-2 p+ul {
+  .content-area.area-2 p + ul {
     margin-top: -18px;
   }
 
-  .content-area.area-2 p+.video,
-  .content-area.area-2 ul+.video,
-  .content-area.area-2 h2+.video,
-  .content-area.area-2 h3+.video {
+  .content-area.area-2 p + .video,
+  .content-area.area-2 ul + .video,
+  .content-area.area-2 h2 + .video,
+  .content-area.area-2 h3 + .video {
     padding: 4px 0 0;
   }
 
@@ -4243,11 +4300,9 @@ h6 {
     text-shadow: 0 0 4px rgba(35, 31, 32, 0.83);
     margin: 0;
   }
-
   .new-landing .slogan {
     display: none;
   }
-
   .new-landing .top-section .request-appointment-section.fixed {
     height: 210px;
   }
@@ -4260,7 +4315,6 @@ h6 {
     width: 100%;
     height: 157px;
   }
-
   .new-landing .top-section .person {
     right: -45px;
   }
@@ -4279,7 +4333,6 @@ h6 {
   padding-top: 63px;
   padding-bottom: 65px;
 }
-
 .page-id-30280 .content-area .request-form .rows-holder,
 .content-area.area-2 .request-form .rows-holder {
   max-width: 594px;
@@ -4319,16 +4372,23 @@ h6 {
   letter-spacing: 0.2px;
 }
 
-.page-id-30280 .content-area .request-form .row.previous-radios input[type="radio"] {
+.page-id-30280
+  .content-area
+  .request-form
+  .row.previous-radios
+  input[type="radio"] {
   margin: unset;
 }
 
-.page-id-30280 .content-area .request-form .row.previous-radios .wpcf7-list-item-label {
+.page-id-30280
+  .content-area
+  .request-form
+  .row.previous-radios
+  .wpcf7-list-item-label {
   margin-left: 4px;
 }
 
 @media screen and (max-width: 639px) {
-
   .page-id-30280 .content-area .request-form,
   .content-area.area-2 .request-form {
     padding-top: 21px;
@@ -4394,12 +4454,16 @@ h6 {
   z-index: 1;
 }
 
-.consent-checkbox input[type="checkbox"]:checked+.wpcf7-list-item-label:before {
+.consent-checkbox
+  input[type="checkbox"]:checked
+  + .wpcf7-list-item-label:before {
   background-color: #fff;
   border-color: #1555a0;
 }
 
-.consent-checkbox input[type="checkbox"]:checked+.wpcf7-list-item-label:after {
+.consent-checkbox
+  input[type="checkbox"]:checked
+  + .wpcf7-list-item-label:after {
   content: "";
   position: absolute;
   left: 4px;
@@ -4461,7 +4525,7 @@ h6 {
   margin-top: 20px;
 }
 
-.wpcf7-form-control-wrap>textarea {
+.wpcf7-form-control-wrap > textarea {
   margin: 0;
 }
 
@@ -4470,23 +4534,28 @@ h6 {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .forth-form p>span:first-of-type {
+  .forth-form p > span:first-of-type {
     max-width: unset !important;
   }
-
-  .new-landing .top-section .request-appointment-section .consent-checkbox .wpcf7-list-item-label,
-  .new-landing .top-section .request-appointment-section .consent-checkbox .consent-privacy-link {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .consent-checkbox
+    .wpcf7-list-item-label,
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .consent-checkbox
+    .consent-privacy-link {
     font:
       10px / 1.1 "Figtree",
       Arial,
       sans-serif !important;
     text-align: left;
   }
-
   .consent-checkbox .wpcf7-list-item-label {
     padding: 0 0 5px 20px;
   }
-
   .new-landing .top-section .request-appointment-section .note {
     max-width: 100%;
     line-height: 1.2;
@@ -4498,11 +4567,9 @@ h6 {
   .field p .wpcf7-form-control-wrap {
     width: 100%;
   }
-
   .hero-premia .wpcf7-checkbox .wpcf7-list-item-label {
     max-width: 100%;
   }
-
   .new-landing .top-section .request-appointment-section p {
     margin: 0;
     width: 100%;
@@ -4515,16 +4582,14 @@ h6 {
   .first-form {
     margin-top: 0;
   }
-
-  .top-section .request-form>p:last-child {
+  .top-section .request-form > p:last-child {
     margin-top: 10px;
   }
 
   .second-form {
     margin-top: 20px;
   }
-
-  .request-form>p:last-child {
+  .request-form > p:last-child {
     margin-top: 10px;
   }
 
@@ -4535,14 +4600,17 @@ h6 {
   .new-landing .top-section .request-appointment-section .fields-row .field {
     width: 100%;
   }
-
   .new-landing .top-section .request-appointment-section .fields-row {
     grid-template-columns: repeat(2, 1fr);
     justify-items: flex-start;
     row-gap: 8px;
   }
 
-  .new-landing .top-section .request-appointment-section .consent-checkbox .wpcf7-list-item-label {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .consent-checkbox
+    .wpcf7-list-item-label {
     padding-top: 1px;
     padding-left: 15px;
   }
@@ -4551,37 +4619,53 @@ h6 {
     margin-top: 10px !important;
   }
 
-  .new-landing .top-section .request-appointment-section .consent-checkbox .wpcf7-list-item-label:before {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .consent-checkbox
+    .wpcf7-list-item-label:before {
     width: 10px;
     height: 10px;
   }
 
-  .new-landing .top-section .request-appointment-section .consent-checkbox input[type="checkbox"]:checked+.wpcf7-list-item-label:after {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .consent-checkbox
+    input[type="checkbox"]:checked
+    + .wpcf7-list-item-label:after {
     top: 3px;
     left: 3px;
   }
 
-  .new-landing .top-section .request-appointment-section .field:has(.hero-submit) {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .field:has(.hero-submit) {
     margin-top: 5px;
   }
-
   .new-landing .top-section .request-appointment-section p {
     margin: 0;
     width: 100%;
     display: block;
   }
-
-  .new-landing .top-section .request-appointment-section p>br {
+  .new-landing .top-section .request-appointment-section p > br {
     display: none;
   }
-
-  .forth-form p>span:first-of-type {
+  .forth-form p > span:first-of-type {
     width: 100% !important;
     max-width: unset !important;
   }
-
-  .new-landing .top-section .request-appointment-section .consent-checkbox .wpcf7-list-item-label,
-  .new-landing .top-section .request-appointment-section .consent-checkbox .consent-privacy-link {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .consent-checkbox
+    .wpcf7-list-item-label,
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .consent-checkbox
+    .consent-privacy-link {
     font:
       10px / 14px "Figtree",
       Arial,
@@ -4591,10 +4675,21 @@ h6 {
 }
 
 .request-form .consent-checkbox .wpcf7-form-control-wrap[data-name="consent"],
-.top-section .request-form .consent-checkbox .wpcf7-form-control-wrap[data-name="consent"],
-.content-area .request-form .consent-checkbox .wpcf7-form-control-wrap[data-name="consent"],
-.content-area.area-2 .request-form .consent-checkbox .wpcf7-form-control-wrap[data-name="consent"],
-.request-appointment .consent-checkbox .wpcf7-form-control-wrap[data-name="consent"] {
+.top-section
+  .request-form
+  .consent-checkbox
+  .wpcf7-form-control-wrap[data-name="consent"],
+.content-area
+  .request-form
+  .consent-checkbox
+  .wpcf7-form-control-wrap[data-name="consent"],
+.content-area.area-2
+  .request-form
+  .consent-checkbox
+  .wpcf7-form-control-wrap[data-name="consent"],
+.request-appointment
+  .consent-checkbox
+  .wpcf7-form-control-wrap[data-name="consent"] {
   position: relative;
   z-index: 6;
   overflow: visible;
@@ -4609,12 +4704,35 @@ h6 {
   display: none !important;
 }
 
-.request-form .consent-checkbox .wpcf7-checkbox.wpcf7-not-valid .wpcf7-list-item-label:before,
-.top-section .request-form .consent-checkbox .wpcf7-checkbox.wpcf7-not-valid .wpcf7-list-item-label:before,
-.content-area .request-form .consent-checkbox .wpcf7-checkbox.wpcf7-not-valid .wpcf7-list-item-label:before,
-.content-area.area-2 .request-form .consent-checkbox .wpcf7-checkbox.wpcf7-not-valid .wpcf7-list-item-label:before,
-.request-appointment .consent-checkbox .wpcf7-checkbox.wpcf7-not-valid .wpcf7-list-item-label:before,
-.new-landing .top-section .request-appointment-section .consent-checkbox .wpcf7-checkbox.wpcf7-not-valid .wpcf7-list-item-label:before {
+.request-form
+  .consent-checkbox
+  .wpcf7-checkbox.wpcf7-not-valid
+  .wpcf7-list-item-label:before,
+.top-section
+  .request-form
+  .consent-checkbox
+  .wpcf7-checkbox.wpcf7-not-valid
+  .wpcf7-list-item-label:before,
+.content-area
+  .request-form
+  .consent-checkbox
+  .wpcf7-checkbox.wpcf7-not-valid
+  .wpcf7-list-item-label:before,
+.content-area.area-2
+  .request-form
+  .consent-checkbox
+  .wpcf7-checkbox.wpcf7-not-valid
+  .wpcf7-list-item-label:before,
+.request-appointment
+  .consent-checkbox
+  .wpcf7-checkbox.wpcf7-not-valid
+  .wpcf7-list-item-label:before,
+.new-landing
+  .top-section
+  .request-appointment-section
+  .consent-checkbox
+  .wpcf7-checkbox.wpcf7-not-valid
+  .wpcf7-list-item-label:before {
   border-color: #dc3232;
 }
 
@@ -4626,8 +4744,16 @@ h6 {
   /* margin-left: auto; */
 }
 
-.new-landing .top-section .request-appointment-section .consent-checkbox .wpcf7-list-item-label,
-.new-landing .top-section .request-appointment-section .consent-checkbox .consent-privacy-link {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .consent-checkbox
+  .wpcf7-list-item-label,
+.new-landing
+  .top-section
+  .request-appointment-section
+  .consent-checkbox
+  .consent-privacy-link {
   color: #fff;
   font:
     14px/16px "Figtree",
@@ -4637,7 +4763,11 @@ h6 {
   letter-spacing: -0.2px;
 }
 
-.new-landing .top-section .request-appointment-section .consent-checkbox .wpcf7-not-valid-tip {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .consent-checkbox
+  .wpcf7-not-valid-tip {
   display: none !important;
 }
 
@@ -4742,7 +4872,6 @@ h6 {
   .request-appointment.gray .rows-holder {
     padding-bottom: 34px !important;
   }
-
   .second-form {
     margin-top: -45px;
   }
@@ -4771,18 +4900,20 @@ h6 {
   height: 100%;
   transition: all 0.3s;
   background-color: #fff !important;
-  clip-path: polygon(93.6% 0%,
-      50% 43.6%,
-      6.4% 0%,
-      0% 6.4%,
-      43.6% 50%,
-      0% 93.6%,
-      6.4% 100%,
-      50% 56.4%,
-      93.6% 100%,
-      100% 93.6%,
-      56.4% 50%,
-      100% 6.4%);
+  clip-path: polygon(
+    93.6% 0%,
+    50% 43.6%,
+    6.4% 0%,
+    0% 6.4%,
+    43.6% 50%,
+    0% 93.6%,
+    6.4% 100%,
+    50% 56.4%,
+    93.6% 100%,
+    100% 93.6%,
+    56.4% 50%,
+    100% 6.4%
+  );
 }
 
 #closeXButton:hover::after {
@@ -4821,9 +4952,10 @@ div:has(> .doctor-decor) {
   display: flex !important;
   gap: 20px !important;
 }
-
-#poptinDesignInputCustomField-CUSTOM_RECOMMENDATION .child-field-wrapper::before,
-#poptinDesignInputCustomField-CUSTOM_RECOMMENDATION .child-field-wrapper::after {
+#poptinDesignInputCustomField-CUSTOM_RECOMMENDATION
+  .child-field-wrapper::before,
+#poptinDesignInputCustomField-CUSTOM_RECOMMENDATION
+  .child-field-wrapper::after {
   display: none !important;
 }
 
@@ -4861,9 +4993,11 @@ div:has(> .doctor-decor) {
   width: 425px;
   height: 100%;
   z-index: -1 !important;
-  background: linear-gradient(270deg,
-      rgba(255, 255, 255, 0.65) 74%,
-      rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.65) 74%,
+    rgba(255, 255, 255, 0) 100%
+  );
   backdrop-filter: blur(3.75px);
 }
 
@@ -4871,7 +5005,8 @@ div:has(> .doctor-decor) {
   cursor: pointer !important;
 }
 
-#poptinDesignInputCustomField-CUSTOM_MY_INSURANCE_IS .radio-child-field:not(:last-child) {
+#poptinDesignInputCustomField-CUSTOM_MY_INSURANCE_IS
+  .radio-child-field:not(:last-child) {
   margin-bottom: 10px;
 }
 

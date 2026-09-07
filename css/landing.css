@@ -136,7 +136,7 @@ button {
   color: #000;
 }
 
-.text>* {
+.text > * {
   margin-bottom: 24px;
 }
 
@@ -166,7 +166,7 @@ button {
   margin-bottom: 40px;
 }
 
-.text>*:last-child {
+.text > *:last-child {
   margin-bottom: 0;
 }
 
@@ -286,7 +286,7 @@ body {
   position: relative;
 }
 
-.wrapper>* {
+.wrapper > * {
   min-width: 0;
 }
 
@@ -343,7 +343,7 @@ body::after {
   font-size: 16px;
 }
 
-.select__value>* {
+.select__value > * {
   flex: 1 1 auto;
 }
 
@@ -702,7 +702,7 @@ body::after {
   -ms-overflow-style: scrollbar !important;
 }
 
-.simplebar-dummy-scrollbar-size>div {
+.simplebar-dummy-scrollbar-size > div {
   width: 200%;
   height: 200%;
   margin: 10px 0;
@@ -913,13 +913,13 @@ body::after {
   user-select: none;
 }
 
-.splide__track--fade>.splide__list>.splide__slide {
+.splide__track--fade > .splide__list > .splide__slide {
   margin: 0 !important;
   opacity: 0;
   z-index: 0;
 }
 
-.splide__track--fade>.splide__list>.splide__slide.is-active {
+.splide__track--fade > .splide__list > .splide__slide.is-active {
   opacity: 1;
   z-index: 1;
 }
@@ -928,7 +928,7 @@ body::after {
   direction: rtl;
 }
 
-.splide__track--ttb>.splide__list {
+.splide__track--ttb > .splide__list {
   display: block;
 }
 
@@ -1046,12 +1046,12 @@ body::after {
   outline-offset: 3px;
 }
 
-.splide__track--nav>.splide__list>.splide__slide {
+.splide__track--nav > .splide__list > .splide__slide {
   border: 3px solid transparent;
   cursor: pointer;
 }
 
-.splide__track--nav>.splide__list>.splide__slide.is-active {
+.splide__track--nav > .splide__list > .splide__slide.is-active {
   border: 3px solid #000;
 }
 
@@ -1205,7 +1205,7 @@ body::after {
 }
 
 .slider-section__container {
-  max-width: 1565px;
+  max-width: 1549px;
 }
 
 .slider-section__header {
@@ -1751,18 +1751,24 @@ body::after {
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
-.map-section .find-doctor-map-filters__tooltip:hover .find-doctor-map-filters__tooltip-content {
+.map-section
+  .find-doctor-map-filters__tooltip:hover
+  .find-doctor-map-filters__tooltip-content {
   opacity: 1;
   visibility: visible;
 }
 
 @media (min-width: 768px) {
-  .map-section .find-doctor-map-filters__field:nth-child(3) .find-doctor-map-filters__tooltip-content {
+  .map-section
+    .find-doctor-map-filters__field:nth-child(3)
+    .find-doctor-map-filters__tooltip-content {
     left: auto;
     right: -8px;
   }
 
-  .map-section .find-doctor-map-filters__field:nth-child(3) .find-doctor-map-filters__tooltip-content::before {
+  .map-section
+    .find-doctor-map-filters__field:nth-child(3)
+    .find-doctor-map-filters__tooltip-content::before {
     left: auto;
     right: 11px;
   }
@@ -1791,7 +1797,9 @@ body::after {
   outline: none;
 }
 
-.map-section .find-doctor-map-filters__select-wrap.has-value .find-doctor-map-filters__input {
+.map-section
+  .find-doctor-map-filters__select-wrap.has-value
+  .find-doctor-map-filters__input {
   padding-right: 36px !important;
 }
 
@@ -1927,7 +1935,7 @@ input[type="submit"].contact-section__button {
   white-space: normal;
 }
 
-.contact-section__button+.wpcf7-spinner {
+.contact-section__button + .wpcf7-spinner {
   position: absolute;
   top: 50% !important;
   transform: translate(-50%, -50%) !important;
@@ -1959,7 +1967,8 @@ input[type="submit"].contact-section__button {
   border-radius: 50px 50px 0 0;
 }
 
-.hero-doctor h1 {}
+.hero-doctor h1 {
+}
 
 .patient-hero::before {
   content: "";
@@ -1968,9 +1977,11 @@ input[type="submit"].contact-section__button {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg,
-      #041c45 14.24%,
-      rgba(255, 255, 255, 0) 101.59%);
+  background: linear-gradient(
+    90deg,
+    #041c45 14.24%,
+    rgba(255, 255, 255, 0) 101.59%
+  );
   background-blend-mode: multiply;
   z-index: 2;
 }
@@ -2414,7 +2425,7 @@ input[type="submit"].contact-section__button {
     line-height: 1.6;
   }
 
-  .text>* {
+  .text > * {
     margin-bottom: 18px;
   }
 
@@ -2718,7 +2729,9 @@ input[type="submit"].contact-section__button {
     padding: 0 10px;
   }
 
-  .map-section .find-doctor-map-filters__label .find-doctor-map-filters__tooltip {
+  .map-section
+    .find-doctor-map-filters__label
+    .find-doctor-map-filters__tooltip {
     left: auto;
     top: 0px;
     right: -2px;
@@ -2805,7 +2818,6 @@ input[type="submit"].contact-section__button {
 }
 
 @media (max-width: 37.49875em) {
-
   .info-popup__slider img,
   .info-popup__video {
     width: 100%;
@@ -3044,7 +3056,7 @@ input[type="submit"].contact-section__button {
     border: 3px solid #0bf;
   }
 
-  .splide.is-focus-in .splide__track>.splide__list>.splide__slide:focus {
+  .splide.is-focus-in .splide__track > .splide__list > .splide__slide:focus {
     border-color: #0bf;
   }
 }
@@ -3077,9 +3089,11 @@ input[type="submit"].contact-section__button {
   pointer-events: none;
   height: 100%;
   mix-blend-mode: multiply;
-  background: linear-gradient(90deg,
-      #041c45 14.24%,
-      rgba(255, 255, 255, 0) 101.59%);
+  background: linear-gradient(
+    90deg,
+    #041c45 14.24%,
+    rgba(255, 255, 255, 0) 101.59%
+  );
   z-index: 1;
 }
 
@@ -3120,7 +3134,8 @@ input[type="submit"].contact-section__button {
     left: 0;
     height: 165px;
     width: 100%;
-    background: url(../images/curve-for-form-mobile.png) no-repeat 50% 0 / 100% 165px;
+    background: url(../images/curve-for-form-mobile.png) no-repeat 50% 0 / 100%
+      165px;
     /* mix-blend-mode: multiply; */
     z-index: 6;
   }
@@ -3402,21 +3417,21 @@ input[type="submit"].contact-section__button {
   height: auto;
 }
 
-.slider-section__slider .splide__slide>.info-item {
+.slider-section__slider .splide__slide > .info-item {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   width: 100%;
 }
 
-.benefits-pr__slider .splide__slide>.item-benefits {
+.benefits-pr__slider .splide__slide > .item-benefits {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.map-section__map>* {
+.map-section__map > * {
   width: 100% !important;
   height: 100% !important;
   min-height: 100%;
@@ -3527,8 +3542,8 @@ input[type="submit"].contact-section__button {
   overflow: visible !important;
 }
 
-.contact-section__field>p,
-.contact-section__field>p>.wpcf7-form-control-wrap {
+.contact-section__field > p,
+.contact-section__field > p > .wpcf7-form-control-wrap {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -3619,7 +3634,10 @@ ctm-chat {
 
 .contact-section__field .field__input.wpcf7-not-valid,
 .contact-section__field .field__textarea.wpcf7-not-valid,
-.contact-section__field:has(.select:not(.--select-active):not(.--select-focus):not(.--select-open)):has(.wpcf7-not-valid) .select__value {
+.contact-section__field:has(
+    .select:not(.--select-active):not(.--select-focus):not(.--select-open)
+  ):has(.wpcf7-not-valid)
+  .select__value {
   border-color: #dc3232 !important;
 }
 
@@ -3712,7 +3730,12 @@ ctm-chat::part(engage-message-bubble) {
   padding: 19px 0 12px !important;
 }
 
-.new-landing .top-section .request-appointment-section .wpcf7 .select--show-top .select__options {
+.new-landing
+  .top-section
+  .request-appointment-section
+  .wpcf7
+  .select--show-top
+  .select__options {
   top: auto;
   bottom: calc(100% + 7px);
 }
@@ -3732,7 +3755,11 @@ ctm-chat::part(engage-message-bubble) {
     font-size: 14px;
   }
 
-  .new-landing .top-section .request-appointment-section .wpcf7 .select__option {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .wpcf7
+    .select__option {
     font-size: 14px;
   }
 }
@@ -3745,21 +3772,37 @@ ctm-chat::part(engage-message-bubble) {
     padding: 5px 4px 5px 10px;
   }
 
-  .new-landing .top-section .request-appointment-section .wpcf7 .select__option {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .wpcf7
+    .select__option {
     padding: 6px 10px;
   }
 
-  .new-landing .top-section .request-appointment-section .wpcf7 .select__options {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .wpcf7
+    .select__options {
     border-radius: 5.5px !important;
     padding: 0px !important;
   }
 
-  .new-landing .top-section .request-appointment-section .wpcf7 .select__value::after {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .wpcf7
+    .select__value::after {
     width: 7px;
     height: 4px;
   }
 
-  .new-landing .top-section .request-appointment-section .wpcf7 .select__option {
+  .new-landing
+    .top-section
+    .request-appointment-section
+    .wpcf7
+    .select__option {
     font-size: 12px;
   }
 
@@ -3832,12 +3875,12 @@ p:has(.has-spinner) .wpcf7-spinner {
   transform: translateX(-50%);
 }
 
-.info-popup>.info-popup__video {
+.info-popup > .info-popup__video {
   aspect-ratio: 1092/614;
 }
 
 @media (max-width: 37.49875em) {
-  .info-popup>.info-popup__video {
+  .info-popup > .info-popup__video {
     aspect-ratio: 335/209;
   }
 }
