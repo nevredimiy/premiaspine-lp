@@ -63,19 +63,36 @@
     );
   }
 
-  function withAutoplayParam(embedUrl, autoplay) {
+  function withAutoplayParam(embedUrl, autoplay, muted) {
     try {
       var url = new URL(embedUrl, window.location.href);
       url.searchParams.set("autoplay", autoplay ? "1" : "0");
+      if (muted) {
+        // Browsers only allow gesture-less autoplay when the video is muted,
+        // so a popup opened straight from a shared URL starts silent.
+        url.searchParams.set("mute", "1");
+      }
       return url.toString();
     } catch (error) {
       var clean = embedUrl
         .replace(/([?&])autoplay=[01]\b/gi, "")
         .replace(/[?&]$/, "");
       var separator = clean.indexOf("?") >= 0 ? "&" : "?";
-
-      return clean + separator + "autoplay=" + (autoplay ? "1" : "0");
+      var next = clean + separator + "autoplay=" + (autoplay ? "1" : "0");
+      if (muted && !/([?&])mute=1\b/i.test(next)) {
+        next = next.replace(/([?&])mute=0\b/i, "$1mute=1");
+        if (!/([?&])mute=1\b/i.test(next)) {
+          next += "&mute=1";
+        }
+      }
+      return next;
     }
+  }
+
+  // A popup opened by JS (from ?patient=/?surgeon= or browser back/forward)
+  // has no user gesture behind it, so its autoplay has to be muted.
+  function popupAutoplayMuted(popup) {
+    return !!popup && popup.getAttribute("data-story-autoplay-muted") === "1";
   }
 
   function sendYoutubeCommand(iframe, func, args) {
@@ -126,16 +143,50 @@
     iframe.removeAttribute("src");
   }
 
-  function activateYoutubeIframe(iframe, autoplay) {
+  function activateYoutubeIframe(iframe, autoplay, muted) {
     var embedUrl = getIframeEmbedUrl(iframe);
     if (!embedUrl) {
       return;
     }
 
-    var nextSrc = withAutoplayParam(embedUrl, !!autoplay);
+    var nextSrc = withAutoplayParam(embedUrl, !!autoplay, !!muted);
     if (iframe.getAttribute("src") !== nextSrc) {
       iframe.setAttribute("src", nextSrc);
     }
+  }
+
+  // First real interaction inside a muted-autoplay popup: unmute its video(s).
+  var unmuteHandlers = new WeakMap();
+
+  function bindUnmuteOnFirstInteraction(popup) {
+    if (!popup || unmuteHandlers.has(popup)) {
+      return;
+    }
+
+    var unmute = function () {
+      unbindUnmuteOnFirstInteraction(popup);
+      popup.querySelectorAll("iframe").forEach(function (iframe) {
+        if (!iframe.getAttribute("src")) {
+          return;
+        }
+        sendYoutubeCommand(iframe, "unMute");
+        sendYoutubeCommand(iframe, "setVolume", [100]);
+      });
+    };
+
+    unmuteHandlers.set(popup, unmute);
+    popup.addEventListener("pointerdown", unmute, true);
+    popup.addEventListener("keydown", unmute, true);
+  }
+
+  function unbindUnmuteOnFirstInteraction(popup) {
+    var unmute = popup && unmuteHandlers.get(popup);
+    if (!unmute) {
+      return;
+    }
+    popup.removeEventListener("pointerdown", unmute, true);
+    popup.removeEventListener("keydown", unmute, true);
+    unmuteHandlers.delete(popup);
   }
 
   var gallerySyncFrame = null;
@@ -183,7 +234,11 @@
 
     var iframe = getSlideYoutubeIframe(activeSlide.slide);
     if (iframe) {
-      activateYoutubeIframe(iframe, autoplay);
+      var muted = autoplay && popupAutoplayMuted(popup);
+      activateYoutubeIframe(iframe, autoplay, muted);
+      if (muted) {
+        bindUnmuteOnFirstInteraction(popup);
+      }
     }
   }
 
@@ -220,7 +275,12 @@
       return;
     }
 
-    activateYoutubeIframe(iframe, shouldAutoplayStandaloneVideo(popup, iframe));
+    var autoplay = shouldAutoplayStandaloneVideo(popup, iframe);
+    var muted = autoplay && popupAutoplayMuted(popup);
+    activateYoutubeIframe(iframe, autoplay, muted);
+    if (muted) {
+      bindUnmuteOnFirstInteraction(popup);
+    }
   }
 
   function pauseStandaloneYoutubePlayer(popup) {
@@ -385,6 +445,8 @@
     }
 
     pauseStoryPopupMedia(popup);
+    unbindUnmuteOnFirstInteraction(popup);
+    popup.removeAttribute("data-story-autoplay-muted");
 
     if (activePopup === popup) {
       activePopup = null;
@@ -516,6 +578,8 @@
     }
     var popup = getStoryPopupFromLocation();
     if (popup) {
+      // No user gesture behind this open -> autoplay must start muted.
+      popup.setAttribute("data-story-autoplay-muted", "1");
       window.flsPopup.open(popup.getAttribute("data-fls-popup"));
     }
   }
@@ -535,6 +599,7 @@
     suppressStoryUrlSync = true;
     if (targetPopup) {
       if (openEl !== targetPopup) {
+        targetPopup.setAttribute("data-story-autoplay-muted", "1");
         window.flsPopup.open(targetPopup.getAttribute("data-fls-popup"));
       }
     } else if (openEl && openEl.getAttribute("data-story-param")) {
