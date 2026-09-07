@@ -834,48 +834,22 @@ body::after {
   display: block;
 }
 .splide__arrow {
-  -ms-flex-align: center;
-  align-items: center;
-  background: #ccc;
-  border: 0;
-  border-radius: 50%;
-  cursor: pointer;
-  display: -ms-flexbox;
-  display: flex;
-  height: 2em;
-  -ms-flex-pack: center;
-  justify-content: center;
-  opacity: 0.7;
-  padding: 0;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 2em;
   z-index: 1;
-}
-.splide__arrow svg {
-  fill: #000;
-  height: 1.2em;
-  width: 1.2em;
-}
-.splide__arrow:hover:not(:disabled) {
-  opacity: 0.9;
 }
 .splide__arrow:disabled {
   opacity: 0.3;
 }
-.splide__arrow:focus-visible {
-  outline: 3px solid #0bf;
-  outline-offset: 3px;
-}
 .splide__arrow--prev {
-  left: 1em;
+  left: 0;
 }
 .splide__arrow--prev svg {
   transform: scaleX(-1);
 }
 .splide__arrow--next {
-  right: 1em;
+  right: 0;
 }
 .splide.is-focus-in .splide__arrow:focus {
   outline: 3px solid #0bf;
@@ -1085,20 +1059,17 @@ body::after {
   margin: 0 auto;
   min-width: 0;
 }
-.slider-section__gr-container {
-  display: grid;
-  min-width: 0;
-  grid-template-columns: 20px 1fr minmax(auto, 1200px) 1fr 20px;
-}
-.slider-section__gr-container > * {
-  min-width: 0;
-  grid-column: 3/4;
+.slider-section__container {
+  max-width: 1565px;
 }
 .slider-section__header {
   display: flex;
   gap: 20px;
   justify-content: space-between;
   align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1217px;
 }
 .slider-section__header:not(:last-child) {
   margin-bottom: 58px;
@@ -1106,6 +1077,13 @@ body::after {
 .slider-section__arrows {
   display: flex;
   gap: 5px;
+}
+.slider-section__slider .splide__arrow {
+  border-radius: 0;
+  opacity: 1;
+}
+.slider-section__slider .splide__arrow svg {
+  display: none !important;
 }
 .slider-section__arrow {
   width: 38px;
@@ -2614,31 +2592,6 @@ input[type="submit"].contact-section__button {
   }
 }
 
-@media (min-width: 84.37375em) {
-  .slider-section__slider {
-    grid-column: 2/5;
-  }
-  .slider-section__slider::before,
-  .slider-section__slider::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 22.4%;
-    z-index: 2;
-    pointer-events: none;
-    transition: all 0.3s;
-  }
-  .slider-section__slider::before {
-    left: 0;
-    background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #fff 91.83%);
-  }
-  .slider-section__slider::after {
-    right: 0;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 91.83%);
-  }
-}
-
 @media (any-hover: hover) {
   .text a:hover {
     text-decoration-color: transparent;
@@ -2806,6 +2759,9 @@ input[type="submit"].contact-section__button {
   .patient-hero__name {
     margin-bottom: 60px;
   }
+  .slider-section__slider {
+    padding: 0 60px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -2911,14 +2867,6 @@ input[type="submit"].contact-section__button {
     padding-left: 65px;
     padding-right: 65px;
   }
-  .slider-section__slider {
-    margin-left: -98px;
-    margin-right: -98px;
-  }
-  .slider-section__slider::before,
-  .slider-section__slider::after {
-    width: calc(22.4% + 98px);
-  }
 }
 
 @media screen and (max-width: 499.98px) {
@@ -2984,12 +2932,11 @@ input[type="submit"].contact-section__button {
   }
   .hero-premia .name {
     font-size: 11px !important;
-    top: 96px !important;
-    left: auto !important;
-    right: 6% !important;
-    bottom: auto !important;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 100%);
-    padding: 3px 9px 3px 5px !important;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.65) 0%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
   }
   .slider-section__slider:not(:last-child) {
     margin-bottom: 24px;

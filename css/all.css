@@ -861,19 +861,27 @@ h6 {
 }
 .new-landing .top-section .holder .name {
   position: absolute;
-  top: 440px;
-  left: 610px;
+  top: 100%;
+  left: 0;
   font:
     14px/1 "Figtree",
     Arial,
     sans-serif;
   text-align: left;
-  padding: 6px 14px 6px 11px;
-  border-left: 3px solid #fcc000;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 100%);
+  padding: 8.5px 29px 8.5px 70px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
   color: #fff;
-  max-width: 200px;
   z-index: 10;
+}
+.new-landing .top-section .holder .name span {
+  padding-left: 6px;
+  border-left: 3px solid #fcc000;
+  display: inline-block;
 }
 .new-landing .top-section .person img {
   width: 426px;
@@ -902,7 +910,6 @@ h6 {
   transform: translate(0, -35px);
   box-sizing: border-box;
   padding: 26px 20px 16px 150px;
-  overflow: hidden;
   font:
     24px/1.54 "Figtree",
     Arial,
@@ -2212,14 +2219,12 @@ h6 {
     bottom: 169px;
   }
   .new-landing .top-section .holder .name {
-    top: 430px;
-    left: 540px;
+    top: 100%;
+    left: 0;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 6px 14px 6px 11px;
-    border-left: 3px solid #fcc000;
   }
   .new-landing .top-section .person img {
     width: 426px;
@@ -2378,14 +2383,12 @@ h6 {
     bottom: 149px;
   }
   .new-landing .top-section .holder .name {
-    top: 330px;
-    left: 430px;
+    top: 100%;
+    left: 0;
     font:
       14px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 6px 14px 6px 11px;
-    border-left: 3px solid #fcc000;
   }
   .new-landing .top-section .person img {
     width: 326px;
@@ -3045,6 +3048,13 @@ h6 {
     font-size: 32px;
   }
 }
+@media screen and (max-width: 1050px) {
+  .new-landing .top-section .holder .name {
+    top: auto;
+    bottom: 100%;
+    padding-left: 100px;
+  }
+}
 
 @media screen and (max-width: 1023px) {
   .intro-content ul li {
@@ -3216,14 +3226,12 @@ h6 {
     bottom: 210px;
   }
   .new-landing .top-section .holder .name {
-    top: 300px;
-    left: 300px;
     font:
       11px/1 "Figtree",
       Arial,
       sans-serif;
-    padding: 4px 10px 4px 7px;
-    border-left: 2px solid #fcc000;
+    padding-left: 70px;
+    left: -30px;
   }
   .new-landing .top-section .person img {
     width: 233px;
@@ -3414,6 +3422,9 @@ h6 {
   .new-landing .top-section .top-section-content {
     width: 52%;
   }
+  .new-landing .top-section .holder .name {
+    padding-left: 110px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -3453,16 +3464,16 @@ h6 {
     top: 86px;
   }
   .new-landing .top-section .holder .name {
-    top: 104px;
-    right: 8%;
+    padding: 3px 5px 3px 12px;
+    border-right: 2px solid #fcc000;
+    right: -10px;
+    bottom: 104px;
     left: auto;
-
-    font:
-      8px/1 "Figtree",
-      Arial,
-      sans-serif;
-    padding: 3px 8px 3px 6px;
-    border-left: 2px solid #fcc000;
+    text-align: right;
+  }
+  .new-landing .top-section .holder .name span {
+    border: none;
+    padding: 0;
   }
   .new-landing .top-section h1 {
     position: relative;
@@ -3497,6 +3508,8 @@ h6 {
   .new-landing .top-section .top-section-content img {
     width: 70px;
     margin: 5px 0 0 -5px;
+    position: relative;
+    z-index: 11;
   }
   .request-form .rows-holder {
     padding-bottom: 10px;

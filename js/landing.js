@@ -5597,13 +5597,19 @@ document.addEventListener("DOMContentLoaded", function () {
     sectionSliderEls.forEach(function (sliderEl) {
       var sectionSlider = new Splide(sliderEl, {
         type: "loop",
-        arrows: false,
+        arrows: true,
         pagination: false,
         gap: 26,
         autoWidth: true,
+        classes: {
+          arrow: "splide__arrow slider-section__arrow",
+          prev: "splide__arrow--prev _sprite-ch-left",
+          next: "splide__arrow--next _sprite-ch-right",
+        },
         breakpoints: {
           767.98: {
             gap: 12,
+            arrows: false,
           },
           389.98: {
             autoWidth: false,
@@ -5613,21 +5619,6 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       });
       sliderEl.splide = sectionSlider;
-      var wrapper = sliderEl.closest("[data-sl-wrapper]");
-      if (wrapper) {
-        var prevBtn = wrapper.querySelector("[data-sl-arrow-prev]");
-        var nextBtn = wrapper.querySelector("[data-sl-arrow-next]");
-        if (prevBtn) {
-          prevBtn.addEventListener("click", function () {
-            sectionSlider.go("<");
-          });
-        }
-        if (nextBtn) {
-          nextBtn.addEventListener("click", function () {
-            sectionSlider.go(">");
-          });
-        }
-      }
       sectionSlider.mount();
     });
   }
@@ -5659,7 +5650,7 @@ document.addEventListener("DOMContentLoaded", function () {
         perPage: 1,
         arrows: false,
         pagination: true,
-        autoplay: true,
+        autoplay: false,
         pauseOnHover: true,
         interval: 10000,
         rewind: true,
@@ -6230,3 +6221,84 @@ document.addEventListener("click", function (e) {
     }
   }
 });
+
+let hasUserInteracted = false;
+const handleFirstInteraction = () => {
+  hasUserInteracted = true;
+  window.removeEventListener("click", handleFirstInteraction);
+  window.removeEventListener("keydown", handleFirstInteraction);
+  window.removeEventListener("touchstart", handleFirstInteraction);
+};
+
+window.addEventListener("click", handleFirstInteraction, { once: true });
+window.addEventListener("keydown", handleFirstInteraction, { once: true });
+window.addEventListener("touchstart", handleFirstInteraction, { once: true });
+
+window.onYouTubeIframeAPIReady = function () {
+  const iframes = document.querySelectorAll(
+    '.about-pr__text iframe[src*="youtube.com"], .about-pr__text iframe[src*="youtube-nocookie.com"]',
+  );
+
+  iframes.forEach((iframe, index) => {
+    const match = iframe.src.match(/(?:embed\/|v=)([\w-]{11})/);
+    const videoId = match ? match[1] : null;
+    if (!videoId) return;
+
+    const container = document.createElement("div");
+    const containerId = `yt-player-auto-${index}`;
+    container.id = containerId;
+    container.style.width = iframe.offsetWidth
+      ? `${iframe.offsetWidth}px`
+      : "100%";
+    container.style.maxWidth = "100%";
+    container.style.aspectRatio = "16/9";
+    iframe.parentNode.replaceChild(container, iframe);
+
+    const playerInstance = new YT.Player(containerId, {
+      videoId: videoId,
+      playerVars: {
+        enablejsapi: 1,
+        origin: window.location.origin,
+        playsinline: 1,
+        rel: 0,
+      },
+      events: {
+        onReady: () => {
+          const targetElement = document.getElementById(containerId);
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  if (hasUserInteracted) {
+                    playerInstance.unMute();
+                  } else {
+                    playerInstance.mute();
+                  }
+                  playerInstance.playVideo();
+                } else {
+                  playerInstance.pauseVideo();
+                }
+              });
+            },
+            { threshold: 0.25 },
+          );
+
+          observer.observe(targetElement);
+        },
+      },
+    });
+  });
+};
+
+(function loadYouTubeIframeAPI() {
+  if (window.YT && window.YT.Player) {
+    window.onYouTubeIframeAPIReady();
+    return;
+  }
+
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  const firstScriptTag = document.getElementsByTagName("script")[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+})();

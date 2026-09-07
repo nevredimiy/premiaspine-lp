@@ -27,7 +27,7 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
     <?php echo esc_html( $to_form_button ?: 'click to fill in your details' ); ?>
 </button>
 
-<div class="premia__hero hero-premia">
+<div class="premia__hero hero-premia ">
     <div class="hero-premia__container">
         <div class="top-section">
             <div class="hero-premia__wrapper">
@@ -58,7 +58,7 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
     </div>
 </div>
 
-<?php if ( ! isBot() ) : ?>
+<?php if ( ! isBot() ) : ?> 
 <div id="main" class="main-alternate">
     <div class="page__premia premia">
         <?php
@@ -181,7 +181,7 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
                                     allowfullscreen
                                     allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
                                     title="<?php echo esc_attr( $about_title ? $about_title : __( 'YouTube video', 'premiaspine' ) ); ?>"
-                                    src="<?php echo esc_url( $about_youtube_embed ); ?>"
+                                    src="<?php echo esc_url( $about_youtube_embed ); ?>?enablejsapi=1"
                                 ></iframe>
                             </div>
                         <?php endif; ?>

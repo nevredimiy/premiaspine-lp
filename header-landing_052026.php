@@ -15,12 +15,108 @@ $header_slogan = premiaspine_landing_opt(
     (array) $general_options,
     array( 'header', 'slogan' )
 );
+
+$landing_options = (array) get_post_meta( get_queried_object_id(), 'landing_page_options', true );
+
 if ( ! $header_slogan ) {
-    $landing_options = get_post_meta( get_queried_object_id(), 'landing_page_options', true );
-    $header_slogan   = premiaspine_landing_opt(
-        (array) $landing_options,
+    $header_slogan = premiaspine_landing_opt(
+        $landing_options,
         array( 'header', 'slogan' )
     );
+}
+
+/* ---------- Open Graph / social sharing ---------- */
+$og_url = get_permalink();
+if ( ! $og_url ) {
+    $og_url = home_url( '/' );
+}
+
+$og_title = wp_strip_all_tags(
+    premiaspine_landing_opt( $landing_options, array( 'header', 'top_title' ), wp_get_document_title() )
+);
+
+$og_description = trim(
+    preg_replace(
+        '/\s+/',
+        ' ',
+        wp_strip_all_tags(
+            premiaspine_landing_opt( $landing_options, array( 'header', 'top_content' ), get_bloginfo( 'description' ) )
+        )
+    )
+);
+if ( function_exists( 'mb_strlen' ) && mb_strlen( $og_description ) > 200 ) {
+    $og_description = rtrim( mb_substr( $og_description, 0, 197 ) ) . '…';
+}
+
+/* ---------- Per-story deep link (?patient=<slug> / ?surgeon=<slug>) ----------
+ * Overrides the page-level title/description above with the ones set on the
+ * matching Testimonial post (fields "Meta title"/"Meta description" on the
+ * story's own edit screen), so a shared/ad link to a single story gets its
+ * own <title>/OG preview. See inc/landing-codi-helpers.php for how these
+ * params are attached to each slider popup, and js/landing-story-popups.js
+ * for how the URL is kept in sync client-side.
+ */
+$story_post = null;
+foreach ( array( 'patient', 'surgeon' ) as $story_param ) {
+    if ( empty( $_GET[ $story_param ] ) ) {
+        continue;
+    }
+    $story_slug = sanitize_title( wp_unslash( $_GET[ $story_param ] ) );
+    if ( ! $story_slug ) {
+        continue;
+    }
+    $found_story_post = get_page_by_path( $story_slug, OBJECT, 'testimonial' );
+    if ( $found_story_post instanceof WP_Post ) {
+        $story_post = $found_story_post;
+    }
+    break;
+}
+
+if ( $story_post ) {
+    $story_data              = get_post_meta( $story_post->ID, 'story_data', true );
+    $story_meta_title        = is_array( $story_data ) ? trim( (string) premiaspine_landing_opt( $story_data, array( 'meta_title' ) ) ) : '';
+    $story_meta_description  = is_array( $story_data ) ? trim( (string) premiaspine_landing_opt( $story_data, array( 'meta_description' ) ) ) : '';
+
+    if ( $story_meta_title ) {
+        $og_title = wp_strip_all_tags( $story_meta_title );
+    } elseif ( get_the_title( $story_post ) ) {
+        $og_title = wp_strip_all_tags( get_the_title( $story_post ) ) . ' — ' . $og_title;
+    }
+
+    if ( $story_meta_description ) {
+        $og_description = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( $story_meta_description ) ) );
+        if ( function_exists( 'mb_strlen' ) && mb_strlen( $og_description ) > 200 ) {
+            $og_description = rtrim( mb_substr( $og_description, 0, 197 ) ) . '…';
+        }
+    }
+}
+
+// The <title> tag below shares whatever the story-link override above produced.
+$document_title = $og_title;
+
+$og_image        = '';
+$og_image_width  = '';
+$og_image_height = '';
+foreach (
+    array(
+        premiaspine_landing_opt( $landing_options, array( 'header', 'top_section_bg' ) ),
+        premiaspine_landing_opt( $landing_options, array( 'header', 'doctor_photo' ) ),
+        premiaspine_landing_opt( (array) $general_options, array( 'header', 'logo_dark' ) ),
+    ) as $og_image_id
+) {
+    if ( empty( $og_image_id ) ) {
+        continue;
+    }
+    $og_image_src = wp_get_attachment_image_src( $og_image_id, 'full' );
+    if ( $og_image_src ) {
+        $og_image        = $og_image_src[0];
+        $og_image_width  = $og_image_src[1];
+        $og_image_height = $og_image_src[2];
+        break;
+    }
+}
+if ( ! $og_image ) {
+    $og_image = get_stylesheet_directory_uri() . '/images/person.png';
 }
 ?>
 
@@ -29,8 +125,31 @@ if ( ! $header_slogan ) {
 <head>
 	<script type="text/javascript">!function(){var e,t,s="data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACyAgCdASoCAAEALmk0mk0iIiIiIgBoSygABc6zbAAA/v56QAAAAA==";e=function(e){if(!e){console.log("webp fix"),window.addEventListener("error",function(e,t){if("IMG"===e.target.tagName&&-1!=e.target.src.indexOf(".webp"))return e.target.src=e.target.src.replace(".webp",""),e.target.srcset&&(e.target.srcset=e.target.srcset.replace(".webp","")),!0},!0),document.addEventListener("DOMContentLoaded",function(){for(var e,t=0;t<document.styleSheets.length;t++){e=document.styleSheets[t].cssRules;for(var s=0;s<e.length;s++)if(e[s].style&&e[s].style.backgroundImage&&e[s].style.backgroundImage.indexOf(".webp")&&(e[s].style.backgroundImage=e[s].style.backgroundImage.replace(".webp","")),e[s].cssRules)for(var r=0;r<e[s].cssRules.length;r++)e[s].cssRules[r].style&&e[s].cssRules[r].style.backgroundImage&&e[s].cssRules[r].style.backgroundImage.indexOf(".webp")&&(e[s].cssRules[r].style.backgroundImage=e[s].cssRules[r].style.backgroundImage.replace(".webp",""))}var a=document.querySelectorAll("[style]");for(s=0;s<a.length;s++)a[s].style["background-image"]&&(a[s].style["background-image"]=a[s].style["background-image"].replace(".webp",""));console.log(a.length)});var s=CSSStyleSheet.prototype.insertRule;CSSStyleSheet.prototype.insertRule=function(e,t){return e.style&&e.style.backgroundImage&&e.style.backgroundImage.indexOf(".webp")&&(e.style.backgroundImage=e.style.backgroundImage.replace(".webp","")),s.apply(this,[e,t])}}},(t=document.createElement("img")).onerror=function(){e(!1)},t.onload=function(){2===this.width&&1===this.height?e(!0):e(!1)},t.setAttribute("src",s)}();</script>
     <meta charset="UTF-8">
-    <title><?php echo wp_get_document_title(); ?></title>
+    <title><?php echo esc_html( $document_title ); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PremiaSpine" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="<?php echo esc_url( $og_url ); ?>" />
+    <meta property="og:title" content="<?php echo esc_attr( $og_title ); ?>" />
+    <meta property="og:description" content="<?php echo esc_attr( $og_description ); ?>" />
+<?php if ( $og_image ) : ?>
+    <meta property="og:image" content="<?php echo esc_url( $og_image ); ?>" />
+    <meta property="og:image:alt" content="<?php echo esc_attr( $og_title ); ?>" />
+<?php if ( $og_image_width && $og_image_height ) : ?>
+    <meta property="og:image:width" content="<?php echo esc_attr( $og_image_width ); ?>" />
+    <meta property="og:image:height" content="<?php echo esc_attr( $og_image_height ); ?>" />
+<?php endif; ?>
+<?php endif; ?>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<?php echo esc_attr( $og_title ); ?>" />
+    <meta name="twitter:description" content="<?php echo esc_attr( $og_description ); ?>" />
+<?php if ( $og_image ) : ?>
+    <meta name="twitter:image" content="<?php echo esc_url( $og_image ); ?>" />
+<?php endif; ?>
+
 	<?php if(!isBot()):?>
     <meta name="robots" content="noindex,follow" />
 	<meta name="facebook-domain-verification" content="c9mcgcinp01rync572ckpcn00m1pcb" />

@@ -303,9 +303,12 @@ function premiaspine_landing_render_hero_doctor_slide( $slide ) {
                 <h1><?php echo premiaspine_landing_render_field_html( $title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
             <?php endif; ?>
             <?php
-            $text     = premiaspine_landing_opt( $doctor, array( 'text' ) );
-            $icon_url = premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'icon' ) ) );
-            if ( $text || $icon_url ) :
+            $text           = premiaspine_landing_opt( $doctor, array( 'text' ) );
+            $icon_url       = premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'icon' ) ) );
+            $doctor_name    = premiaspine_landing_opt( $doctor, array( 'doctor_name' ) );
+            $doctor_address = premiaspine_landing_opt( $doctor, array( 'doctor_address' ) );
+
+            if ( $text || $icon_url || $doctor_name || $doctor_address ) :
                 ?>
                 <div class="top-section-content">
                     <?php if ( $icon_url ) : ?>
@@ -314,27 +317,27 @@ function premiaspine_landing_render_hero_doctor_slide( $slide ) {
                     <?php if ( $text ) : ?>
                         <?php echo premiaspine_landing_render_editor_html( $text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     <?php endif; ?>
+
+                    <?php if ( $doctor_name || $doctor_address ) : ?>
+                        <span class="name">
+                            <span>
+                                <?php
+                                if ( $doctor_name ) {
+                                    echo premiaspine_landing_render_field_html( $doctor_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                }
+                                if ( $doctor_address ) {
+                                    if ( $doctor_name ) {
+                                        echo '<br />';
+                                    }
+                                    echo premiaspine_landing_render_field_html( $doctor_address ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                }
+                                ?>
+                            </span>
+                        </span>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
-            <?php
-            $doctor_name    = premiaspine_landing_opt( $doctor, array( 'doctor_name' ) );
-            $doctor_address = premiaspine_landing_opt( $doctor, array( 'doctor_address' ) );
-            if ( $doctor_name || $doctor_address ) :
-                ?>
-                <span class="name">
-                    <?php
-                    if ( $doctor_name ) {
-                        echo premiaspine_landing_render_field_html( $doctor_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    }
-                    if ( $doctor_address ) {
-                        if ( $doctor_name ) {
-                            echo '<br />';
-                        }
-                        echo premiaspine_landing_render_field_html( $doctor_address ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    }
-                    ?>
-                </span>
-            <?php endif; ?>
+
             <div class="person">
                 <img src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'doctor_photo' ) ), get_stylesheet_directory_uri() . '/images/person.png' ) ); ?>" alt="">
             </div>
@@ -1235,14 +1238,10 @@ function premiaspine_landing_render_stories_slider( $section, $modifier_class, $
     $to_map_button = premiaspine_landing_opt( $section, array( 'to_map_button' ), 'find a doctor' );
     ?>
     <div data-sl-wrapper="" class="premia__slider-section slider-section <?php echo esc_attr( $modifier_class ); ?>">
-        <div class="slider-section__gr-container">
+        <div class="slider-section__container">
             <div class="slider-section__header">
                 <div class="slider-section__text-block text-block">
                     <h2 class="text-block__title --wide"><?php echo esc_html( $title ); ?></h2>
-                </div>
-                <div data-sl-arrows="" class="slider-section__arrows pc">
-                    <button type="button" data-sl-arrow-prev="" class="slider-section__arrow _sprite-ch-left"></button>
-                    <button type="button" data-sl-arrow-next="" class="slider-section__arrow _sprite-ch-right"></button>
                 </div>
             </div>
             <div data-fls-slider="" class="slider-section__slider splide">

@@ -79,7 +79,7 @@ trait enqueue {
 		add_action( 'admin_footer', array( __CLASS__, 'enqueueInline' ) );
 	}
 
-	protected static function normalizeUrls( &$urls = array(), $base ) {
+	protected static function normalizeUrls( &$urls, $base ) {
 		foreach( $urls as $name => $params ) {
 			$params = is_array($params) ? $params : array( $params );
 			if( $params[0] ) {
