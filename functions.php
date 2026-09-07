@@ -15,17 +15,17 @@ ini_set( 'display_errors', 1 );
 define( 'text_domain', 'premiaspine' );
 
 
+$directory_dir = get_template_directory();
 $styles        = array(
-	'all-style' => $directory_uri . '/css/all.css?v=' . time(),
-	'style'     => $directory_uri . '/style.css?v=' . time(),
-    //'jquery.fancybox.min' => $directory_uri . '/css/jquery.fancybox.min.css?v=' . time(),
+	'all-style' => $directory_uri . '/css/all.css?v=' . ( file_exists( $directory_dir . '/css/all.css' ) ? filemtime( $directory_dir . '/css/all.css' ) : '7.1' ),
+	'style'     => $directory_uri . '/style.css?v=' . ( file_exists( $directory_dir . '/style.css' ) ? filemtime( $directory_dir . '/style.css' ) : '7.1' ),
 );
 $scripts       = array(
     'jquery'  => '',
     'jquery-ui-accordion' => '',
     'jquery-ui-sortable' => '',
-    'jquery.fancybox.min' => $directory_uri . '/js/jquery.fancybox.min.js?v=' . time(),
-    'ajax' => $directory_uri . '/js/ajax.js?v=' . time(),
+    'jquery.fancybox.min' => $directory_uri . '/js/jquery.fancybox.min.js?v=' . ( file_exists( $directory_dir . '/js/jquery.fancybox.min.js' ) ? filemtime( $directory_dir . '/js/jquery.fancybox.min.js' ) : '7.1' ),
+    'ajax' => $directory_uri . '/js/ajax.js?v=' . ( file_exists( $directory_dir . '/js/ajax.js' ) ? filemtime( $directory_dir . '/js/ajax.js' ) : '7.1' ),
 );
 THEME::addThemeStyles( $styles );
 THEME::addThemeScripts( $scripts );
@@ -125,6 +125,24 @@ function premiaspine_landing_enqueue_wpgmp_styles() {
 		array( 'wpgmp-frontend' ),
 		'6.4.2'
 	);
+}
+
+add_filter( 'style_loader_tag', 'premiaspine_landing_defer_map_styles', 10, 4 );
+function premiaspine_landing_defer_map_styles( $html, $handle, $href, $media ) {
+	$deferred = array(
+		'find-doctor-map-filters',
+		'wpgmp-frontend',
+		'fc-wpgmp-infowindow-default',
+		'fc-wpgmp-post-default',
+		'fc-wpgmp-item-default',
+	);
+
+	if ( in_array( $handle, $deferred, true ) ) {
+		// Use media=print onload switch so styles do not block critical rendering
+		return str_replace( "media='all'", "media='print' onload=\"this.media='all'\"", $html );
+	}
+
+	return $html;
 }
 
 function premiaspine_landing_sanitize_remote_map_markup( $html ) {
@@ -564,23 +582,26 @@ add_shortcode('put_wpgm', 'get_locations_map'); //fix old shortcodes
 add_shortcode('get_locations_map', 'get_locations_map');
 
 function get_locations_map() {
-	$response = wp_remote_get(
-		add_query_arg(
-			array(
-				'get_locations_map' => '',
-				't'                 => time(),
-			),
-			'https://premiaspine.com/'
-		),
-		array( 'timeout' => 20 )
-	);
+	$cache_key = 'premiaspine_remote_map_html';
+	$html      = ( ! isset( $_GET['nocache'] ) || ! current_user_can( 'manage_options' ) ) ? get_transient( $cache_key ) : false;
 
-	$html = '';
-	if ( ! is_wp_error( $response ) ) {
-		$html = wp_remote_retrieve_body( $response );
+	if ( false === $html || '' === $html ) {
+		$response = wp_remote_get(
+			'https://premiaspine.com/?get_locations_map=1',
+			array( 'timeout' => 10 )
+		);
+
+		if ( ! is_wp_error( $response ) && 200 === (int) wp_remote_retrieve_response_code( $response ) ) {
+			$html = wp_remote_retrieve_body( $response );
+			if ( $html !== '' ) {
+				set_transient( $cache_key, $html, 12 * HOUR_IN_SECONDS );
+			}
+		} else {
+			$html = '';
+		}
 	}
 
-	echo premiaspine_landing_sanitize_remote_map_markup( $html );
+	echo premiaspine_landing_sanitize_remote_map_markup( (string) $html );
 	premiaspine_landing_print_wpgmp_runtime_assets();
 }
 

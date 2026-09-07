@@ -176,10 +176,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PBG4H7J');</script>
 <!-- End Google Tag Manager -->
 
+        <link rel="preconnect" href="https://premiaspine.com" crossorigin>
+        <link rel="dns-prefetch" href="https://premiaspine.com">
 	<script async src="//364508.tctm.co/t.js"></script>
 	<?php endif;?>
 	<?php wp_head(); ?>
-    <script src="//geoip-js.com/js/apis/geoip2/v2.1/geoip2.js" type="text/javascript"></script>
 	<meta name="msvalidate.01" content="329018F2E433D2E3A925F40C561E9B86" />
 </head>
 <body <?php body_class(); ?> id="2">

@@ -72,8 +72,8 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
         <?php if ( premiaspine_landing_section_visible( $benefits ) ) : ?>
             <div class="premia__benefits benefits-pr">
                 <div class="benefits-pr__image">
-                    <img alt="Image" class="ibg pc" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $benefits, array( 'bg_pc' ) ), get_theme_file_uri( 'assets/img/benefits/bg.webp' ) ) ); ?>">
-                    <img alt="Image" class="ibg mobile" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $benefits, array( 'bg_mobile' ) ), get_theme_file_uri( 'assets/img/benefits/bg-mob.webp' ) ) ); ?>">
+                    <img alt="Image" class="ibg pc" loading="lazy" decoding="async" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $benefits, array( 'bg_pc' ) ), get_theme_file_uri( 'assets/img/benefits/bg.webp' ) ) ); ?>">
+                    <img alt="Image" class="ibg mobile" loading="lazy" decoding="async" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $benefits, array( 'bg_mobile' ) ), get_theme_file_uri( 'assets/img/benefits/bg-mob.webp' ) ) ); ?>">
                 </div>
                 <div class="benefits-pr__container">
                     <div class="benefits-pr__text-block text-block text-block--blue">
@@ -91,7 +91,7 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
 
                                 <?php if ( !empty( $info_item ) ) : ?>
                                     <div class="benefits-pr__info-item">
-                                        <img src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $info_item, array( 'icon' ) ), get_theme_file_uri( 'assets/img/benefits/' . sprintf( '%02d', $index + 1 ) . '.svg' ) ) ); ?>" alt="Image">
+                                        <img loading="lazy" decoding="async" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $info_item, array( 'icon' ) ), get_theme_file_uri( 'assets/img/benefits/' . sprintf( '%02d', $index + 1 ) . '.svg' ) ) ); ?>" alt="Image">
                                         <span><?php echo premiaspine_landing_format_inline_html( premiaspine_landing_opt( $info_item, array( 'text' ) ) ); ?></span>
                                     </div>
                                 <?php endif; ?>
@@ -191,8 +191,8 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
                     </div>
                     <div class="about-pr__body">
                         <div class="about-pr__image">
-                            <img alt="Image" class="ibg pc" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $about, array( 'bg_pc' ) ), get_theme_file_uri( 'assets/img/about/bg.webp' ) ) ); ?>">
-                            <img alt="Image" class="ibg mobile" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $about, array( 'bg_mobile' ) ), get_theme_file_uri( 'assets/img/about/bg-mob.webp' ) ) ); ?>">
+                            <img alt="Image" class="ibg pc" loading="lazy" decoding="async" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $about, array( 'bg_pc' ) ), get_theme_file_uri( 'assets/img/about/bg.webp' ) ) ); ?>">
+                            <img alt="Image" class="ibg mobile" loading="lazy" decoding="async" src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $about, array( 'bg_mobile' ) ), get_theme_file_uri( 'assets/img/about/bg-mob.webp' ) ) ); ?>">
                         </div>
                         <div class="about-pr__actions">
                             <?php premiaspine_landing_render_about_video_button( $about, 1 ); ?>
@@ -255,11 +255,11 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
 <?php endif; ?>
 
 <footer data-fls-footer="" class="footer">
-    <img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/footer-decor.svg' ) ); ?>" alt="Image" class="footer__decor --pc">
-    <img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/footer-decor-mob.svg' ) ); ?>" alt="Image" class="footer__decor --mobile">
+    <img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/footer-decor.svg' ) ); ?>" alt="Image" class="footer__decor --pc" loading="lazy" decoding="async">
+    <img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/footer-decor-mob.svg' ) ); ?>" alt="Image" class="footer__decor --mobile" loading="lazy" decoding="async">
     <div class="footer__container">
         <div class="footer__logo">
-            <img src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $footer, array( 'logo' ) ), get_theme_file_uri( 'assets/img/logo.svg' ) ) ); ?>" class="ibg ibg--contain" alt="Premia Spine">
+            <img src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $footer, array( 'logo' ) ), get_theme_file_uri( 'assets/img/logo.svg' ) ) ); ?>" class="ibg ibg--contain" alt="Premia Spine" loading="lazy" decoding="async">
         </div>
         <?php if ( $footer_text = premiaspine_landing_opt( $footer, array( 'text' ) ) ) : ?>
             <div class="footer__text"><?php echo premiaspine_landing_render_field_html( $footer_text ); ?></div>
@@ -273,14 +273,10 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
 
 <?php if(!isBot()) :?>
 <?php wp_footer(); ?>
-<?php premiaspine_landing_print_chatbot_embed(); ?>
 <script type="application/javascript" src="<?php echo get_stylesheet_directory_uri()?>/js/jquery-ui.min.js"></script>
-<script type="application/javascript" src="<?php echo get_stylesheet_directory_uri()?>/js/main.js?v=<?php echo time();?>"></script>
+<script type="application/javascript" src="<?php echo get_stylesheet_directory_uri()?>/js/main.js?v=<?php echo file_exists( get_template_directory() . '/js/main.js' ) ? filemtime( get_template_directory() . '/js/main.js' ) : '7.1'; ?>"></script>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,900&display=swap" rel="stylesheet">
 <link rel='stylesheet' id='jquery.fancybox.min-css'  href='<?php echo get_stylesheet_directory_uri()?>/css/jquery.fancybox.min.css?v=1580469056&#038;ver=5.3.2' type='text/css' media='all' />
 <?php endif;?>
 </body>
 </html>
-<!--
-<?php get_footer(); ?>
--->

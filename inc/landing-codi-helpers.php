@@ -27,9 +27,12 @@ function premiaspine_landing_section_visible( $section ) {
     return $hide === '' || $hide === 'disable';
 }
 
-function premiaspine_landing_attachment_url( $attachment_id, $fallback = '' ) {
+function premiaspine_landing_attachment_url( $attachment_id, $fallback = '', $size = 'full' ) {
     if ( ! empty( $attachment_id ) ) {
-        $url = wp_get_attachment_image_url( $attachment_id, 'full' );
+        $url = wp_get_attachment_image_url( $attachment_id, $size );
+        if ( ! $url && 'full' !== $size ) {
+            $url = wp_get_attachment_image_url( $attachment_id, 'full' );
+        }
         if ( $url ) {
             return $url;
         }
@@ -337,7 +340,30 @@ function premiaspine_landing_render_hero_doctor_slide( $slide ) {
                 </div>
             <?php endif; ?>
             <div class="person">
-                <img src="<?php echo esc_url( premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'doctor_photo' ) ), get_stylesheet_directory_uri() . '/images/person.png' ) ); ?>" alt="">
+                <?php
+                $doctor_photo = premiaspine_landing_opt( $doctor, array( 'doctor_photo' ) );
+                $doctor_alt   = esc_attr( wp_strip_all_tags( (string) ( $doctor_name ?: 'Doctor' ) ) );
+                if ( ! empty( $doctor_photo ) && is_numeric( $doctor_photo ) ) {
+                    echo wp_get_attachment_image(
+                        absint( $doctor_photo ),
+                        'medium_large',
+                        false,
+                        array(
+                            'alt'           => $doctor_alt,
+                            'loading'       => 'eager',
+                            'fetchpriority' => 'high',
+                            'decoding'      => 'async',
+                            'width'         => '233',
+                            'height'        => '350',
+                        )
+                    );
+                } else {
+                    $photo_url = premiaspine_landing_attachment_url( $doctor_photo, get_stylesheet_directory_uri() . '/images/person.png', 'medium_large' );
+                    ?>
+                    <img src="<?php echo esc_url( $photo_url ); ?>" alt="<?php echo $doctor_alt; ?>" width="233" height="350" loading="eager" fetchpriority="high" decoding="async">
+                    <?php
+                }
+                ?>
             </div>
         </div>
         <?php echo premiaspine_landing_hero_slide_link_close( $slide ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -400,15 +426,21 @@ function premiaspine_landing_render_hero_patient_slide( $slide, $default_images 
                     <div class="patient-hero__block">
                         <?php foreach ( $chunk as $image_row ) : ?>
                             <?php
-                            $image_url = ! empty( $image_row['fallback'] )
+                            $img_attachment_id = premiaspine_landing_opt( $image_row, array( 'image' ) );
+                            $image_url         = ! empty( $image_row['fallback'] )
                                 ? $image_row['fallback']
                                 : premiaspine_landing_attachment_url(
-                                    premiaspine_landing_opt( $image_row, array( 'image' ) ),
-                                    get_theme_file_uri( 'assets/img/hero-reviews/01.webp' )
+                                    $img_attachment_id,
+                                    get_theme_file_uri( 'assets/img/hero-reviews/01.webp' ),
+                                    'medium'
                                 );
                             ?>
                             <div class="patient-hero__image">
-                                <img alt="Image" src="<?php echo esc_url( $image_url ); ?>">
+                                <?php if ( ! empty( $img_attachment_id ) && is_numeric( $img_attachment_id ) ) : ?>
+                                    <?php echo wp_get_attachment_image( absint( $img_attachment_id ), 'medium', false, array( 'alt' => 'Patient review', 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
+                                <?php else : ?>
+                                    <img alt="Image" loading="lazy" decoding="async" src="<?php echo esc_url( $image_url ); ?>">
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -1073,7 +1105,7 @@ function premiaspine_landing_render_patient_popup_gallery_slide( $slide, $title 
     ?>
     <li class="splide__slide">
         <div class="info-popup__slide info-popup__slide--image">
-            <img class="ibg" alt="<?php echo esc_attr( $title ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>">
+            <img class="ibg" alt="<?php echo esc_attr( $title ); ?>" loading="lazy" decoding="async" src="<?php echo esc_url( $slide['url'] ); ?>">
         </div>
     </li>
     <?php
@@ -1124,7 +1156,7 @@ function premiaspine_landing_render_story_slides( $items, $default_image, $story
         $title     = premiaspine_landing_opt( $item, array( 'title' ) );
         $tag       = premiaspine_landing_opt( $item, array( 'tag' ) );
         $text      = premiaspine_landing_opt( $item, array( 'text' ) );
-        $image     = premiaspine_landing_attachment_url( premiaspine_landing_opt( $item, array( 'image' ) ), $default_image );
+        $image     = premiaspine_landing_attachment_url( premiaspine_landing_opt( $item, array( 'image' ) ), $default_image, 'medium_large' );
         $slug      = (string) premiaspine_landing_opt( $item, array( 'slug' ) );
         $popup_id  = premiaspine_landing_story_popup_id( $story_type, $index, $slug );
         $has_popup = premiaspine_landing_story_has_popup( $item, $story_type );
@@ -1144,14 +1176,14 @@ function premiaspine_landing_render_story_slides( $items, $default_image, $story
                 <?php endif; ?>
                 <?php if ( $has_popup ) : ?>
                     <div data-fls-popup-link="<?php echo esc_attr( $popup_id ); ?>"<?php echo $story_link_attrs; ?> class="info-item__image --clickable">
-                    <img alt="<?php echo esc_attr( $title ); ?>" class="ibg" src="<?php echo esc_url( $image ); ?>">
+                    <img alt="<?php echo esc_attr( $title ); ?>" class="ibg" loading="lazy" decoding="async" src="<?php echo esc_url( $image ); ?>">
                     <?php if ( $tag ) : ?>
                         <div class="info-item__tag"><?php echo esc_html( $tag ); ?></div>
                     <?php endif; ?>
                 </div>
                 <?php else : ?>
                 <div class="info-item__image">
-                    <img alt="<?php echo esc_attr( $title ); ?>" class="ibg" src="<?php echo esc_url( $image ); ?>">
+                    <img alt="<?php echo esc_attr( $title ); ?>" class="ibg" loading="lazy" decoding="async" src="<?php echo esc_url( $image ); ?>">
                     <?php if ( $tag ) : ?>
                         <div class="info-item__tag"><?php echo esc_html( $tag ); ?></div>
                     <?php endif; ?>
