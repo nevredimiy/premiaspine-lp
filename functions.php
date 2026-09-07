@@ -9,6 +9,7 @@ require_once( 'inc/landing-codi-helpers.php');
 require_once( 'inc/landing-codi-stories.php');
 require_once( 'inc/landing-codi-map-filters.php');
 require_once( 'inc/landing-codi-chatbot.php');
+require_once( 'inc/landing-codi-performance.php');
 require_once( 'inc/cf7-validation-messages.php');
 
 ini_set( 'display_errors', 1 );
@@ -158,12 +159,13 @@ function premiaspine_landing_sanitize_remote_map_markup( $html ) {
 function premiaspine_landing_print_wpgmp_runtime_assets() {
 	$plugin_base = 'https://premiaspine.com/wp-content/plugins/wp-google-map-gold';
 	?>
-	<script src="https://maps.google.com/maps/api/js?key=AIzaSyCW4AVDKtIIiSrTSh880d2UhcMxs4GiJ8M&amp;libraries=geometry%2Cplaces%2Cweather%2Cpanoramio%2Cdrawing&amp;language=en&amp;ver=5.3.3" id="wpgmp-google-api-js"></script>
-	<script src="<?php echo esc_url( $plugin_base . '/assets/js/maps.min.js?ver=5.3.3' ); ?>" id="wpgmp-google-map-main-js"></script>
 	<script id="wpgmp-google-map-main-js-extra">
 	var wpgmp_local = {"ajax_url":"https:\/\/premiaspine.com\/wp-admin\/admin-ajax.php","wpgmp_location_no_results":"No results found.","place_icon_url":"https:\/\/premiaspine.com\/wp-content\/plugins\/wp-google-map-gold\/assets\/images\/icons\/"};
 	</script>
-	<script src="<?php echo esc_url( $plugin_base . '/assets/js/frontend.min.js?ver=5.3.3' ); ?>" id="wpgmp-frontend-js"></script>
+	<?php // `defer` keeps load order (Maps API -> maps.min -> frontend) but stops these ~heavy cross-origin scripts from blocking the parser mid-page; they still run before DOMContentLoaded, so the map still initialises. ?>
+	<script defer src="https://maps.google.com/maps/api/js?key=AIzaSyCW4AVDKtIIiSrTSh880d2UhcMxs4GiJ8M&amp;libraries=geometry%2Cplaces%2Cweather%2Cpanoramio%2Cdrawing&amp;language=en&amp;ver=5.3.3" id="wpgmp-google-api-js"></script>
+	<script defer src="<?php echo esc_url( $plugin_base . '/assets/js/maps.min.js?ver=5.3.3' ); ?>" id="wpgmp-google-map-main-js"></script>
+	<script defer src="<?php echo esc_url( $plugin_base . '/assets/js/frontend.min.js?ver=5.3.3' ); ?>" id="wpgmp-frontend-js"></script>
 	<?php
 }
 

@@ -61,8 +61,27 @@ function premiaspine_landing_print_chatbot_embed() {
 
 	$printed = true;
 	?>
-	<script src="https://chat.actm.xyz/chat.js" async></script>
 	<ctm-chat token="<?php echo esc_attr( $token ); ?>"></ctm-chat>
+	<?php // Load the chat widget only after the first user interaction (or a 5s
+	// fallback) so its script does not compete with the initial page render. ?>
+	<script id="ps-lazy-chatbot">
+	(function () {
+		var done = false;
+		var evts = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'mousemove', 'wheel'];
+		var opts = { once: true, passive: true, capture: true };
+		function load() {
+			if (done) { return; }
+			done = true;
+			evts.forEach(function (e) { window.removeEventListener(e, load, opts); });
+			var s = document.createElement('script');
+			s.src = 'https://chat.actm.xyz/chat.js';
+			s.async = true;
+			document.body.appendChild(s);
+		}
+		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
+		setTimeout(load, 5000);
+	})();
+	</script>
 	<?php
 }
 

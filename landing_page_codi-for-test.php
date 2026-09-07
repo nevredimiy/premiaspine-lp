@@ -273,9 +273,10 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
 
 <?php if(!isBot()) :?>
 <?php wp_footer(); ?>
-<script type="application/javascript" src="<?php echo get_stylesheet_directory_uri()?>/js/jquery-ui.min.js"></script>
-<script type="application/javascript" src="<?php echo get_stylesheet_directory_uri()?>/js/main.js?v=<?php echo file_exists( get_template_directory() . '/js/main.js' ) ? filemtime( get_template_directory() . '/js/main.js' ) : '7.1'; ?>"></script>
-<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,900&display=swap" rel="stylesheet">
+<script defer type="application/javascript" src="<?php echo get_stylesheet_directory_uri()?>/js/jquery-ui.min.js"></script>
+<script defer type="application/javascript" src="<?php echo get_stylesheet_directory_uri()?>/js/main.js?v=<?php echo file_exists( get_template_directory() . '/js/main.js' ) ? filemtime( get_template_directory() . '/js/main.js' ) : '7.1'; ?>"></script>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css?family=Raleway:400,600,900&display=swap" rel="stylesheet"></noscript>
 <link rel='stylesheet' id='jquery.fancybox.min-css'  href='<?php echo get_stylesheet_directory_uri()?>/css/jquery.fancybox.min.css?v=1580469056&#038;ver=5.3.2' type='text/css' media='all' />
 <?php endif;?>
 </body>
