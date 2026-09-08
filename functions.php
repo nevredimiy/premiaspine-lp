@@ -158,61 +158,14 @@ function premiaspine_landing_sanitize_remote_map_markup( $html ) {
 
 function premiaspine_landing_print_wpgmp_runtime_assets() {
 	$plugin_base = 'https://premiaspine.com/wp-content/plugins/wp-google-map-gold';
-
-	// Same three files, same execution order (Google Maps API -> maps.min ->
-	// frontend) as a plain <script> chain — only the *trigger* changes: instead
-	// of loading during page parse, they load when the map scrolls near the
-	// viewport, on the first user interaction, or after a 6s fallback. This keeps
-	// the Maps API + ~200 marker/tile requests off the initial page load.
-	// find-doctor-map-filters.js polls up to ~10s after DOMContentLoaded for the
-	// map instance, so with the 6s fallback the marker icon zoom-scaling still
-	// attaches; map rendering and the state/city/doctor filter do not depend on
-	// that window.
-	$scripts = array(
-		'https://maps.google.com/maps/api/js?key=AIzaSyCW4AVDKtIIiSrTSh880d2UhcMxs4GiJ8M&libraries=geometry%2Cplaces%2Cweather%2Cpanoramio%2Cdrawing&language=en&ver=5.3.3',
-		$plugin_base . '/assets/js/maps.min.js?ver=5.3.3',
-		$plugin_base . '/assets/js/frontend.min.js?ver=5.3.3',
-	);
 	?>
 	<script id="wpgmp-google-map-main-js-extra">
 	var wpgmp_local = {"ajax_url":"https:\/\/premiaspine.com\/wp-admin\/admin-ajax.php","wpgmp_location_no_results":"No results found.","place_icon_url":"https:\/\/premiaspine.com\/wp-content\/plugins\/wp-google-map-gold\/assets\/images\/icons\/"};
 	</script>
-	<script id="wpgmp-lazy-loader">
-	(function () {
-		var urls = <?php echo wp_json_encode( $scripts ); ?>;
-		var evts = ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'];
-		var opts = { once: true, passive: true, capture: true };
-		var io = null;
-		var timer = null;
-		var started = false;
-
-		function start() {
-			if (started) { return; }
-			started = true;
-			if (io) { io.disconnect(); }
-			if (timer) { clearTimeout(timer); }
-			evts.forEach(function (e) { window.removeEventListener(e, start, opts); });
-			urls.forEach(function (src) {
-				var s = document.createElement('script');
-				s.src = src;
-				s.async = false; // parallel download, ordered execution
-				document.head.appendChild(s);
-			});
-		}
-
-		var target = document.getElementById('map-section');
-		if (target && 'IntersectionObserver' in window) {
-			io = new IntersectionObserver(function (entries) {
-				for (var i = 0; i < entries.length; i++) {
-					if (entries[i].isIntersecting) { start(); return; }
-				}
-			}, { rootMargin: '800px 0px' });
-			io.observe(target);
-		}
-		evts.forEach(function (e) { window.addEventListener(e, start, opts); });
-		timer = setTimeout(start, 6000);
-	})();
-	</script>
+	<?php // `defer` keeps load order (Maps API -> maps.min -> frontend) but stops these ~heavy cross-origin scripts from blocking the parser mid-page; they still run before DOMContentLoaded, so the map still initialises. ?>
+	<script defer src="https://maps.google.com/maps/api/js?key=AIzaSyCW4AVDKtIIiSrTSh880d2UhcMxs4GiJ8M&amp;libraries=geometry%2Cplaces%2Cweather%2Cpanoramio%2Cdrawing&amp;language=en&amp;ver=5.3.3" id="wpgmp-google-api-js"></script>
+	<script defer src="<?php echo esc_url( $plugin_base . '/assets/js/maps.min.js?ver=5.3.3' ); ?>" id="wpgmp-google-map-main-js"></script>
+	<script defer src="<?php echo esc_url( $plugin_base . '/assets/js/frontend.min.js?ver=5.3.3' ); ?>" id="wpgmp-frontend-js"></script>
 	<?php
 }
 
