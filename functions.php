@@ -18,7 +18,7 @@ define( 'text_domain', 'premiaspine' );
 
 $directory_dir = get_template_directory();
 $styles        = array(
-	'all-style' => $directory_uri . '/css/all.min.css?v=' . ( file_exists( $directory_dir . '/css/all.min.css' ) ? filemtime( $directory_dir . '/css/all.min.css' ) : '7.1' ),
+	'all-style' => $directory_uri . '/css/all.css?v=' . ( file_exists( $directory_dir . '/css/all.css' ) ? filemtime( $directory_dir . '/css/all.css' ) : '7.1' ),
 	'style'     => $directory_uri . '/style.css?v=' . ( file_exists( $directory_dir . '/style.css' ) ? filemtime( $directory_dir . '/style.css' ) : '7.1' ),
 );
 $scripts       = array(
@@ -41,8 +41,8 @@ function premiaspine_enqueue_landing_codi_assets() {
 	$theme_dir      = get_template_directory();
 	$theme_uri      = get_template_directory_uri();
 	$main_theme_uri = 'https://premiaspine.com/wp-content/themes/premiaspine';
-	$css_file       = $theme_dir . '/css/landing.min.css';
-	$js_file        = $theme_dir . '/js/landing.min.js';
+	$css_file       = $theme_dir . '/css/landing.css';
+	$js_file        = $theme_dir . '/js/landing.js';
 
 	wp_enqueue_style(
 		'find-doctor-map-filters',
@@ -54,7 +54,7 @@ function premiaspine_enqueue_landing_codi_assets() {
 	if ( file_exists( $css_file ) ) {
 		wp_enqueue_style(
 			'premiaspine-landing',
-			$theme_uri . '/css/landing.min.css',
+			$theme_uri . '/css/landing.css',
 			array( 'all-style', 'find-doctor-map-filters' ),
 			filemtime( $css_file )
 		);
@@ -63,7 +63,7 @@ function premiaspine_enqueue_landing_codi_assets() {
 	if ( file_exists( $js_file ) ) {
 		wp_enqueue_script(
 			'premiaspine-landing',
-			$theme_uri . '/js/landing.min.js',
+			$theme_uri . '/js/landing.js',
 			array( 'jquery' ),
 			filemtime( $js_file ),
 			true
