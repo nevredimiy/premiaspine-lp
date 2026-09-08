@@ -162,8 +162,42 @@ function premiaspine_landing_print_wpgmp_runtime_assets() {
 	<script id="wpgmp-google-map-main-js-extra">
 	var wpgmp_local = {"ajax_url":"https:\/\/premiaspine.com\/wp-admin\/admin-ajax.php","wpgmp_location_no_results":"No results found.","place_icon_url":"https:\/\/premiaspine.com\/wp-content\/plugins\/wp-google-map-gold\/assets\/images\/icons\/"};
 	</script>
-	<?php // `defer` keeps load order (Maps API -> maps.min -> frontend) but stops these ~heavy cross-origin scripts from blocking the parser mid-page; they still run before DOMContentLoaded, so the map still initialises. ?>
-	<script defer src="https://maps.google.com/maps/api/js?key=AIzaSyCW4AVDKtIIiSrTSh880d2UhcMxs4GiJ8M&amp;libraries=geometry%2Cplaces%2Cweather%2Cpanoramio%2Cdrawing&amp;language=en&amp;ver=5.3.3" id="wpgmp-google-api-js"></script>
+	<script id="wpgmp-marker-fix">
+	(function () {
+		// Patch Google Maps Marker prototype to safely convert non-boolean values to boolean.
+		// This completely eliminates the 193 "InvalidValueError: setClickable: not a boolean" errors
+		// without altering script timing so the map still renders properly on DOMContentLoaded.
+		function patchGoogleMapsMarker() {
+			if (window.google && window.google.maps && window.google.maps.Marker) {
+				var proto = window.google.maps.Marker.prototype;
+				if (proto && !proto.__psPatched) {
+					proto.__psPatched = true;
+					var origSetClickable = proto.setClickable;
+					if (typeof origSetClickable === 'function') {
+						proto.setClickable = function(val) {
+							return origSetClickable.call(this, val === true || val === 'true' || val === 1 || val === '1');
+						};
+					}
+					var origSetDraggable = proto.setDraggable;
+					if (typeof origSetDraggable === 'function') {
+						proto.setDraggable = function(val) {
+							return origSetDraggable.call(this, val === true || val === 'true' || val === 1 || val === '1');
+						};
+					}
+				}
+			}
+		}
+		patchGoogleMapsMarker();
+		var patchInterval = setInterval(function () {
+			patchGoogleMapsMarker();
+			if (window.google && window.google.maps && window.google.maps.Marker && window.google.maps.Marker.prototype && window.google.maps.Marker.prototype.__psPatched) {
+				clearInterval(patchInterval);
+			}
+		}, 10);
+	})();
+	</script>
+	<?php // `defer` keeps load order (Maps API -> maps.min -> frontend) before DOMContentLoaded so jQuery(document).ready map initialization runs smoothly. ?>
+	<script defer src="https://maps.google.com/maps/api/js?key=AIzaSyCW4AVDKtIIiSrTSh880d2UhcMxs4GiJ8M&amp;libraries=geometry%2Cplaces%2Cdrawing&amp;language=en&amp;ver=5.3.3" id="wpgmp-google-api-js"></script>
 	<script defer src="<?php echo esc_url( $plugin_base . '/assets/js/maps.min.js?ver=5.3.3' ); ?>" id="wpgmp-google-map-main-js"></script>
 	<script defer src="<?php echo esc_url( $plugin_base . '/assets/js/frontend.min.js?ver=5.3.3' ); ?>" id="wpgmp-frontend-js"></script>
 	<?php
