@@ -47,12 +47,12 @@ function premiaspine_landing_is_codi_perf_context() {
  * parsing and expect the `wp.*` globals to already exist, so a plain `defer`
  * on the external file desynchronises them (ReferenceError: wp is not defined).
  *
- * `jquery-core` IS deferred here: this template ships no inline/body `<script>`
- * that touches `$`/`jQuery` synchronously (jquery-migrate is removed, jQuery UI
- * is dequeued — see premiaspine_landing_dequeue_unused_libs(), and the remote
- * map's `jQuery(document).ready` runs from an injected tag after the lazy Maps
- * load). All `defer` scripts keep document order, so js/main.js and landing.js
- * (also deferred, in the footer) still run after jQuery.
+ * `jquery-core` is deliberately NOT deferred: third-party plugin scripts on this
+ * page (e.g. wpcf7-redirect `frontend-script.js`) are emitted without `defer`
+ * and call `jQuery` at parse time, so deferring core throws "jQuery is not
+ * defined" and breaks form-redirect-after-submit. Deferring core safely would
+ * mean deferring every jQuery-dependent plugin script too — not worth it for
+ * the ~100 ms it saves.
  *
  * @param string $tag    The full <script> tag (may include inline before/after blocks).
  * @param string $handle Registered script handle.
@@ -65,7 +65,6 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
 	}
 
 	$deferrable = array(
-		'jquery-core',
 		'jquery-ui-core',
 		'jquery-ui-widget',
 		'jquery-ui-mouse',
@@ -366,6 +365,17 @@ function premiaspine_landing_print_lazy_cf7_recaptcha() {
 	if ( ! empty( $wp_scripts->registered['wpcf7-recaptcha']->extra['data'] ) ) {
 		$recaptcha_data .= $wp_scripts->registered['wpcf7-recaptcha']->extra['data'];
 	}
+
+	// CF7 ships this as a top-level inline script, so `var wpcf7_recaptcha = …`
+	// creates a global. We echo it inside loadRecaptcha(), where `var` would
+	// make it function-local and CF7's index.js (global scope) then throws
+	// "wpcf7_recaptcha is not defined". Promote the declaration to an explicit
+	// global assignment.
+	$recaptcha_data = preg_replace(
+		'/\bvar\s+(wpcf7_recaptcha|recaptcha)\b\s*=/',
+		'window.$1 =',
+		$recaptcha_data
+	);
 	?>
 	<script id="ps-lazy-recaptcha">
 	(function () {

@@ -3464,7 +3464,7 @@ h6 {
     height: auto;
     padding: 23px 15px 0;
     box-sizing: border-box;
-    min-height: 695px;
+    /* min-height: 695px; */
     flex-direction: column;
     overflow: visible;
   }
