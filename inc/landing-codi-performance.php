@@ -85,6 +85,25 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
 }
 
 /**
+ * Small critical-CSS tweaks that are cheaper to ship inline than to rebuild the
+ * theme stylesheet for.
+ *
+ * `content-visibility: hidden` on closed story popups: they are only
+ * `visibility:hidden` + `position:fixed` (full-screen) in landing.css, so the
+ * browser treats their `loading="lazy"` gallery images as in-viewport and
+ * downloads every one on page load (tens of images, ~20 MB). `content-visibility`
+ * makes the browser skip layout/paint AND resource loading for the subtree until
+ * the popup is opened (the `[data-fls-popup-active]` attribute is added).
+ */
+add_action( 'wp_head', 'premiaspine_landing_perf_inline_css', 2 );
+function premiaspine_landing_perf_inline_css() {
+	if ( ! premiaspine_landing_is_codi_perf_context() ) {
+		return;
+	}
+	echo '<style id="ps-perf-css">[data-fls-popup]:not([data-fls-popup-active]){content-visibility:hidden;}</style>' . "\n";
+}
+
+/**
  * Preload the hero (first slide) background image and doctor photo so they are
  * fetched as early as possible instead of after CSS / after the <img> is parsed.
  */
