@@ -30,3 +30,4 @@ debug.log
 *.bak
 *.tmp
 *~
+_optimized-images/

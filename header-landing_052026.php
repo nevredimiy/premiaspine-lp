@@ -153,7 +153,9 @@ if ( ! $og_image ) {
     <meta name="twitter:image" content="<?php echo esc_url( $og_image ); ?>" />
 <?php endif; ?>
 
-	<?php if(!isBot()):?>
+	<?php // Landing pages are noindex for everyone (paid-traffic pages, not meant
+	// to rank). Output is intentionally identical for bots and users so the page
+	// stays safe to full-page cache (Cloudflare APO / page cache plugin). ?>
     <meta name="robots" content="noindex,follow" />
 	<meta name="facebook-domain-verification" content="c9mcgcinp01rync572ckpcn00m1pcb" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -186,7 +188,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<?php else : ?>
 	<script async src="//364508.tctm.co/t.js"></script>
 	<?php endif; ?>
-	<?php endif;?>
 	<?php wp_head(); ?>
 	<meta name="msvalidate.01" content="329018F2E433D2E3A925F40C561E9B86" />
 </head>

@@ -42,7 +42,6 @@ $top_section_bg = !empty($options['header']['top_section_bg']) ? wp_get_attachme
         </section>
     <?php endif; ?>
 </section>
-<?php if(!isBot()) :?>
 <div id="main" class="main-alternate">
     <?php if ( !empty( $options['intro_content']['title']) || !empty( $options['intro_content']['advantages']) ) : ?>
         <section class="intro-content">
@@ -229,7 +228,6 @@ $top_section_bg = !empty($options['header']['top_section_bg']) ? wp_get_attachme
 
     </div>
 </div>
-<?php endif;?>
 <!--<div style="display: none">-->
 <!--    --><?php
 //    echo do_shortcode('[cityByIp]');

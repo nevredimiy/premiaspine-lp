@@ -40,10 +40,8 @@ function premiaspine_landing_should_load_chatbot() {
 		return false;
 	}
 
-	if ( function_exists( 'isBot' ) && isBot() ) {
-		return false;
-	}
-
+	// No isBot() gate: the landing must emit identical markup for bots and users
+	// so the page stays safe to full-page cache (Cloudflare APO / page cache).
 	return (bool) apply_filters( 'premiaspine_landing_enable_chatbot', true );
 }
 

@@ -145,9 +145,8 @@ function premiaspine_landing_print_lazy_thirdparty() {
 	if ( ! premiaspine_landing_is_codi_perf_context() ) {
 		return;
 	}
-	if ( function_exists( 'isBot' ) && isBot() ) {
-		return;
-	}
+	// No isBot() gate: keep bot and user markup identical so the page stays
+	// safe to full-page cache (Cloudflare APO / page cache plugin).
 	?>
 	<script id="ps-lazy-thirdparty">
 	(function () {
