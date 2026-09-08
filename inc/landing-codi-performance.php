@@ -99,10 +99,19 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
  * (`visibility:hidden`) until JS adds `.is-initialized`. The hero is a Splide
  * slider, so the whole first screen stays invisible until the 196 KB deferred
  * `landing.js` bundle parses and mounts it — FCP fires early but LCP waits ~7 s
- * for that bundle. The rules below render the first slide immediately (at its
- * natural size, siblings hidden so there is no stacked-slide flash); once Splide
- * mounts, `.is-initialized` lands on the root and the `:not(.is-initialized)`
- * selectors stop matching, handing layout back to Splide.
+ * for that bundle.
+ *
+ * The rules below reveal it early WITHOUT a layout shift. Splide runs the hero
+ * in `type:'fade'`: `.splide__list` is `display:flex` (a row) and every slide
+ * stays in flow, so `align-items:stretch` grows the track to the *tallest*
+ * slide (the patient slide is taller than the doctor slide). If we merely
+ * unhide the first slide (`display:block`, siblings hidden) the box is shorter
+ * than the mounted state and jumps ~200px when Splide mounts — tanking CLS and
+ * re-firing LCP at mount time. Instead we reproduce the mounted box exactly:
+ * flex row, each slide 100% wide, non-first slides `opacity:0`, track clipped.
+ * Height is then identical before and after mount. Once `.is-initialized` lands
+ * on the root these `:not(.is-initialized)` selectors stop matching and Splide
+ * (fade transform + opacity) takes over with no dimensional change.
  */
 add_action( 'wp_head', 'premiaspine_landing_perf_inline_css', 2 );
 function premiaspine_landing_perf_inline_css() {
@@ -112,9 +121,10 @@ function premiaspine_landing_perf_inline_css() {
 	echo '<style id="ps-perf-css">'
 		. '[data-fls-popup]:not([data-fls-popup-active]){content-visibility:hidden;}'
 		. '.hero-premia__slider.splide:not(.is-initialized){visibility:visible!important;}'
-		. '.hero-premia__slider.splide:not(.is-initialized) .splide__track{overflow:visible;}'
-		. '.hero-premia__slider.splide:not(.is-initialized) .splide__list{display:block;}'
-		. '.hero-premia__slider.splide:not(.is-initialized) .splide__slide:not(:first-child){display:none;}'
+		. '.hero-premia__slider.splide:not(.is-initialized) .splide__track{overflow:hidden!important;}'
+		. '.hero-premia__slider.splide:not(.is-initialized) .splide__list{display:flex;}'
+		. '.hero-premia__slider.splide:not(.is-initialized) .splide__slide{flex:0 0 100%;max-width:100%;}'
+		. '.hero-premia__slider.splide:not(.is-initialized) .splide__slide:not(:first-child){opacity:0;}'
 		. '</style>' . "\n";
 }
 
