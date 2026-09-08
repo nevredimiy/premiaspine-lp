@@ -131,12 +131,20 @@ function premiaspine_landing_preload_hero_assets() {
 
 	$doctor = (array) premiaspine_landing_opt( $first, array( 'doctor' ), array() );
 
-	$bg_url = premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'bg' ) ) );
+	$bg_id  = premiaspine_landing_opt( $doctor, array( 'bg' ) );
+	$bg_url = premiaspine_landing_attachment_url( $bg_id );
 	if ( $bg_url ) {
 		printf(
 			"<link rel=\"preload\" as=\"image\" href=\"%s\" media=\"(min-width: 768px)\" fetchpriority=\"high\">\n",
 			esc_url( $bg_url )
 		);
+		$bg_mobile = premiaspine_landing_attachment_url( $bg_id, '', 'medium_large' );
+		if ( $bg_mobile && $bg_mobile !== $bg_url ) {
+			printf(
+				"<link rel=\"preload\" as=\"image\" href=\"%s\" media=\"(max-width: 767.98px)\" fetchpriority=\"high\">\n",
+				esc_url( $bg_mobile )
+			);
+		}
 	}
 
 	$photo_id = premiaspine_landing_opt( $doctor, array( 'doctor_photo' ) );
@@ -156,8 +164,9 @@ function premiaspine_landing_preload_hero_assets() {
  * interaction (or a short timeout), so an unreachable or slow third-party host
  * cannot delay the initial page load or the `load` event.
  *
- * Currently: CallTrackingMetrics (`//364508.tctm.co/t.js`). The chat widget has
- * its own equivalent loader in inc/landing-codi-chatbot.php.
+ * Currently: CallTrackingMetrics (`//364508.tctm.co/t.js`), Google Ads gtag,
+ * and Google Tag Manager (`GTM-PBG4H7J`). The chat widget has its own
+ * equivalent loader in inc/landing-codi-chatbot.php.
  */
 add_action( 'wp_footer', 'premiaspine_landing_print_lazy_thirdparty', 20 );
 function premiaspine_landing_print_lazy_thirdparty() {
@@ -176,13 +185,28 @@ function premiaspine_landing_print_lazy_thirdparty() {
 			if (done) { return; }
 			done = true;
 			evts.forEach(function (e) { window.removeEventListener(e, load, opts); });
+
+			// CallTrackingMetrics
 			var s = document.createElement('script');
 			s.src = 'https://364508.tctm.co/t.js';
 			s.async = true;
 			document.head.appendChild(s);
+
+			// Google tag (gtag.js)
+			var sGtag = document.createElement('script');
+			sGtag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17015149521';
+			sGtag.async = true;
+			document.head.appendChild(sGtag);
+
+			// Google Tag Manager
+			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-PBG4H7J');
 		}
 		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
-		setTimeout(load, 4000);
+		setTimeout(load, 2500);
 	})();
 	</script>
 	<?php

@@ -128,6 +128,19 @@ function premiaspine_landing_enqueue_wpgmp_styles() {
 	);
 }
 
+add_action( 'wp_default_scripts', 'premiaspine_landing_remove_jquery_migrate' );
+function premiaspine_landing_remove_jquery_migrate( $scripts ) {
+	if ( is_admin() ) {
+		return;
+	}
+	if ( ! empty( $scripts->registered['jquery'] ) ) {
+		$scripts->registered['jquery']->deps = array_diff(
+			$scripts->registered['jquery']->deps,
+			array( 'jquery-migrate' )
+		);
+	}
+}
+
 add_filter( 'style_loader_tag', 'premiaspine_landing_defer_map_styles', 10, 4 );
 function premiaspine_landing_defer_map_styles( $html, $handle, $href, $media ) {
 	$deferred = array(
@@ -136,6 +149,8 @@ function premiaspine_landing_defer_map_styles( $html, $handle, $href, $media ) {
 		'fc-wpgmp-infowindow-default',
 		'fc-wpgmp-post-default',
 		'fc-wpgmp-item-default',
+		'contact-form-7',
+		'wpcf7-redirect-script-frontend',
 	);
 
 	if ( in_array( $handle, $deferred, true ) ) {

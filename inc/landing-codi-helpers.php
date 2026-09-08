@@ -295,13 +295,18 @@ function premiaspine_landing_hero_slide_link_close( $slide ) {
 }
 
 function premiaspine_landing_render_hero_doctor_slide( $slide ) {
-    $slide  = (array) $slide;
-    $doctor = (array) premiaspine_landing_opt( $slide, array( 'doctor' ), array() );
-    $bg_url = premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'bg' ) ) );
+    $slide     = (array) $slide;
+    $doctor    = (array) premiaspine_landing_opt( $slide, array( 'doctor' ), array() );
+    $bg_id     = premiaspine_landing_opt( $doctor, array( 'bg' ) );
+    $bg_url    = premiaspine_landing_attachment_url( $bg_id );
+    $bg_mobile = premiaspine_landing_attachment_url( $bg_id, '', 'medium_large' );
+    if ( ! $bg_mobile || $bg_mobile === $bg_url ) {
+        $bg_mobile = $bg_url;
+    }
     ?>
     <div class="hero-doctor">
         <?php echo premiaspine_landing_hero_slide_link_open( $slide ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-        <div class="holder"<?php if ( $bg_url ) : ?> style="background-image: url('<?php echo esc_url( $bg_url ); ?>');"<?php endif; ?>>
+        <div class="holder"<?php if ( $bg_url ) : ?> style="--hero-bg-desktop: url('<?php echo esc_url( $bg_url ); ?>'); --hero-bg-mobile: url('<?php echo esc_url( $bg_mobile ); ?>'); background-image: url('<?php echo esc_url( $bg_url ); ?>');"<?php endif; ?>>
             <?php if ( $title = premiaspine_landing_opt( $doctor, array( 'title' ) ) ) : ?>
                 <h1><?php echo premiaspine_landing_render_field_html( $title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
             <?php endif; ?>

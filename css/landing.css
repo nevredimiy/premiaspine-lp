@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Figtree:&display=swap");
+/* Google Fonts Figtree is preloaded in <head> */
 
 img {
   object-fit: cover;
@@ -3184,6 +3184,7 @@ input[type="submit"].contact-section__button {
     min-height: 0 !important;
     width: 100%;
     justify-content: start !important;
+    background-image: var(--hero-bg-mobile, var(--hero-bg-desktop)) !important;
   }
 
   .hero-doctor {
