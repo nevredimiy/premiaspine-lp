@@ -296,10 +296,13 @@ function premiaspine_landing_hero_slide_link_close( $slide ) {
 
 function premiaspine_landing_render_hero_doctor_slide( $slide ) {
     $slide     = (array) $slide;
-    $doctor    = (array) premiaspine_landing_opt( $slide, array( 'doctor' ), array() );
-    $bg_id     = premiaspine_landing_opt( $doctor, array( 'bg' ) );
-    $bg_url    = premiaspine_landing_attachment_url( $bg_id );
-    $bg_mobile = premiaspine_landing_attachment_url( $bg_id, '', 'medium_large' );
+    $doctor            = (array) premiaspine_landing_opt( $slide, array( 'doctor' ), array() );
+    $bg_id             = premiaspine_landing_opt( $doctor, array( 'bg' ) );
+    $bg_url            = premiaspine_landing_attachment_url( $bg_id );
+    $theme_mobile_webp = get_theme_file_uri( 'images/bg-top-section-mobile.webp' );
+    $bg_mobile         = file_exists( get_template_directory() . '/images/bg-top-section-mobile.webp' )
+        ? $theme_mobile_webp
+        : premiaspine_landing_attachment_url( $bg_id, '', 'medium_large' );
     if ( ! $bg_mobile || $bg_mobile === $bg_url ) {
         $bg_mobile = $bg_url;
     }

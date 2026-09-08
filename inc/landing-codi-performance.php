@@ -138,7 +138,10 @@ function premiaspine_landing_preload_hero_assets() {
 			"<link rel=\"preload\" as=\"image\" href=\"%s\" media=\"(min-width: 768px)\" fetchpriority=\"high\">\n",
 			esc_url( $bg_url )
 		);
-		$bg_mobile = premiaspine_landing_attachment_url( $bg_id, '', 'medium_large' );
+		$theme_mobile_webp = get_theme_file_uri( 'images/bg-top-section-mobile.webp' );
+		$bg_mobile         = file_exists( get_template_directory() . '/images/bg-top-section-mobile.webp' )
+			? $theme_mobile_webp
+			: premiaspine_landing_attachment_url( $bg_id, '', 'medium_large' );
 		if ( $bg_mobile && $bg_mobile !== $bg_url ) {
 			printf(
 				"<link rel=\"preload\" as=\"image\" href=\"%s\" media=\"(max-width: 767.98px)\" fetchpriority=\"high\">\n",
