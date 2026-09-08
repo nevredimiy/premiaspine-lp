@@ -134,30 +134,37 @@
 
   $(document).ready(function () {
     fixSizes();
-    $("a[data-fancybox], .video a").fancybox({
-      smallBtn: true,
-      helpers: {
-        title: {
-          type: "inside",
+    // Fancybox / jQuery UI accordion are dequeued on templates that don't use
+    // them (e.g. the 2026 landing). Feature-detect so the rest of this ready
+    // handler — CF7 validation, sticky form — still runs when they're absent.
+    if ($.fn.fancybox) {
+      $("a[data-fancybox], .video a").fancybox({
+        smallBtn: true,
+        helpers: {
+          title: {
+            type: "inside",
+          },
+          media: true,
         },
-        media: true,
-      },
-      caption: function (instance, item) {
-        var caption = $(this).attr("title") || "";
-        var description = $(this).attr("data-description") || "";
+        caption: function (instance, item) {
+          var caption = $(this).attr("title") || "";
+          var description = $(this).attr("data-description") || "";
 
-        caption = caption.length ? caption + "<br />" + description : "";
-        return caption;
-      },
-      youtube: {
-        autoplay: 1,
-      },
-    });
-    $(".faq").accordion({
-      collapsible: true,
-      active: false,
-      heightStyle: "content",
-    });
+          caption = caption.length ? caption + "<br />" + description : "";
+          return caption;
+        },
+        youtube: {
+          autoplay: 1,
+        },
+      });
+    }
+    if ($.fn.accordion) {
+      $(".faq").accordion({
+        collapsible: true,
+        active: false,
+        heightStyle: "content",
+      });
+    }
     $(".wpcf7").on("wpcf7submit", function (e) {
       console.log(e);
       $(e.target)

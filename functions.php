@@ -258,11 +258,24 @@ function premiaspine_landing_print_wpgmp_runtime_assets( $inline_js = '' ) {
 			loadMaps();
 		}
 
-		// Safety nets: first real interaction, or a hard idle cap.
+		// Safety nets: first real interaction, or — for a visitor who never
+		// scrolls to the map and never interacts — after load + main-thread idle
+		// so the Maps API's long tasks stay out of the initial load window.
 		['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (e) {
 			window.addEventListener(e, loadMaps, { once: true, passive: true });
 		});
-		setTimeout(loadMaps, 12000);
+		function scheduleIdleMaps() {
+			if ('requestIdleCallback' in window) {
+				requestIdleCallback(loadMaps, { timeout: 20000 });
+			} else {
+				setTimeout(loadMaps, 12000);
+			}
+		}
+		if (document.readyState === 'complete') {
+			scheduleIdleMaps();
+		} else {
+			window.addEventListener('load', scheduleIdleMaps, { once: true });
+		}
 	})();
 	</script>
 	<?php

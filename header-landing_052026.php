@@ -159,7 +159,14 @@ if ( ! $og_image ) {
 	<meta name="facebook-domain-verification" content="c9mcgcinp01rync572ckpcn00m1pcb" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+        <?php // Cloudflare "Optimize Google Fonts" rewrites the stylesheet below into
+              // an inline @font-face block served from same-origin /cf-fonts/. Preload
+              // the weight the hero <h1> / body copy actually use so the swap happens
+              // sooner (helps FCP-perceived + Speed Index). Dropped the italic axis:
+              // only .patient-hero__name used it (slide 2), faux-italic is acceptable
+              // there and it saves two variable-font downloads on load. ?>
+        <link rel="preload" as="font" type="font/woff2" href="/cf-fonts/v/figtree/5.2.10/latin/wght/normal.woff2" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
 	<!-- Google tag (gtag.js) & GTM initialization -->
 	<script>
 	  window.dataLayer = window.dataLayer || [];

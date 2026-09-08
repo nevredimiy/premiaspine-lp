@@ -47,6 +47,13 @@ function premiaspine_landing_is_codi_perf_context() {
  * parsing and expect the `wp.*` globals to already exist, so a plain `defer`
  * on the external file desynchronises them (ReferenceError: wp is not defined).
  *
+ * `jquery-core` IS deferred here: this template ships no inline/body `<script>`
+ * that touches `$`/`jQuery` synchronously (jquery-migrate is removed, jQuery UI
+ * is dequeued — see premiaspine_landing_dequeue_unused_libs(), and the remote
+ * map's `jQuery(document).ready` runs from an injected tag after the lazy Maps
+ * load). All `defer` scripts keep document order, so js/main.js and landing.js
+ * (also deferred, in the footer) still run after jQuery.
+ *
  * @param string $tag    The full <script> tag (may include inline before/after blocks).
  * @param string $handle Registered script handle.
  * @return string
@@ -58,6 +65,7 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
 	}
 
 	$deferrable = array(
+		'jquery-core',
 		'jquery-ui-core',
 		'jquery-ui-widget',
 		'jquery-ui-mouse',
@@ -82,6 +90,37 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
 		$tag,
 		1
 	);
+}
+
+/**
+ * Drop libraries that are enqueued theme-wide (THEME::addThemeScripts()) but
+ * unused on this template, so their parse/compile/execute cost stops counting
+ * against Total Blocking Time.
+ *
+ *  - jQuery UI accordion/sortable: no `.faq` accordion and no sortable UI here.
+ *  - Fancybox (~22 KB gzip): no `[data-fancybox]` galleries — story and about
+ *    video popups run on the FLS popup bundled in landing.js.
+ *
+ * js/main.js feature-detects `$.fn.fancybox` / `$.fn.accordion` before calling
+ * them, so it keeps working without these. Priority 99: after
+ * THEME::addFrontendScriptsStyles() (default 10) has enqueued them.
+ */
+add_action( 'wp_enqueue_scripts', 'premiaspine_landing_dequeue_unused_libs', 99 );
+function premiaspine_landing_dequeue_unused_libs() {
+	if ( ! premiaspine_landing_is_codi_perf_context() ) {
+		return;
+	}
+
+	foreach ( array(
+		'jquery.fancybox.min',
+		'jquery-ui-accordion',
+		'jquery-ui-sortable',
+		'jquery-ui-core',
+		'jquery-ui-widget',
+		'jquery-ui-mouse',
+	) as $handle ) {
+		wp_dequeue_script( $handle );
+	}
 }
 
 /**
@@ -243,7 +282,23 @@ function premiaspine_landing_print_lazy_thirdparty() {
 			})(window,document,'script','dataLayer','GTM-PBG4H7J');
 		}
 		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
-		setTimeout(load, 8000);
+
+		// No interaction: load once the page has finished loading AND the main
+		// thread goes idle. Keeps tag scripts (and their long tasks) out of the
+		// initial load window / a lab trace, while still firing for visitors who
+		// never scroll or click. `timeout` is the hard ceiling.
+		function scheduleIdleLoad() {
+			if ('requestIdleCallback' in window) {
+				requestIdleCallback(load, { timeout: 15000 });
+			} else {
+				setTimeout(load, 6000);
+			}
+		}
+		if (document.readyState === 'complete') {
+			scheduleIdleLoad();
+		} else {
+			window.addEventListener('load', scheduleIdleLoad, { once: true });
+		}
 	})();
 	</script>
 	<?php
@@ -365,10 +420,57 @@ function premiaspine_landing_print_lazy_cf7_recaptcha() {
 			window.addEventListener(e, loadRecaptcha, { once: true, passive: true });
 		});
 
-		// Fallback idle timer
-		setTimeout(loadRecaptcha, 3500);
+		// Fallback: after load + main-thread idle (reCAPTCHA v3 execution is a
+		// long task). Form users hit one of the interaction triggers above well
+		// before this fires.
+		function scheduleIdleRecaptcha() {
+			if ('requestIdleCallback' in window) {
+				requestIdleCallback(loadRecaptcha, { timeout: 12000 });
+			} else {
+				setTimeout(loadRecaptcha, 5000);
+			}
+		}
+		if (document.readyState === 'complete') {
+			scheduleIdleRecaptcha();
+		} else {
+			window.addEventListener('load', scheduleIdleRecaptcha, { once: true });
+		}
 	})();
 	</script>
 	<?php
+}
+
+/**
+ * Send a cache-friendly `Cache-Control` for this template so a cold edge cache
+ * never blocks a visitor on the ~1.5s origin render.
+ *
+ * The origin currently emits `Cache-Control: max-age=3600` with no
+ * `stale-while-revalidate`, so every hour the first request (frequently the
+ * PageSpeed run) pays full WordPress render time — that's most of the ~1.8s FCP.
+ * A long shared/edge TTL + SWR lets Cloudflare serve the stale copy instantly
+ * and refresh in the background.
+ *
+ * Scoped hard on purpose: only the Codi landing, only anonymous GET requests
+ * with no query string (ad hits carrying ?gclid/?fbclid/?utm_* keep the
+ * existing behaviour, and personalised/nonce'd responses are never touched).
+ * If a caching plugin already manages these headers this is redundant, not
+ * harmful — remove this function if it conflicts.
+ */
+add_action( 'template_redirect', 'premiaspine_landing_codi_cache_headers', 0 );
+function premiaspine_landing_codi_cache_headers() {
+	if ( headers_sent() || ! premiaspine_landing_is_codi_perf_context() ) {
+		return;
+	}
+	if ( is_user_logged_in() || is_preview() ) {
+		return;
+	}
+	if ( 'GET' !== ( isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( $_SERVER['REQUEST_METHOD'] ) : 'GET' ) ) {
+		return;
+	}
+	if ( ! empty( $_GET ) ) {
+		return;
+	}
+
+	header( 'Cache-Control: public, max-age=600, s-maxage=86400, stale-while-revalidate=604800' );
 }
 
