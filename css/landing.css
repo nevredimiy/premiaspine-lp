@@ -3181,7 +3181,7 @@ input[type="submit"].contact-section__button {
   }
 
   .hero-premia .holder {
-    min-height: 0 !important;
+    min-height: 430px;
     width: 100%;
     justify-content: start !important;
     background-image: var(--hero-bg-mobile, var(--hero-bg-desktop)) !important;
@@ -3222,6 +3222,7 @@ input[type="submit"].contact-section__button {
 
   .hero-premia__slider {
     border-radius: 25px 25px 0 0;
+    min-height: 430px;
   }
 
   .hero-premia h1 {

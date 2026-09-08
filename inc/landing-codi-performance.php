@@ -215,11 +215,7 @@ function premiaspine_landing_print_lazy_thirdparty() {
 			})(window,document,'script','dataLayer','GTM-PBG4H7J');
 		}
 		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
-		if ('requestIdleCallback' in window) {
-			requestIdleCallback(function () { setTimeout(load, 2000); }, { timeout: 6000 });
-		} else {
-			setTimeout(load, 5000);
-		}
+		setTimeout(load, 8000);
 	})();
 	</script>
 	<?php
