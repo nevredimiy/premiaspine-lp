@@ -169,50 +169,102 @@ function premiaspine_landing_sanitize_remote_map_markup( $html ) {
 	return preg_replace( '/<link\b[^>]*>/i', '', $html );
 }
 
-function premiaspine_landing_print_wpgmp_runtime_assets() {
+function premiaspine_landing_print_wpgmp_runtime_assets( $inline_js = '' ) {
 	$plugin_base = 'https://premiaspine.com/wp-content/plugins/wp-google-map-gold';
+
+	// Ordered: Maps API -> wpgmp maps.min.js (defines $.fn.maps) -> frontend.min.js.
+	$map_scripts = array(
+		'wpgmp-google-api-js'      => 'https://maps.google.com/maps/api/js?key=AIzaSyCW4AVDKtIIiSrTSh880d2UhcMxs4GiJ8M&libraries=geometry,places,drawing&language=en&ver=5.3.3',
+		'wpgmp-google-map-main-js' => $plugin_base . '/assets/js/maps.min.js?ver=5.3.3',
+		'wpgmp-frontend-js'        => $plugin_base . '/assets/js/frontend.min.js?ver=5.3.3',
+	);
 	?>
 	<script id="wpgmp-google-map-main-js-extra">
 	var wpgmp_local = {"ajax_url":"https:\/\/premiaspine.com\/wp-admin\/admin-ajax.php","wpgmp_location_no_results":"No results found.","place_icon_url":"https:\/\/premiaspine.com\/wp-content\/plugins\/wp-google-map-gold\/assets\/images\/icons\/"};
 	</script>
-	<script id="wpgmp-marker-fix">
+	<script id="wpgmp-map-lazy-loader">
 	(function () {
-		// Patch Google Maps Marker prototype to safely convert non-boolean values to boolean.
-		// This completely eliminates the 193 "InvalidValueError: setClickable: not a boolean" errors
-		// without altering script timing so the map still renders properly on DOMContentLoaded.
-		function patchGoogleMapsMarker() {
-			if (window.google && window.google.maps && window.google.maps.Marker) {
-				var proto = window.google.maps.Marker.prototype;
-				if (proto && !proto.__psPatched) {
-					proto.__psPatched = true;
-					var origSetClickable = proto.setClickable;
-					if (typeof origSetClickable === 'function') {
-						proto.setClickable = function(val) {
-							return origSetClickable.call(this, val === true || val === 'true' || val === 1 || val === '1');
-						};
-					}
-					var origSetDraggable = proto.setDraggable;
-					if (typeof origSetDraggable === 'function') {
-						proto.setDraggable = function(val) {
-							return origSetDraggable.call(this, val === true || val === 'true' || val === 1 || val === '1');
-						};
-					}
-				}
+		// The Google Maps JS API + wpgmp bundles cost 2-3s of Total Blocking Time
+		// on mid-range mobile. The map lives far below the fold, so nothing here is
+		// requested until #map-section is ~800px from the viewport (or the first
+		// real interaction / a hard idle cap). The map-init script pulled out of
+		// the remote markup (INIT_JS) runs only after all three files have executed,
+		// so $.fn.maps and google.maps are guaranteed to exist.
+		var SCRIPTS = <?php echo wp_json_encode( $map_scripts ); ?>;
+		var INIT_JS = <?php echo wp_json_encode( (string) $inline_js ); ?>;
+		var started = false;
+
+		// wpgmp passes non-boolean values to Marker.setClickable / setDraggable,
+		// which throws in the current Maps API. Patch the prototype once it exists.
+		function patchMarker() {
+			if (!(window.google && google.maps && google.maps.Marker)) { return false; }
+			var proto = google.maps.Marker.prototype;
+			if (proto && !proto.__psPatched) {
+				proto.__psPatched = true;
+				var toBool = function (v) { return v === true || v === 'true' || v === 1 || v === '1'; };
+				var oc = proto.setClickable;
+				if (typeof oc === 'function') { proto.setClickable = function (v) { return oc.call(this, toBool(v)); }; }
+				var od = proto.setDraggable;
+				if (typeof od === 'function') { proto.setDraggable = function (v) { return od.call(this, toBool(v)); }; }
+			}
+			return !!(proto && proto.__psPatched);
+		}
+
+		function runInit() {
+			if (!INIT_JS) { return; }
+			// Execute in global scope without eval() so `var map1 = ...` and the
+			// jQuery(document).ready() call inside behave exactly as an inline tag.
+			var s = document.createElement('script');
+			s.text = INIT_JS;
+			document.body.appendChild(s);
+		}
+
+		function loadMaps() {
+			if (started) { return; }
+			started = true;
+
+			var ids = Object.keys(SCRIPTS);
+			var pending = ids.length;
+			ids.forEach(function (id) {
+				var s = document.createElement('script');
+				s.src = SCRIPTS[id];
+				s.id = id;
+				s.async = false; // dynamically inserted scripts: async=false keeps execution order
+				s.onload = s.onerror = function () {
+					if (--pending === 0) { runInit(); }
+				};
+				document.body.appendChild(s);
+			});
+
+			if (!patchMarker()) {
+				var t = setInterval(function () {
+					if (patchMarker()) { clearInterval(t); }
+				}, 60);
+				setTimeout(function () { clearInterval(t); }, 15000);
 			}
 		}
-		patchGoogleMapsMarker();
-		var patchInterval = setInterval(function () {
-			patchGoogleMapsMarker();
-			if (window.google && window.google.maps && window.google.maps.Marker && window.google.maps.Marker.prototype && window.google.maps.Marker.prototype.__psPatched) {
-				clearInterval(patchInterval);
-			}
-		}, 10);
+
+		var target = document.getElementById('map-section') ||
+			document.querySelector('.find-doctor-map-container, .map-section__map, .wpgmp_map_container');
+
+		if (target && 'IntersectionObserver' in window) {
+			var io = new IntersectionObserver(function (entries) {
+				for (var i = 0; i < entries.length; i++) {
+					if (entries[i].isIntersecting) { io.disconnect(); loadMaps(); return; }
+				}
+			}, { rootMargin: '800px 0px' });
+			io.observe(target);
+		} else if (target) {
+			loadMaps();
+		}
+
+		// Safety nets: first real interaction, or a hard idle cap.
+		['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (e) {
+			window.addEventListener(e, loadMaps, { once: true, passive: true });
+		});
+		setTimeout(loadMaps, 12000);
 	})();
 	</script>
-	<?php // `defer` keeps load order (Maps API -> maps.min -> frontend) before DOMContentLoaded so jQuery(document).ready map initialization runs smoothly. ?>
-	<script defer src="https://maps.google.com/maps/api/js?key=AIzaSyCW4AVDKtIIiSrTSh880d2UhcMxs4GiJ8M&amp;libraries=geometry%2Cplaces%2Cdrawing&amp;language=en&amp;ver=5.3.3" id="wpgmp-google-api-js"></script>
-	<script defer src="<?php echo esc_url( $plugin_base . '/assets/js/maps.min.js?ver=5.3.3' ); ?>" id="wpgmp-google-map-main-js"></script>
-	<script defer src="<?php echo esc_url( $plugin_base . '/assets/js/frontend.min.js?ver=5.3.3' ); ?>" id="wpgmp-frontend-js"></script>
 	<?php
 }
 
@@ -650,7 +702,27 @@ function get_locations_map() {
 		}
 	}
 
-	echo premiaspine_landing_sanitize_remote_map_markup( (string) $html );
-	premiaspine_landing_print_wpgmp_runtime_assets();
+	$html = premiaspine_landing_sanitize_remote_map_markup( (string) $html );
+	if ( '' === trim( $html ) ) {
+		return;
+	}
+
+	// Pull the inline <script> blocks (map data + the jQuery(document).ready call
+	// that runs $("#map1").maps(...)) out of the markup so they can be executed
+	// *after* the lazily-loaded Maps API + maps.min.js. Left inline they would run
+	// on DOMContentLoaded, when $.fn.maps is still undefined, and the map would
+	// never initialise.
+	$inline_js = '';
+	$html      = preg_replace_callback(
+		'#<script\b[^>]*>(.*?)</script>#is',
+		function ( $matches ) use ( &$inline_js ) {
+			$inline_js .= trim( $matches[1] ) . "\n";
+			return '';
+		},
+		$html
+	);
+
+	echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	premiaspine_landing_print_wpgmp_runtime_assets( $inline_js );
 }
 

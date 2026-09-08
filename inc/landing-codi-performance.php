@@ -94,13 +94,28 @@ function premiaspine_landing_defer_noncritical_scripts( $tag, $handle ) {
  * downloads every one on page load (tens of images, ~20 MB). `content-visibility`
  * makes the browser skip layout/paint AND resource loading for the subtree until
  * the popup is opened (the `[data-fls-popup-active]` attribute is added).
+ *
+ * Hero slider pre-mount visibility: landing.css hides every `.splide`
+ * (`visibility:hidden`) until JS adds `.is-initialized`. The hero is a Splide
+ * slider, so the whole first screen stays invisible until the 196 KB deferred
+ * `landing.js` bundle parses and mounts it — FCP fires early but LCP waits ~7 s
+ * for that bundle. The rules below render the first slide immediately (at its
+ * natural size, siblings hidden so there is no stacked-slide flash); once Splide
+ * mounts, `.is-initialized` lands on the root and the `:not(.is-initialized)`
+ * selectors stop matching, handing layout back to Splide.
  */
 add_action( 'wp_head', 'premiaspine_landing_perf_inline_css', 2 );
 function premiaspine_landing_perf_inline_css() {
 	if ( ! premiaspine_landing_is_codi_perf_context() ) {
 		return;
 	}
-	echo '<style id="ps-perf-css">[data-fls-popup]:not([data-fls-popup-active]){content-visibility:hidden;}</style>' . "\n";
+	echo '<style id="ps-perf-css">'
+		. '[data-fls-popup]:not([data-fls-popup-active]){content-visibility:hidden;}'
+		. '.hero-premia__slider.splide:not(.is-initialized){visibility:visible!important;}'
+		. '.hero-premia__slider.splide:not(.is-initialized) .splide__track{overflow:visible;}'
+		. '.hero-premia__slider.splide:not(.is-initialized) .splide__list{display:block;}'
+		. '.hero-premia__slider.splide:not(.is-initialized) .splide__slide:not(:first-child){display:none;}'
+		. '</style>' . "\n";
 }
 
 /**
