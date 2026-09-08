@@ -266,9 +266,22 @@ function premiaspine_landing_print_lazy_cf7_recaptcha() {
 		return;
 	}
 
+	// CF7 attaches `var wpcf7_recaptcha = {...}` via wp_add_inline_script( 'before' ),
+	// so it lives in ->extra['before'] (an array), NOT ->extra['data'] (wp_localize_script).
+	// Missing this is what makes index.js throw "wpcf7_recaptcha is not defined".
 	$recaptcha_data = '';
+	foreach ( array( 'before', 'after' ) as $position ) {
+		if ( empty( $wp_scripts->registered['wpcf7-recaptcha']->extra[ $position ] ) ) {
+			continue;
+		}
+		foreach ( (array) $wp_scripts->registered['wpcf7-recaptcha']->extra[ $position ] as $part ) {
+			if ( is_string( $part ) && '' !== trim( $part ) ) {
+				$recaptcha_data .= $part . "\n";
+			}
+		}
+	}
 	if ( ! empty( $wp_scripts->registered['wpcf7-recaptcha']->extra['data'] ) ) {
-		$recaptcha_data = $wp_scripts->registered['wpcf7-recaptcha']->extra['data'];
+		$recaptcha_data .= $wp_scripts->registered['wpcf7-recaptcha']->extra['data'];
 	}
 	?>
 	<script id="ps-lazy-recaptcha">

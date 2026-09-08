@@ -5591,10 +5591,15 @@ var _Splide = /* @__PURE__ */ (function () {
 var Splide = _Splide;
 Splide.defaults = {};
 Splide.STATES = STATES;
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function initLandingSliders() {
+  // Run once only. A synthetic DOMContentLoaded is dispatched later by the lazy
+  // reCAPTCHA loader; without this guard every slider gets mounted a second time
+  // (e.g. the hero slider grows a duplicate splide__pagination — 2 dots become 4).
+  document.removeEventListener("DOMContentLoaded", initLandingSliders);
   var sectionSliderEls = document.querySelectorAll(".slider-section__slider");
   if (sectionSliderEls.length > 0) {
     sectionSliderEls.forEach(function (sliderEl) {
+      if (sliderEl.splide) return;
       var sectionSlider = new Splide(sliderEl, {
         type: "loop",
         arrows: true,
@@ -5625,6 +5630,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var benefitsSliderEls = document.querySelectorAll(".benefits-pr__slider");
   if (benefitsSliderEls.length > 0) {
     benefitsSliderEls.forEach(function (sliderEl) {
+      if (sliderEl.splide) return;
       var benefitsSlider = new Splide(sliderEl, {
         arrows: false,
         pagination: false,
@@ -5645,6 +5651,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var heroSliderEls = document.querySelectorAll(".hero-premia__slider");
   if (heroSliderEls.length > 0) {
     heroSliderEls.forEach(function (sliderEl) {
+      if (sliderEl.splide) return;
       var heroSlider = new Splide(sliderEl, {
         type: "fade",
         perPage: 1,
