@@ -199,3 +199,102 @@ add_action( 'after_setup_theme', 'premiaspine_landing_register_hero_image_size' 
 function premiaspine_landing_register_hero_image_size() {
 	add_image_size( 'hero_doctor_portrait', 480, 720, true );
 }
+
+/**
+ * Dequeue Google reCAPTCHA v3 on initial page parse to eliminate 1.5-2.5s of
+ * Total Blocking Time (TBT). Scripts are dynamically loaded on-demand when the
+ * user interacts with a form, starts scrolling, or after initial render idle time.
+ */
+add_action( 'wp_enqueue_scripts', 'premiaspine_landing_dequeue_cf7_recaptcha', 99 );
+function premiaspine_landing_dequeue_cf7_recaptcha() {
+	if ( ! premiaspine_landing_is_codi_perf_context() ) {
+		return;
+	}
+
+	wp_dequeue_script( 'google-recaptcha' );
+	wp_dequeue_script( 'wpcf7-recaptcha' );
+}
+
+add_action( 'wp_footer', 'premiaspine_landing_print_lazy_cf7_recaptcha', 25 );
+function premiaspine_landing_print_lazy_cf7_recaptcha() {
+	if ( ! premiaspine_landing_is_codi_perf_context() ) {
+		return;
+	}
+
+	global $wp_scripts;
+	$recaptcha_src = ! empty( $wp_scripts->registered['google-recaptcha']->src )
+		? $wp_scripts->registered['google-recaptcha']->src
+		: '';
+	$wpcf7_src     = ! empty( $wp_scripts->registered['wpcf7-recaptcha']->src )
+		? $wp_scripts->registered['wpcf7-recaptcha']->src
+		: '';
+
+	if ( ! $recaptcha_src || ! $wpcf7_src ) {
+		return;
+	}
+
+	$recaptcha_data = '';
+	if ( ! empty( $wp_scripts->registered['wpcf7-recaptcha']->extra['data'] ) ) {
+		$recaptcha_data = $wp_scripts->registered['wpcf7-recaptcha']->extra['data'];
+	}
+	?>
+	<script id="ps-lazy-recaptcha">
+	(function () {
+		var loaded = false;
+		function loadRecaptcha() {
+			if (loaded) { return; }
+			loaded = true;
+
+			['scroll', 'touchstart', 'pointerdown', 'keydown'].forEach(function (e) {
+				window.removeEventListener(e, loadRecaptcha, { passive: true, capture: true });
+			});
+
+			<?php if ( $recaptcha_data ) : ?>
+			<?php echo $recaptcha_data; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php endif; ?>
+
+			var s1 = document.createElement('script');
+			s1.src = <?php echo wp_json_encode( $recaptcha_src ); ?>;
+			s1.async = true;
+			s1.onload = function () {
+				var s2 = document.createElement('script');
+				s2.src = <?php echo wp_json_encode( $wpcf7_src ); ?>;
+				s2.async = true;
+				s2.onload = function () {
+					// CF7 index.js binds on DOMContentLoaded; dispatch event so it initializes if DOM is already ready
+					if (document.readyState !== 'loading') {
+						try {
+							document.dispatchEvent(new Event('DOMContentLoaded'));
+						} catch (err) {}
+					}
+				};
+				document.head.appendChild(s2);
+			};
+			document.head.appendChild(s1);
+		}
+
+		// Trigger immediately when user focuses or clicks on any form field
+		document.addEventListener('focusin', function (e) {
+			if (e.target && e.target.closest && e.target.closest('.wpcf7')) {
+				loadRecaptcha();
+			}
+		}, { passive: true });
+
+		document.addEventListener('pointerdown', function (e) {
+			if (e.target && e.target.closest && e.target.closest('.wpcf7')) {
+				loadRecaptcha();
+			}
+		}, { passive: true });
+
+		// Or when scrolling / touching
+		['scroll', 'touchstart', 'keydown'].forEach(function (e) {
+			window.addEventListener(e, loadRecaptcha, { once: true, passive: true });
+		});
+
+		// Fallback idle timer
+		setTimeout(loadRecaptcha, 3500);
+	})();
+	</script>
+	<?php
+}
+
