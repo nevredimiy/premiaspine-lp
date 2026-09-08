@@ -195,7 +195,7 @@ if ( ! $og_image ) {
 	<meta name="msvalidate.01" content="329018F2E433D2E3A925F40C561E9B86" />
 </head>
 <body <?php body_class(); ?> id="2">
-	
+	<!--email_off-->
 	
 	<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBG4H7J"

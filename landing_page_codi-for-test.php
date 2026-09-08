@@ -274,5 +274,6 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css?family=Raleway:400,600,900&display=swap" rel="stylesheet"></noscript>
 <link rel='stylesheet' id='jquery.fancybox.min-css'  href='<?php echo get_stylesheet_directory_uri()?>/css/jquery.fancybox.min.css?v=1580469056&#038;ver=5.3.2' type='text/css' media='all' />
+<!--/email_off-->
 </body>
 </html>

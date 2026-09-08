@@ -3173,6 +3173,10 @@ input[type="submit"].contact-section__button {
   .slider-section__slider {
     padding: 0 60px;
   }
+
+  .hero-premia .holder {
+    background-image: var(--hero-bg-desktop) !important;
+  }
 }
 
 @media screen and (max-width: 767px) {

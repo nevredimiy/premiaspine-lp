@@ -306,7 +306,7 @@ function premiaspine_landing_render_hero_doctor_slide( $slide ) {
     ?>
     <div class="hero-doctor">
         <?php echo premiaspine_landing_hero_slide_link_open( $slide ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-        <div class="holder"<?php if ( $bg_url ) : ?> style="--hero-bg-desktop: url('<?php echo esc_url( $bg_url ); ?>'); --hero-bg-mobile: url('<?php echo esc_url( $bg_mobile ); ?>'); background-image: url('<?php echo esc_url( $bg_url ); ?>');"<?php endif; ?>>
+        <div class="holder"<?php if ( $bg_url ) : ?> style="--hero-bg-desktop: url('<?php echo esc_url( $bg_url ); ?>'); --hero-bg-mobile: url('<?php echo esc_url( $bg_mobile ); ?>'); background-image: var(--hero-bg-mobile, var(--hero-bg-desktop));"<?php endif; ?>>
             <?php if ( $title = premiaspine_landing_opt( $doctor, array( 'title' ) ) ) : ?>
                 <h1><?php echo premiaspine_landing_render_field_html( $title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
             <?php endif; ?>
@@ -443,7 +443,7 @@ function premiaspine_landing_render_hero_patient_slide( $slide, $default_images 
                             ?>
                             <div class="patient-hero__image">
                                 <?php if ( ! empty( $img_attachment_id ) && is_numeric( $img_attachment_id ) ) : ?>
-                                    <?php echo wp_get_attachment_image( absint( $img_attachment_id ), 'medium', false, array( 'alt' => 'Patient review', 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
+                                    <?php echo wp_get_attachment_image( absint( $img_attachment_id ), 'medium', false, array( 'alt' => 'Patient review', 'loading' => 'lazy', 'decoding' => 'async', 'sizes' => '66px' ) ); ?>
                                 <?php else : ?>
                                     <img alt="Image" loading="lazy" decoding="async" src="<?php echo esc_url( $image_url ); ?>">
                                 <?php endif; ?>
