@@ -31,3 +31,4 @@ debug.log
 *.tmp
 *~
 _optimized-images/
+assets/find-doctor-map-filters.js
