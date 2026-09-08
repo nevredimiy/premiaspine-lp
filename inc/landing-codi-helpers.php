@@ -360,6 +360,7 @@ function premiaspine_landing_render_hero_doctor_slide( $slide ) {
                             'decoding'      => 'async',
                             'width'         => '233',
                             'height'        => '350',
+                            'sizes'         => '(max-width: 767px) 233px, 233px',
                         )
                     );
                 } else {

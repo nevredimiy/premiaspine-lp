@@ -149,12 +149,21 @@ function premiaspine_landing_preload_hero_assets() {
 
 	$photo_id = premiaspine_landing_opt( $doctor, array( 'doctor_photo' ) );
 	if ( $photo_id && is_numeric( $photo_id ) ) {
-		$photo_src = wp_get_attachment_image_src( absint( $photo_id ), 'medium_large' );
+		$photo_src    = wp_get_attachment_image_src( absint( $photo_id ), 'medium_large' );
+		$photo_srcset = wp_get_attachment_image_srcset( absint( $photo_id ), 'medium_large' );
 		if ( ! empty( $photo_src[0] ) ) {
-			printf(
-				"<link rel=\"preload\" as=\"image\" href=\"%s\" fetchpriority=\"high\">\n",
-				esc_url( $photo_src[0] )
-			);
+			if ( $photo_srcset ) {
+				printf(
+					"<link rel=\"preload\" as=\"image\" href=\"%s\" imagesrcset=\"%s\" imagesizes=\"(max-width: 767px) 233px, 233px\" fetchpriority=\"high\">\n",
+					esc_url( $photo_src[0] ),
+					esc_attr( $photo_srcset )
+				);
+			} else {
+				printf(
+					"<link rel=\"preload\" as=\"image\" href=\"%s\" fetchpriority=\"high\">\n",
+					esc_url( $photo_src[0] )
+				);
+			}
 		}
 	}
 }
@@ -206,7 +215,11 @@ function premiaspine_landing_print_lazy_thirdparty() {
 			})(window,document,'script','dataLayer','GTM-PBG4H7J');
 		}
 		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
-		setTimeout(load, 2500);
+		if ('requestIdleCallback' in window) {
+			requestIdleCallback(function () { setTimeout(load, 2000); }, { timeout: 6000 });
+		} else {
+			setTimeout(load, 5000);
+		}
 	})();
 	</script>
 	<?php

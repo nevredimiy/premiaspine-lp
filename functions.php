@@ -149,8 +149,6 @@ function premiaspine_landing_defer_map_styles( $html, $handle, $href, $media ) {
 		'fc-wpgmp-infowindow-default',
 		'fc-wpgmp-post-default',
 		'fc-wpgmp-item-default',
-		'contact-form-7',
-		'wpcf7-redirect-script-frontend',
 	);
 
 	if ( in_array( $handle, $deferred, true ) ) {
