@@ -134,7 +134,7 @@ function premiaspine_landing_preload_hero_assets() {
 	$bg_url = premiaspine_landing_attachment_url( premiaspine_landing_opt( $doctor, array( 'bg' ) ) );
 	if ( $bg_url ) {
 		printf(
-			"<link rel=\"preload\" as=\"image\" href=\"%s\" fetchpriority=\"high\">\n",
+			"<link rel=\"preload\" as=\"image\" href=\"%s\" media=\"(min-width: 768px)\" fetchpriority=\"high\">\n",
 			esc_url( $bg_url )
 		);
 	}
