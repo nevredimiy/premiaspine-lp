@@ -178,7 +178,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <link rel="preconnect" href="https://premiaspine.com" crossorigin>
         <link rel="dns-prefetch" href="https://premiaspine.com">
+	<?php if ( function_exists( 'premiaspine_landing_is_codi_perf_context' ) && premiaspine_landing_is_codi_perf_context() ) : ?>
+	<?php // Call-tracking (CallTrackingMetrics) is loaded after the first user
+	// interaction — see premiaspine_landing_print_lazy_thirdparty() in
+	// inc/landing-codi-performance.php. Keeps an unreachable/slow third-party
+	// host from delaying page load. ?>
+	<?php else : ?>
 	<script async src="//364508.tctm.co/t.js"></script>
+	<?php endif; ?>
 	<?php endif;?>
 	<?php wp_head(); ?>
 	<meta name="msvalidate.01" content="329018F2E433D2E3A925F40C561E9B86" />

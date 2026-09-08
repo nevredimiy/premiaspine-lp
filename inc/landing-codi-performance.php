@@ -133,6 +133,44 @@ function premiaspine_landing_preload_hero_assets() {
 }
 
 /**
+ * Load heavy / non-essential third-party scripts only after the first user
+ * interaction (or a short timeout), so an unreachable or slow third-party host
+ * cannot delay the initial page load or the `load` event.
+ *
+ * Currently: CallTrackingMetrics (`//364508.tctm.co/t.js`). The chat widget has
+ * its own equivalent loader in inc/landing-codi-chatbot.php.
+ */
+add_action( 'wp_footer', 'premiaspine_landing_print_lazy_thirdparty', 20 );
+function premiaspine_landing_print_lazy_thirdparty() {
+	if ( ! premiaspine_landing_is_codi_perf_context() ) {
+		return;
+	}
+	if ( function_exists( 'isBot' ) && isBot() ) {
+		return;
+	}
+	?>
+	<script id="ps-lazy-thirdparty">
+	(function () {
+		var done = false;
+		var evts = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'mousemove', 'wheel'];
+		var opts = { once: true, passive: true, capture: true };
+		function load() {
+			if (done) { return; }
+			done = true;
+			evts.forEach(function (e) { window.removeEventListener(e, load, opts); });
+			var s = document.createElement('script');
+			s.src = 'https://364508.tctm.co/t.js';
+			s.async = true;
+			document.head.appendChild(s);
+		}
+		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
+		setTimeout(load, 4000);
+	})();
+	</script>
+	<?php
+}
+
+/**
  * Register a right-sized portrait crop for future doctor-photo uploads.
  *
  * The hero photo is displayed at ~233x350 CSS px; `medium_large` (768w) is a
