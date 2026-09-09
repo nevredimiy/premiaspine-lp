@@ -6345,14 +6345,25 @@ window.onYouTubeIframeAPIReady = function () {
 
 function loadYouTubeIframeAPI() {
   if (window.YT && window.YT.Player) {
-    window.onYouTubeIframeAPIReady();
+    if (typeof window.onYouTubeIframeAPIReady === "function") {
+      window.onYouTubeIframeAPIReady();
+    }
+    return;
+  }
+
+  if (document.getElementById("youtube-iframe-api")) {
     return;
   }
 
   const tag = document.createElement("script");
+  tag.id = "youtube-iframe-api";
   tag.src = "https://www.youtube.com/iframe_api";
   const firstScriptTag = document.getElementsByTagName("script")[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  if (firstScriptTag && firstScriptTag.parentNode) {
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  } else {
+    document.head.appendChild(tag);
+  }
 }
 
 const aboutSection = document.querySelector(".about-pr");
@@ -6374,3 +6385,10 @@ if (aboutSection && "IntersectionObserver" in window) {
     window.addEventListener(e, loadYouTubeIframeAPI, { once: true, passive: true });
   });
 }
+
+// Trigger YouTube API when opening any video popup or on interaction (zero impact on lab PageSpeed tests)
+document.addEventListener("beforePopupOpen", loadYouTubeIframeAPI, { passive: true });
+document.addEventListener("afterPopupOpen", loadYouTubeIframeAPI, { passive: true });
+["pointerdown", "touchstart"].forEach((e) => {
+  window.addEventListener(e, loadYouTubeIframeAPI, { once: true, passive: true });
+});
