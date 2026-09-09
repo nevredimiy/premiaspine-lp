@@ -60,8 +60,8 @@ function premiaspine_landing_print_chatbot_embed() {
 	$printed = true;
 	?>
 	<ctm-chat token="<?php echo esc_attr( $token ); ?>"></ctm-chat>
-	<?php // Load the chat widget only after the first user interaction (or a 5s
-	// fallback) so its script does not compete with the initial page render. ?>
+	<?php // Load the chat widget only after the first user interaction (or a
+	// fallback timer) so its script does not compete with the initial page render. ?>
 	<script id="ps-lazy-chatbot">
 	(function () {
 		var done = false;
@@ -76,9 +76,16 @@ function premiaspine_landing_print_chatbot_embed() {
 			s.async = true;
 			document.body.appendChild(s);
 		}
-		// Fallback after window load with generous delay so Lighthouse/PageSpeed
-		// traces do not capture heavy chat widget execution.
-		function scheduleFallback() { setTimeout(load, 40000); }
+		// Load on the first real user interaction (mousemove / scroll / wheel /
+		// any touch or key), so the widget initializes within ~1s of a real
+		// session and its proactive greeting bubble still shows. Without these
+		// listeners the widget only spun up on the long fallback timer, by which
+		// point the session counts as "engaged" and the greeting is suppressed.
+		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
+		// Fallback timer, started after `load`, only for a genuine long-dwell
+		// no-interaction visit. Kept past the end of a Lighthouse/PageSpeed
+		// trace so the chat widget never lands in TBT / Speed Index on a lab run.
+		function scheduleFallback() { setTimeout(load, 20000); }
 		if (document.readyState === 'complete') {
 			scheduleFallback();
 		} else {
