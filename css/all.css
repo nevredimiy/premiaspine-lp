@@ -2263,13 +2263,9 @@ h6 {
 }
 /* Hero content padding-left curve: 25px @2100 -> 150px @1600, held flat to 1501.
    Piecewise-linear (calc per segment) because the curve is not a single line.
-   Placed after the min-width 2%/3%/6% rules so it wins by source order. */
-@media only screen and (min-width: 2100px) {
-  .new-landing .top-section .top-section-content {
-    padding-left: 25px;
-  }
-}
-@media only screen and (min-width: 2050px) and (max-width: 2099.98px) {
+   Capped at max-width 2100px so the existing >2101px (3%) and >2350px (6%)
+   rules keep winning on wider viewports. */
+@media only screen and (min-width: 2050px) and (max-width: 2100px) {
   .new-landing .top-section .top-section-content {
     padding-left: calc(30px - (100vw - 2050px) / 10);
   }
