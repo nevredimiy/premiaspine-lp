@@ -32,3 +32,6 @@ debug.log
 *~
 _optimized-images/
 assets/find-doctor-map-filters.js
+
+helper.txt
+build-min.sh
