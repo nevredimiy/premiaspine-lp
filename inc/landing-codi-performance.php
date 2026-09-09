@@ -416,26 +416,12 @@ function premiaspine_landing_print_lazy_cf7_recaptcha() {
 			}
 		}, { passive: true });
 
+		// Preload on any scroll/touch interaction with form buttons or clicking CTA
 		document.addEventListener('pointerdown', function (e) {
 			if (e.target && e.target.closest && (e.target.closest('.wpcf7') || e.target.closest('.form-show-btn, [href*="contact"], [href*="form"]'))) {
 				loadRecaptcha();
 			}
 		}, { passive: true });
-
-		// Preload when a form comes within 400px of the viewport
-		var forms = document.querySelectorAll('.wpcf7');
-		if (forms.length && 'IntersectionObserver' in window) {
-			var formObserver = new IntersectionObserver(function (entries) {
-				for (var i = 0; i < entries.length; i++) {
-					if (entries[i].isIntersecting) {
-						formObserver.disconnect();
-						loadRecaptcha();
-						return;
-					}
-				}
-			}, { rootMargin: '400px 0px' });
-			forms.forEach(function (form) { formObserver.observe(form); });
-		}
 
 		// Safety fallback on form submit
 		document.addEventListener('submit', function (e) {

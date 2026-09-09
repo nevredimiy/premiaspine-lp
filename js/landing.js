@@ -6286,11 +6286,13 @@ window.addEventListener("touchstart", handleFirstInteraction, { once: true });
 
 window.onYouTubeIframeAPIReady = function () {
   const iframes = document.querySelectorAll(
-    '.about-pr__text iframe[src*="youtube.com"], .about-pr__text iframe[src*="youtube-nocookie.com"]',
+    '.about-pr__text iframe[src*="youtube.com"], .about-pr__text iframe[src*="youtube-nocookie.com"], .about-pr__text iframe[data-deferred-youtube-src]',
   );
 
   iframes.forEach((iframe, index) => {
-    const match = iframe.src.match(/(?:embed\/|v=)([\w-]{11})/);
+    const videoSrc =
+      iframe.getAttribute("data-deferred-youtube-src") || iframe.src || "";
+    const match = videoSrc.match(/(?:embed\/|v=)([\w-]{11})/);
     const videoId = match ? match[1] : null;
     if (!videoId) return;
 
@@ -6341,7 +6343,7 @@ window.onYouTubeIframeAPIReady = function () {
   });
 };
 
-(function loadYouTubeIframeAPI() {
+function loadYouTubeIframeAPI() {
   if (window.YT && window.YT.Player) {
     window.onYouTubeIframeAPIReady();
     return;
@@ -6351,4 +6353,24 @@ window.onYouTubeIframeAPIReady = function () {
   tag.src = "https://www.youtube.com/iframe_api";
   const firstScriptTag = document.getElementsByTagName("script")[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-})();
+}
+
+const aboutSection = document.querySelector(".about-pr");
+if (aboutSection && "IntersectionObserver" in window) {
+  const ytObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          ytObserver.disconnect();
+          loadYouTubeIframeAPI();
+        }
+      });
+    },
+    { rootMargin: "400px 0px" },
+  );
+  ytObserver.observe(aboutSection);
+} else if (aboutSection) {
+  ["scroll", "touchstart"].forEach((e) => {
+    window.addEventListener(e, loadYouTubeIframeAPI, { once: true, passive: true });
+  });
+}

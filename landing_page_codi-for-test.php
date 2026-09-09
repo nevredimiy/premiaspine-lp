@@ -177,10 +177,11 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
                             ?>
                             <div class="yt-video">
                                 <iframe
+                                    loading="lazy"
                                     allowfullscreen
                                     allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
                                     title="<?php echo esc_attr( $about_title ? $about_title : __( 'YouTube video', 'premiaspine' ) ); ?>"
-                                    src="<?php echo esc_url( $about_youtube_embed ); ?>"
+                                    data-deferred-youtube-src="<?php echo esc_url( $about_youtube_embed ); ?>"
                                 ></iframe>
                             </div>
                         <?php endif; ?>
