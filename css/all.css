@@ -2122,11 +2122,6 @@ h6 {
     left: -50px;
   }
 }
-@media only screen and (max-width: 2100px) {
-  .new-landing .top-section .top-section-content {
-    padding-left: clamp(25px, 1118.75px - 52.08vw, 150px);
-  }
-}
 @media only screen and (max-width: 1860px) {
   .new-landing #header .container {
     padding-inline: 65px;
@@ -2264,6 +2259,49 @@ h6 {
   }
   .new-landing .top-section .top-section-content img {
     margin: 0 28px 0 0;
+  }
+}
+/* Hero content padding-left curve: 25px @2100 -> 150px @1600, held flat to 1501.
+   Piecewise-linear (calc per segment) because the curve is not a single line.
+   Placed after the min-width 2%/3%/6% rules so it wins by source order. */
+@media only screen and (min-width: 2100px) {
+  .new-landing .top-section .top-section-content {
+    padding-left: 25px;
+  }
+}
+@media only screen and (min-width: 2050px) and (max-width: 2099.98px) {
+  .new-landing .top-section .top-section-content {
+    padding-left: calc(30px - (100vw - 2050px) / 10);
+  }
+}
+@media only screen and (min-width: 2000px) and (max-width: 2049.98px) {
+  .new-landing .top-section .top-section-content {
+    padding-left: calc(40px - (100vw - 2000px) / 5);
+  }
+}
+@media only screen and (min-width: 1900px) and (max-width: 1999.98px) {
+  .new-landing .top-section .top-section-content {
+    padding-left: calc(55px - (100vw - 1900px) * 0.15);
+  }
+}
+@media only screen and (min-width: 1860px) and (max-width: 1899.98px) {
+  .new-landing .top-section .top-section-content {
+    padding-left: calc(100px - (100vw - 1860px) * 1.125);
+  }
+}
+@media only screen and (min-width: 1800px) and (max-width: 1859.98px) {
+  .new-landing .top-section .top-section-content {
+    padding-left: calc(120px - (100vw - 1800px) / 3);
+  }
+}
+@media only screen and (min-width: 1600px) and (max-width: 1799.98px) {
+  .new-landing .top-section .top-section-content {
+    padding-left: calc(150px - (100vw - 1600px) * 0.15);
+  }
+}
+@media only screen and (min-width: 1501px) and (max-width: 1599.98px) {
+  .new-landing .top-section .top-section-content {
+    padding-left: 150px;
   }
 }
 @media only screen and (max-width: 1500px) {
