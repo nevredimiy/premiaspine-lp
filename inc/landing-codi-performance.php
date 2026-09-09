@@ -409,7 +409,7 @@ function premiaspine_landing_print_lazy_cf7_recaptcha() {
 			document.head.appendChild(s1);
 		}
 
-		// Trigger immediately when user focuses or clicks on any form field
+		// Trigger immediately when user interacts with or focuses on any form field
 		document.addEventListener('focusin', function (e) {
 			if (e.target && e.target.closest && e.target.closest('.wpcf7')) {
 				loadRecaptcha();
@@ -417,31 +417,32 @@ function premiaspine_landing_print_lazy_cf7_recaptcha() {
 		}, { passive: true });
 
 		document.addEventListener('pointerdown', function (e) {
-			if (e.target && e.target.closest && e.target.closest('.wpcf7')) {
+			if (e.target && e.target.closest && (e.target.closest('.wpcf7') || e.target.closest('.form-show-btn, [href*="contact"], [href*="form"]'))) {
 				loadRecaptcha();
 			}
 		}, { passive: true });
 
-		// Or when scrolling / touching
-		['scroll', 'touchstart', 'keydown'].forEach(function (e) {
-			window.addEventListener(e, loadRecaptcha, { once: true, passive: true });
-		});
+		// Preload when a form comes within 400px of the viewport
+		var forms = document.querySelectorAll('.wpcf7');
+		if (forms.length && 'IntersectionObserver' in window) {
+			var formObserver = new IntersectionObserver(function (entries) {
+				for (var i = 0; i < entries.length; i++) {
+					if (entries[i].isIntersecting) {
+						formObserver.disconnect();
+						loadRecaptcha();
+						return;
+					}
+				}
+			}, { rootMargin: '400px 0px' });
+			forms.forEach(function (form) { formObserver.observe(form); });
+		}
 
-		// Fallback: after load + main-thread idle (reCAPTCHA v3 execution is a
-		// long task). Form users hit one of the interaction triggers above well
-		// before this fires.
-		function scheduleIdleRecaptcha() {
-			if ('requestIdleCallback' in window) {
-				requestIdleCallback(loadRecaptcha, { timeout: 12000 });
-			} else {
-				setTimeout(loadRecaptcha, 5000);
+		// Safety fallback on form submit
+		document.addEventListener('submit', function (e) {
+			if (e.target && e.target.closest && e.target.closest('.wpcf7')) {
+				loadRecaptcha();
 			}
-		}
-		if (document.readyState === 'complete') {
-			scheduleIdleRecaptcha();
-		} else {
-			window.addEventListener('load', scheduleIdleRecaptcha, { once: true });
-		}
+		}, { capture: true });
 	})();
 	</script>
 	<?php

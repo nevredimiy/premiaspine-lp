@@ -261,7 +261,7 @@ function premiaspine_landing_print_wpgmp_runtime_assets( $inline_js = '' ) {
 				for (var i = 0; i < entries.length; i++) {
 					if (entries[i].isIntersecting) { io.disconnect(); loadMaps(); return; }
 				}
-			}, { rootMargin: '800px 0px' });
+			}, { rootMargin: '300px 0px' });
 			io.observe(target);
 		} else if (target) {
 			loadMaps();

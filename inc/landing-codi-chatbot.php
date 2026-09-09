@@ -77,7 +77,7 @@ function premiaspine_landing_print_chatbot_embed() {
 			document.body.appendChild(s);
 		}
 		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
-		setTimeout(load, 5000);
+		setTimeout(load, 15000);
 	})();
 	</script>
 	<?php

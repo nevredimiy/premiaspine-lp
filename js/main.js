@@ -311,7 +311,27 @@ document.addEventListener("DOMContentLoaded", function () {
   const targetSelectors =
     "#closeXButton, .child-field-question, .field-radio, .child-field label, .poptin-form-submit-button, .froala-editor-button, .poptin-design-fields-form, .froala-editor-text";
 
-  const observer = new MutationObserver(function () {
+  const observer = new MutationObserver(function (mutations) {
+    let hasRelevantNodes = false;
+    for (let i = 0; i < mutations.length; i++) {
+      const added = mutations[i].addedNodes;
+      for (let j = 0; j < added.length; j++) {
+        const node = added[j];
+        if (node.nodeType === 1 && (
+          (node.matches && node.matches(targetSelectors)) ||
+          (node.querySelector && node.querySelector(targetSelectors)) ||
+          (node.classList && node.classList.contains("poptin-popup")) ||
+          (node.querySelector && node.querySelector(".poptin-popup"))
+        )) {
+          hasRelevantNodes = true;
+          break;
+        }
+      }
+      if (hasRelevantNodes) break;
+    }
+
+    if (!hasRelevantNodes) return;
+
     const elements = document.querySelectorAll(targetSelectors);
 
     elements.forEach(function (el) {
