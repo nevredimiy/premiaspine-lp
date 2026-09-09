@@ -134,7 +134,7 @@ function premiaspine_landing_youtube_hero_embed_url( $url ) {
         return '';
     }
 
-    $origin = rawurlencode( home_url( '/' ) );
+    $origin = rawurlencode( rtrim( home_url(), '/' ) );
 
     return sprintf(
         'https://www.youtube.com/embed/%1$s?autoplay=1&mute=1&loop=1&playlist=%1$s&rel=0&modestbranding=1&playsinline=1&origin=%2$s',
@@ -948,7 +948,7 @@ function premiaspine_landing_youtube_embed_url( $url, $autoplay = false, $mute =
         return '';
     }
 
-    $origin = rawurlencode( home_url( '/' ) );
+    $origin = rawurlencode( rtrim( home_url(), '/' ) );
 
     return sprintf(
         'https://www.youtube.com/embed/%1$s?autoplay=%3$s&mute=%4$s&rel=0&modestbranding=1&enablejsapi=1&playsinline=1&origin=%2$s',

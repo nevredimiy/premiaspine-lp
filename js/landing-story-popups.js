@@ -176,12 +176,18 @@
         }
         sendYoutubeCommand(iframe, "unMute");
         sendYoutubeCommand(iframe, "setVolume", [100]);
+        // Also try postMessage with args as empty string
+        if (iframe.contentWindow) {
+          iframe.contentWindow.postMessage(JSON.stringify({ event: "command", func: "unMute", args: "" }), "*");
+          iframe.contentWindow.postMessage(JSON.stringify({ event: "command", func: "setVolume", args: [100] }), "*");
+        }
       });
     };
 
     unmuteHandlers.set(popup, unmute);
-    popup.addEventListener("pointerdown", unmute, true);
-    popup.addEventListener("keydown", unmute, true);
+    window.addEventListener("pointerdown", unmute, true);
+    window.addEventListener("click", unmute, true);
+    window.addEventListener("keydown", unmute, true);
   }
 
   function unbindUnmuteOnFirstInteraction(popup) {
@@ -189,8 +195,9 @@
     if (!unmute) {
       return;
     }
-    popup.removeEventListener("pointerdown", unmute, true);
-    popup.removeEventListener("keydown", unmute, true);
+    window.removeEventListener("pointerdown", unmute, true);
+    window.removeEventListener("click", unmute, true);
+    window.removeEventListener("keydown", unmute, true);
     unmuteHandlers.delete(popup);
   }
 
