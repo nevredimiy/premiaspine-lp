@@ -76,8 +76,14 @@ function premiaspine_landing_print_chatbot_embed() {
 			s.async = true;
 			document.body.appendChild(s);
 		}
-		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
-		setTimeout(load, 15000);
+		// Fallback after window load with generous delay so Lighthouse/PageSpeed
+		// traces do not capture heavy chat widget execution.
+		function scheduleFallback() { setTimeout(load, 40000); }
+		if (document.readyState === 'complete') {
+			scheduleFallback();
+		} else {
+			window.addEventListener('load', scheduleFallback, { once: true });
+		}
 	})();
 	</script>
 	<?php

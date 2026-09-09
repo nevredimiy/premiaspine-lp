@@ -157,16 +157,17 @@ if ( ! $og_image ) {
 	// stays safe to full-page cache (Cloudflare APO / page cache plugin). ?>
     <meta name="robots" content="noindex,follow" />
 	<meta name="facebook-domain-verification" content="c9mcgcinp01rync572ckpcn00m1pcb" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <?php // Cloudflare "Optimize Google Fonts" rewrites the stylesheet below into
-              // an inline @font-face block served from same-origin /cf-fonts/. Preload
-              // the weight the hero <h1> / body copy actually use so the swap happens
-              // sooner (helps FCP-perceived + Speed Index). Dropped the italic axis:
-              // only .patient-hero__name used it (slide 2), faux-italic is acceptable
-              // there and it saves two variable-font downloads on load. ?>
-        <link rel="preload" as="font" type="font/woff2" href="/cf-fonts/v/figtree/5.2.10/latin/wght/normal.woff2" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+        <link rel="preload" as="font" type="font/woff2" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/fonts/figtree-variable.woff2' ); ?>" crossorigin>
+        <style id="figtree-font">
+        @font-face {
+            font-family: 'Figtree';
+            font-style: normal;
+            font-weight: 300 900;
+            font-display: swap;
+            src: url('<?php echo esc_url( get_stylesheet_directory_uri() . '/fonts/figtree-variable.woff2' ); ?>') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        </style>
 	<!-- Google tag (gtag.js) & GTM initialization -->
 	<script>
 	  window.dataLayer = window.dataLayer || [];

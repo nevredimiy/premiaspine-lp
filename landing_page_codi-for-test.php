@@ -272,8 +272,6 @@ $to_form_button = premiaspine_landing_opt($options, array('header', 'to_form_but
 
 <?php wp_footer(); ?>
 <script defer type="application/javascript" src="<?php echo get_stylesheet_directory_uri()?>/js/main.js?v=<?php echo file_exists( get_template_directory() . '/js/main.js' ) ? filemtime( get_template_directory() . '/js/main.js' ) : '7.1'; ?>"></script>
-<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css?family=Raleway:400,600,900&display=swap" rel="stylesheet"></noscript>
 <?php // Fancybox CSS intentionally not loaded here: the Fancybox JS is dequeued
       // on this template (premiaspine_landing_dequeue_unused_libs) and nothing
       // renders .fancybox-* markup. ?>
