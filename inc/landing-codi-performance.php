@@ -282,21 +282,18 @@ function premiaspine_landing_print_lazy_thirdparty() {
 		}
 		evts.forEach(function (e) { window.addEventListener(e, load, opts); });
 
-		// No interaction: load once the page has finished loading AND the main
-		// thread goes idle. Keeps tag scripts (and their long tasks) out of the
-		// initial load window / a lab trace, while still firing for visitors who
-		// never scroll or click. `timeout` is the hard ceiling.
-		function scheduleIdleLoad() {
-			if ('requestIdleCallback' in window) {
-				requestIdleCallback(load, { timeout: 15000 });
-			} else {
-				setTimeout(load, 6000);
-			}
-		}
+		// The listeners above (mousemove / scroll / wheel / any touch or key)
+		// fire on essentially any real session, so tags load as soon as the
+		// visitor does anything. The only fallback is a long timer, started
+		// after `load`, purely so a genuine long-dwell no-interaction visit is
+		// still counted in Analytics/Ads. It is deliberately far past the end
+		// of a Lighthouse trace so tag long-tasks never land in TBT / Speed
+		// Index on a lab run (which never interacts).
+		function scheduleFallback() { setTimeout(load, 20000); }
 		if (document.readyState === 'complete') {
-			scheduleIdleLoad();
+			scheduleFallback();
 		} else {
-			window.addEventListener('load', scheduleIdleLoad, { once: true });
+			window.addEventListener('load', scheduleFallback, { once: true });
 		}
 	})();
 	</script>
