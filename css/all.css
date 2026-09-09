@@ -2300,6 +2300,18 @@ h6 {
     padding-left: 150px;
   }
 }
+/* .holder .name left offset: 50px @1860 -> 0 @2350, then held at 0 above.
+   Placed after the base rule and the min-width:2350px (-50px) rule so it wins. */
+@media only screen and (min-width: 1860px) and (max-width: 2350px) {
+  .new-landing .top-section .holder .name {
+    left: calc(50px - (100vw - 1860px) * 5 / 49);
+  }
+}
+@media only screen and (min-width: 2350px) {
+  .new-landing .top-section .holder .name {
+    left: 0;
+  }
+}
 @media only screen and (max-width: 1500px) {
   .new-landing #header .container {
     padding-inline: 30px;
