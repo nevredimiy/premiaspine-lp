@@ -18,7 +18,7 @@ define( 'text_domain', 'premiaspine' );
 
 $directory_dir = get_template_directory();
 $styles        = array(
-	'all-style' => $directory_uri . '/css/all.css?v=' . ( file_exists( $directory_dir . '/css/all.css' ) ? filemtime( $directory_dir . '/css/all.css' ) : '7.1' ),
+	'all-style' => $directory_uri . '/css/all.min.css?v=' . ( file_exists( $directory_dir . '/css/all.min.css' ) ? filemtime( $directory_dir . '/css/all.min.css' ) : '7.1' ),
 	'style'     => $directory_uri . '/style.css?v=' . ( file_exists( $directory_dir . '/style.css' ) ? filemtime( $directory_dir . '/style.css' ) : '7.1' ),
 );
 $scripts       = array(
