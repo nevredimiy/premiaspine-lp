@@ -3249,7 +3249,7 @@ h6 {
   }
   .new-landing .top-section h1 {
     left: 20px;
-    top: 40%;
+    /* top: 40%; */
     font-size: 32px;
     transform: translate(0, -81px);
   }
