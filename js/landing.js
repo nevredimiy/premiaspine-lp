@@ -34,6 +34,42 @@
     fetch(link.href, fetchOpts);
   }
 })();
+
+/**
+ * Run non-critical init off the first-paint path: after `load` when the main
+ * thread is idle, OR the moment the visitor scrolls / points at the page —
+ * whichever comes first. `fn` runs exactly once. Returns a trigger so callers
+ * can wire it to an interaction that should pull it forward.
+ */
+function __psDefer(fn, timeout) {
+  var ran = false;
+  function run() {
+    if (ran) return;
+    ran = true;
+    try {
+      fn();
+    } catch (e) {
+      if (window.console) console.error(e);
+    }
+  }
+  function schedule() {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(run, { timeout: timeout || 3000 });
+    } else {
+      setTimeout(run, 800);
+    }
+  }
+  if (document.readyState === "complete") {
+    schedule();
+  } else {
+    window.addEventListener("load", schedule, { once: true });
+  }
+  window.addEventListener("scroll", run, { once: true, passive: true });
+  window.addEventListener("pointerdown", run, { once: true, passive: true });
+  window.addEventListener("touchstart", run, { once: true, passive: true });
+  return run;
+}
+
 let slideUp = (target, duration = 500, showmore = 0) => {
   if (!target.classList.contains("--slide")) {
     target.classList.add("--slide");
@@ -2251,12 +2287,10 @@ class SelectConstructor {
     );
   }
 }
-document.querySelector("select[data-fls-select], .fls-select")
-  ? window.addEventListener(
-      "load",
-      () => (window.flsSelect = new SelectConstructor({})),
-    )
-  : null;
+if (document.querySelector("select[data-fls-select], .fls-select")) {
+  // Custom-select build is deferred; the native <select> stays usable until then.
+  __psDefer(() => (window.flsSelect = new SelectConstructor({})));
+}
 class ScrollWatcher {
   constructor(props) {
     let defaultConfig = {
@@ -2427,9 +2461,9 @@ class ScrollWatcher {
     );
   }
 }
-document.querySelector("[data-fls-watcher]")
-  ? window.addEventListener("load", () => new ScrollWatcher({}))
-  : null;
+if (document.querySelector("[data-fls-watcher]")) {
+  __psDefer(() => new ScrollWatcher({}));
+}
 function spoilers() {
   const spoilersArray = document.querySelectorAll("[data-fls-spoilers]");
   if (spoilersArray.length > 0) {
@@ -2592,7 +2626,7 @@ function spoilers() {
     }
   }
 }
-window.addEventListener("load", spoilers);
+__psDefer(spoilers);
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -5591,11 +5625,7 @@ var _Splide = /* @__PURE__ */ (function () {
 var Splide = _Splide;
 Splide.defaults = {};
 Splide.STATES = STATES;
-document.addEventListener("DOMContentLoaded", function initLandingSliders() {
-  // Run once only. A synthetic DOMContentLoaded is dispatched later by the lazy
-  // reCAPTCHA loader; without this guard every slider gets mounted a second time
-  // (e.g. the hero slider grows a duplicate splide__pagination — 2 dots become 4).
-  document.removeEventListener("DOMContentLoaded", initLandingSliders);
+function __psMountBelowFoldSliders() {
   var sectionSliderEls = document.querySelectorAll(".slider-section__slider");
   if (sectionSliderEls.length > 0) {
     sectionSliderEls.forEach(function (sliderEl) {
@@ -5648,6 +5678,15 @@ document.addEventListener("DOMContentLoaded", function initLandingSliders() {
       benefitsSlider.mount();
     });
   }
+}
+
+document.addEventListener("DOMContentLoaded", function initLandingSliders() {
+  // Run once only. A synthetic DOMContentLoaded is dispatched later by the lazy
+  // reCAPTCHA loader; without this guard every slider gets mounted a second time
+  // (e.g. the hero slider grows a duplicate splide__pagination — 2 dots become 4).
+  document.removeEventListener("DOMContentLoaded", initLandingSliders);
+
+  // Hero is the LCP-critical, above-the-fold slider — mount it now.
   var heroSliderEls = document.querySelectorAll(".hero-premia__slider");
   if (heroSliderEls.length > 0) {
     heroSliderEls.forEach(function (sliderEl) {
@@ -5674,6 +5713,10 @@ document.addEventListener("DOMContentLoaded", function initLandingSliders() {
     });
   }
 });
+
+// Stories + benefits sliders are below the fold: mount them when the main
+// thread is idle after load, or as soon as the visitor scrolls/points.
+__psDefer(__psMountBelowFoldSliders);
 class Popup {
   constructor(options) {
     let config = {
