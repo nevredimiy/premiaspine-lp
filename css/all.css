@@ -862,7 +862,7 @@ h6 {
 .new-landing .top-section .holder .name {
   position: absolute;
   top: 100%;
-  left: -40px;
+  left: -10px;
   font:
     14px/1 "Figtree",
     Arial,
@@ -2053,6 +2053,7 @@ h6 {
   .new-landing .top-section .top-section-content {
     width: 49%;
     font-size: 26px;
+    padding-left: 3%;
   }
 }
 @media only screen and (min-width: 2201px) {
@@ -2111,7 +2112,7 @@ h6 {
   .new-landing .top-section .top-section-content {
     width: 50.5%;
     font-size: 32px;
-    padding-left: 210px;
+    padding-left: 6%;
   }
 }
 @media only screen and (max-width: 1860px) {
